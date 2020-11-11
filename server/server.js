@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { User, payment } = require("./database")
+const { userSchema , payment } = require("./database")
 const cors = require("cors")
 
 
@@ -10,7 +10,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 
-
+// localhost:5000/login
+// localhost:5000/signup
+// localhost:5000/payment
 
 app.use('/', router);
 
