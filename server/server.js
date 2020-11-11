@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const {User } = require("./database")
+const { User, payment } = require("./database")
 const cors = require("cors")
 
 
