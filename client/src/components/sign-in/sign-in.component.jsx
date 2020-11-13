@@ -17,10 +17,8 @@ class SignIn extends React.Component {
     };
   }
 
-  handleSubmit = async (event) => {
+  handleSubmit =  (event) => {
     event.preventDefault()
-
-    const { email, password } = this.state
 
 
     fetch('http://127.0.0.1:5000/signin', {
