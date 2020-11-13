@@ -17,13 +17,36 @@ class SignIn extends React.Component {
     };
   }
 
-  handleSubmit = async event => {
-    
-  };
+  handleSubmit = async (event) => {
+    event.preventDefault()
+
+    const { email, password } = this.state
+
+
+    fetch('http://127.0.0.1:5000/signin', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    this.setState({ email: '', password: '' })
+
+  }
 
   handleChange = event => {
-  
-  };
+    const { value, name } = event.target;
+    this.setState({ [name]: value })
+
+  }
 
   render() {
     return (
@@ -50,7 +73,7 @@ class SignIn extends React.Component {
           />
           <div className='buttons'>
             <CustomButton type='submit'> Sign in </CustomButton>
-           
+
           </div>
         </form>
       </div>

@@ -21,11 +21,43 @@ class SignUp extends React.Component {
   handleSubmit = async event => {
     event.preventDefault();
 
-  };
+    const { displayName, email, password, confirmPassword } = this.state;
+
+    if (password !== confirmPassword) {
+      alert("Passwords Don't Match")
+      return;
+    }
+    // sign up the user
+    fetch('http://127.0.0.1:5000/signup', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    this.setState({
+      displayName: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    })
+
+
+  }
 
   handleChange = event => {
-    
-  };
+    const { name, value } = event.target;
+
+    this.setState({ [name]: value })
+  }
+
 
   render() {
     const { displayName, email, password, confirmPassword } = this.state;
