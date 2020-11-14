@@ -37,6 +37,7 @@ class SignUp extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
+        localStorage.setItem("jwt-auth", data.token)
         console.log('Success:', data);
       })
       .catch((error) => {
@@ -48,7 +49,6 @@ class SignUp extends React.Component {
       password: '',
       confirmPassword: ''
     })
-
 
   }
 

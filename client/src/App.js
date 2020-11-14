@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React from "react"
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
@@ -6,11 +5,18 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-
+      email: '',
+      displayName: ""
     }
   }
 
   componentDidMount() {
+    //checking the auth
+    // fetch("http://localhost:5000/auth")
+    //   .then(data => console.log(data))
+    //   .catch(err => console.log(err.message))
+
+
     fetch("https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=amsterdam", {
       "method": "GET",
       "headers": {
@@ -18,18 +24,18 @@ class App extends React.Component {
         "x-rapidapi-key": "404ada1e15mshc41c87c422d49e7p1b6eebjsn9a6920820be0"
       }
     })
-    .then(response => {
-      return response.json()
-    })
-    .then((data)=>console.log(data))
-    .catch(err => {
-      console.log(err);
-    });
+      .then(response => {
+        return response.json()
+      })
+      .then((data) => console.log(data))
+      .catch(err => {
+        console.log(err);
+      });
   }
   render() {
     return (
       <div className="App">
-       <SignInAndSignUpPage/>
+        <SignInAndSignUpPage />
       </div>
     );
   }
