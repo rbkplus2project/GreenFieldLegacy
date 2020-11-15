@@ -49,7 +49,10 @@ class SignUp extends React.Component {
       password: '',
       confirmPassword: ''
     })
-
+    setTimeout(()=>{
+window.location.reload(false);
+    },1000)
+    
   }
 
   handleChange = event => {

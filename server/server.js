@@ -19,11 +19,15 @@ app.use(cookieParser())
 
 
 app.get("/auth", auth, (req, res) => {
-  res.json({
-    id: req.user._id,
-    displayName: req.user.displayName,
-    email: req.user.email
-  })
+  console.log(req.user)
+  if(req.user){
+    res.json({
+      id: req.user._id,
+      displayName: req.user.displayName,
+      email: req.user.email
+    })
+  }
+ 
 })
 
 app.post('/signup', (req, res) => {

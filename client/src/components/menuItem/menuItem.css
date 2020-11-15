@@ -1,15 +1,16 @@
-.menu-item {
-    min-width: 30%;
+/* .menu-item {
+    width: 30vw;
     height: 240px;
     flex: 1 1 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid black;
-    margin: 0 7.5px 15px;
+    margin: 0 5px 15px 0;
+    margin: 0 5px 15px 0;
     overflow: hidden;
     
-}
+} */
    .menu-item:hover {
     cursor: pointer;
     }
@@ -24,6 +25,8 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
+        border: 1px solid black;
+        margin: 0 5px 15px 0;
     }
     .singapore{
       width: 30vw;
@@ -32,6 +35,8 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
+      border: 1px solid black;
+      margin: 0 5px 15px 0;
   }
   .losAngeles{
     width: 30vw;
@@ -40,6 +45,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    border: 1px solid black;
+    margin: 0 5px 15px 0;
 }
 .rome{
   width: 30vw;
@@ -48,6 +55,8 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  border: 1px solid black;
+  margin: 0 5px 15px 0;
 }
 .paris{
   width: 30vw;
@@ -56,6 +65,8 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  border: 1px solid black;
+  margin: 0 5px 15px 0;
 }
 .Barcelona{
   width: 30vw;
@@ -64,4 +75,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  border: 1px solid black;
+  margin: 0 5px 15px 0;
+  
 }

@@ -23,7 +23,6 @@ class SignIn extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-
     fetch('http://127.0.0.1:5000/signin', {
       method: 'POST', // or 'PUT'
       headers: {
@@ -35,6 +34,7 @@ class SignIn extends React.Component {
       .then(async (data) => {
         // this.setState({token:localStorage.getItem("token")})
         localStorage.setItem("jwt-auth", data.token)
+
         console.log('Success:', data);
       })
       .catch((error) => {
@@ -42,7 +42,9 @@ class SignIn extends React.Component {
       });
 
     this.setState({ email: '', password: '' })
-
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 1000)
   }
 
   handleChange = event => {

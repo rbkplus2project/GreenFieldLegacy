@@ -23,6 +23,7 @@ const auth = async (req, res, next) => {
 // // check current user
 const checkUser = async(req, res, next) => {
   const token = req.header('jwt-auth');
+  console.log("token",token)
   if (token) {
     try {
       // Verify token

@@ -11,11 +11,8 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      email: '',
-      displayName: "",
       initailItems: [{ city: "singapore", size: 'large' }, { city: "kualalumpur", size: 'large' }, { city: "losAngeles" }, { city: "rome" }, { city: "Barcelona" }, { city: 'paris' }],
-     
-
+     currentUser:"",
     }
   }
 
@@ -30,7 +27,10 @@ class App extends React.Component {
     }
     fetch("http://localhost:5000/auth",requestOptions)
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        this.setState({currentUser:data.displayName})
+      })
+      .then(()=>console.log(this.state))
       .catch(err => console.log(err.message))
 
     // this.state.initailItems.map(item => {
@@ -72,14 +72,18 @@ class App extends React.Component {
     // })
 
   }
-  render() {
-    // const {sg,my,us,it,es,fr}=this.state
+  render() { 
     return (
       <div className="App">
         <BrowserRouter>
-          <Route exact path="/signin" component={SignInAndSignUpPage} />
+          <Route exact path="/signin" render={()=>
+              this.state.currentUser
+             ? (<Redirect to='/'/>)
+             : (<SignInAndSignUpPage/>)} />
+              {/* {this.state.navBarHidden?<div></div>: <NavBar/> } */}
           <Switch>
-            <Route exact path="/" component={HomePage} initailItems={this.state.initailItems} />
+            <Route exact path="/" render={()=><HomePage currentUser={this.state.currentUser}/>} />
+            {/* <Route exact path="/searchresults" component={SearchPage}  /> */}
           </Switch>
         </BrowserRouter>
 

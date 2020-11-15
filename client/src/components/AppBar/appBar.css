@@ -1,0 +1,12 @@
+.toolBar{
+    display: flex;
+  
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  .typography{
+    flex : 1 ; 
+  }
+  
