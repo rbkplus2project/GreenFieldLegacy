@@ -11,7 +11,9 @@ const connect = mongoose.connect(dbURI,
   .catch(err => console.log(err));
 
 let userSchema = mongoose.Schema({
- 
+  displayName: String,
+  email: String,
+  password: String
 }, { timestamps: true });
 
 
