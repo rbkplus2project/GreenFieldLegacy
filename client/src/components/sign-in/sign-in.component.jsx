@@ -37,14 +37,15 @@ class SignIn extends React.Component {
 
         console.log('Success:', data);
       })
+      .then(()=> window.location.reload(false))
       .catch((error) => {
         console.error('Error:', error);
       });
 
     this.setState({ email: '', password: '' })
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 1000)
+    // setTimeout(() => {
+    //   window.location.reload(false);
+    // }, 1000)
   }
 
   handleChange = event => {

@@ -40,6 +40,7 @@ class SignUp extends React.Component {
         localStorage.setItem("jwt-auth", data.token)
         console.log('Success:', data);
       })
+      .then(()=> window.location.reload(false))
       .catch((error) => {
         console.error('Error:', error);
       });
@@ -49,9 +50,9 @@ class SignUp extends React.Component {
       password: '',
       confirmPassword: ''
     })
-    setTimeout(()=>{
-window.location.reload(false);
-    },1000)
+//     setTimeout(()=>{
+// window.location.reload(false);
+//     },1000)
     
   }
 

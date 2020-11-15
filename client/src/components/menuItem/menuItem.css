@@ -6,8 +6,8 @@
     align-items: center;
     justify-content: center;
     border: 1px solid black;
-    margin: 0 5px 15px 0;
-    margin: 0 5px 15px 0;
+    margin: 0 0px 15px 0;
+    margin: 0 0px 15px 0;
     overflow: hidden;
     
 } */
@@ -26,7 +26,7 @@
         background-size: cover;
         background-position: center;
         border: 1px solid black;
-        margin: 0 5px 15px 0;
+        margin: 0 0px 15px 0;
     }
     .singapore{
       width: 30vw;
@@ -36,7 +36,7 @@
       background-size: cover;
       background-position: center;
       border: 1px solid black;
-      margin: 0 5px 15px 0;
+      margin: 0 0px 15px 0;
   }
   .losAngeles{
     width: 30vw;
@@ -46,7 +46,7 @@
     background-size: cover;
     background-position: center;
     border: 1px solid black;
-    margin: 0 5px 15px 0;
+    margin: 0 0px 15px 0;
 }
 .rome{
   width: 30vw;
@@ -56,7 +56,7 @@
   background-size: cover;
   background-position: center;
   border: 1px solid black;
-  margin: 0 5px 15px 0;
+  margin: 0 0px 15px 0;
 }
 .paris{
   width: 30vw;
@@ -66,7 +66,7 @@
   background-size: cover;
   background-position: center;
   border: 1px solid black;
-  margin: 0 5px 15px 0;
+  margin: 0 0px 15px 0;
 }
 .Barcelona{
   width: 30vw;
@@ -76,6 +76,6 @@
   background-size: cover;
   background-position: center;
   border: 1px solid black;
-  margin: 0 5px 15px 0;
+  margin: 0 0px 15px 0;
   
 }

@@ -6,13 +6,19 @@ import MenuIcon from '@material-ui/icons/Menu';
 import "./appBar.css"
 
 
- 
+
 
 class AppBarr extends React.Component {
     constructor() {
-        super()   
+        super()
         this.state = {
         }
+    }
+
+    handleLoginClick = (e) => {
+        e.preventDefault()
+        fetch("http://127.0.0.1:5000/signout")
+        .then(()=>localStorage.removeItem("jwt-auth"))
     }
     render() {
         return (
@@ -26,8 +32,8 @@ class AppBarr extends React.Component {
                             <Typography className="typography" variant="h4">
                                 HotelCom
 </Typography>
-                            <Button color="inherit">
-                                Login
+                            <Button color="inherit" onClick={this.handleLoginClick}>
+                                Logout
 </Button>
                             <Button color="inherit">
                                 Signup

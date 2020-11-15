@@ -26,7 +26,7 @@ class NavAndSearch extends React.Component {
             <MaterialUIPickers name="check in" />
             <MaterialUIPickers name="check out" />
             <div className="search">
-              <Button  variant="contained" size="small" >
+              <Button  variant="contained" size="medium" >
                 search
           </Button>
             </div> 

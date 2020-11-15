@@ -1,80 +1,68 @@
-// *https://www.registers.service.gov.uk/registers/country/use-the-api*
-// import fetch from 'cross-fetch';
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
-function sleep(delay = 0) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-}
-
-export default function Asynchronous() {
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState([]);
-  const loading = open && options.length === 0;
-
-  React.useEffect(() => {
-    let active = true;
-
-    if (!loading) {
-      return undefined;
+class Asynchronous extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            open: false,
+            options: [],
+            city:''
+        }
     }
 
-    (async () => {
-      const response = await fetch('https://country.register.gov.uk/records.json?page-size=5000');
-      await sleep(1e3); // For demo purposes.
-      const countries = await response.json();
-
-      if (active) {
-        setOptions(Object.keys(countries).map((key) => countries[key].item[0]));
-      }
-    })();
-
-    return () => {
-      active = false;
-    };
-  }, [loading]);
-
-  React.useEffect(() => {
-    if (!open) {
-      setOptions([]);
+    componentDidMount = () => {
     }
-  }, [open]);
 
-  return (
-    <Autocomplete
-      id="asynchronous-demo"
-      style={{ width: 300 }}
-      open={open}
-      onOpen={() => {
-        setOpen(true);
-      }}
-      onClose={() => {
-        setOpen(false);
-      }}
-      getOptionSelected={(option, value) => option.name === value.name}
-      getOptionLabel={(option) => option.name}
-      options={options}
-      loading={loading}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Asynchronous"
-          variant="outlined"
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <React.Fragment>
-                {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                {params.InputProps.endAdornment}
-              </React.Fragment>
-            ),
-          }}
-        />
-      )}
-    />
-  );
+    
+    onchange = async (event) => {
+      
+        const response = await fetch(`https://www.airbnb.com/api/v2/autocompletes?country=PS&key=d306zoyjsyarp7ifhu67rjxn52tv0t20&language=en&locale=en&num_results=5&user_input=${event.target.value}&api_version=1.2.0&satori_config_token=EhIiQhIiIjISEjISIiIiNQAiQgA&region=-1&options=should_filter_by_vertical_refinement%7Chide_nav_results%7Cshould_show_stays%7Csimple_search`);
+        const countries = await response.json();
+        this.setState({ options: countries.autocomplete_terms.map((country, i) => country) });
+    }
+
+    onSelect = async (ev, value) => {
+      
+        if (value) {
+          let val=value.display_name.split(",")[0]
+            await this.setState({ city: val })
+            console.log(this.state.city)
+        }
+    }
+
+    render() {
+        return (
+            <div style={{ width: 300, paddingLeft: "8px", marginTop: "8px" }}>
+                <Autocomplete
+                    onChange={this.onSelect}
+                    id="asynchronous-demo"
+                    open={this.state.open}
+                    onOpen={() => {
+                        this.setState({ open: true });
+                    }}
+                    onClose={() => {
+                        this.setState({ open: false });
+                    }}
+                    // getOptionSelected={(option, value) => option.PlaceName === value.PlaceName}
+                    getOptionLabel={(option) =>
+                       option.display_name
+                    }
+                    options={this.state.options}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Countries/Cities"
+                            // variant="filled"
+                            onChange={this.onchange}
+                            onClick={() => console.log("click")}
+                        />
+                    )}
+                />
+            </div>
+        )
+    }
 }
+
+export default Asynchronous
