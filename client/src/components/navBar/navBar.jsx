@@ -9,24 +9,25 @@ import Greeting from '../greeting/greeting';
 import "./navBar.css"
 
 class NavAndSearch extends React.Component {
-  constructor() { 
-    super()
+  constructor(props) { 
+    super(props)
     this.state = {    
  
     }
   }
   render() {
+    const { checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick,currentUser} =this.props
     return (
       <div className="two-comp">
-        <AppBarr />
+        <AppBarr currentUser={currentUser}/>
         <div className="Greeting" >
           <Greeting />
           <form className="form" noValidate autoComplete="off">
-            <GoogleMaps />
-            <MaterialUIPickers name="check in" />
-            <MaterialUIPickers name="check out" />
+            <GoogleMaps searchValue={searchValue} cityAndCountry={cityAndCountry}/>
+            <MaterialUIPickers name="check in" checkInOrOut={checkIn} />
+            <MaterialUIPickers name="check out" checkInOrOut={checkOut}/>
             <div className="search">
-              <Button  variant="contained" size="medium" >
+              <Button  variant="contained" size="medium"  onClick={(e)=>{e.preventDefault();handleSeachButtonClick()}}>
                 search
           </Button>
             </div> 

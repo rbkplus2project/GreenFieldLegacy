@@ -4,8 +4,8 @@ import { Toolbar, AppBar, IconButton, Typography, Button } from '@material-ui/co
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import "./appBar.css"
-
-
+import {Link } from 'react-router-dom';
+import "./appBar.css"
 
 
 class AppBarr extends React.Component {
@@ -14,11 +14,13 @@ class AppBarr extends React.Component {
         this.state = {
         }
     }
-
     handleLoginClick = (e) => {
         e.preventDefault()
         fetch("http://127.0.0.1:5000/signout")
-            .then(() => localStorage.removeItem("jwt-auth"))
+            .then(() => {
+                localStorage.removeItem("jwt-auth")
+                window.location.reload()
+            })
     }
     render() {
         return (
@@ -26,24 +28,42 @@ class AppBarr extends React.Component {
                 <div className="NavBar">
                     <AppBar position="static">
                         <Toolbar className="toolBar">
-                            <IconButton color='inherit' edge="start" aria-label="menu">
+                            {/* <IconButton color='inherit' edge="start" aria-label="menu">
                                 <MenuIcon />
-                            </IconButton>
-                            <Typography className="typography" variant="h4">
+                            </IconButton> */}
+                            <Link  to='/'>
+                            <Typography className="typography mys" variant="h4">
                                 HotelCom
                             </Typography>
-                            <Button color="inherit" onClick={this.handleLoginClick}>
-                                Sign-in
-                            </Button>
-                            <Button color="inherit" onClick={this.handleLoginClick}>
-                                Log-out
-                            </Button>
-                            <Button color="inherit">
-                                Sign-up
-                            </Button>
-                            <IconButton color='inherit' edge="start" aria-label="menu">
-                                <AccountCircleIcon className="Account" />
-                            </IconButton>
+                            </Link>
+                            {
+                                this.props.currentUser ?
+                                    <div >
+                                        <Button color="inherit" onClick={this.handleLoginClick}>
+                                            Log-out
+                                    </Button>
+                                        <IconButton color='inherit' edge="start" aria-label="menu">
+                                            <AccountCircleIcon className="Account" />
+                                        </IconButton>
+                                    </div>
+
+                                    :
+                                    <div >
+                                        <Button >
+                                        <Link  to='/signin' className="mys">
+                                            Sign-in
+                                         </Link>
+                                         </Button>
+                                         <Button color="inherit">
+                                         <Link  to='/signin' className="mys">
+                                            Sign-up
+                                         </Link>
+                                          </Button>
+                                    </div>
+
+                            }
+
+
                         </Toolbar>
                     </AppBar>
                 </div>

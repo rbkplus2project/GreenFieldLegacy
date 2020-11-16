@@ -12,14 +12,14 @@ class HomePage extends React.Component {
     }
   }
   render() {
-    console.log(this.props)
+   const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick} =this.props
     return (
       <div>
-        <NavAndSearch />
+        <NavAndSearch handleSeachButtonClick={handleSeachButtonClick}currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry}/>
         <div className='directory-menu' >
           {
             this.state.initailItems.map((item, id) => (
-              <MenuItems item={item} key={id} />
+              <MenuItems item={item} key={id} currentUser={currentUser}  searchValue={searchValue} />
             ))
           }
         </div>

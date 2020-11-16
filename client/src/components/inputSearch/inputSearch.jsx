@@ -11,7 +11,6 @@ class Asynchronous extends React.Component {
             city:''
         }
     }
-
     componentDidMount = () => {
     }
 
@@ -26,8 +25,11 @@ class Asynchronous extends React.Component {
     onSelect = async (ev, value) => {
       
         if (value) {
+            this.props.cityAndCountry(value.display_name)
           let val=value.display_name.split(",")[0]
             await this.setState({ city: val })
+            this.props.searchValue(val)
+
             console.log(this.state.city)
         }
     }

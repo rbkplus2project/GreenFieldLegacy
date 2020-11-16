@@ -9,7 +9,7 @@ import {
 } from '@material-ui/pickers';
 import { da } from 'date-fns/locale';
 
-export default function MaterialUIPickers({name}) {
+export default function MaterialUIPickers({name,checkInOrOut}) {
     // The first commit of Material-UI
     const [selectedDate, setSelectedDate] = React.useState(new Date('2020-11-14T21:11:54'));
 
@@ -19,6 +19,7 @@ export default function MaterialUIPickers({name}) {
                     .toISOString()
                     .split("T")[0];
         console.log(dateString)
+        checkInOrOut(dateString)
     };
 
     return (

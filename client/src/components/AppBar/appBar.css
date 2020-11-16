@@ -1,5 +1,6 @@
 .toolBar{
     display: flex;
+    justify-content: space-between;
   
   }
   a {
@@ -9,4 +10,6 @@
   .typography{
     flex : 1 ; 
   }
-  
+  .mys{
+    color: white;
+  }
