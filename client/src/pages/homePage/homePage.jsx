@@ -8,7 +8,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      initailItems: [{ city: "singapore", size: 'large' }, { city: "kualalumpur", size: 'large' }, { city: "losAngeles" }, { city: "rome" }, { city: "Barcelona" }, { city: 'paris' }],
+      initailItems: [{ city: "singapore", size: 'large' },{ city: "losAngeles" }, { city: "kualalumpur", size: 'large' },  { city: "rome" }, { city: 'paris' }, { city: "Barcelona" }],
     }
   }
   render() {

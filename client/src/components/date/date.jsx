@@ -7,6 +7,7 @@ import {
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { da } from 'date-fns/locale';
 
 export default function MaterialUIPickers({name}) {
     // The first commit of Material-UI
@@ -14,6 +15,10 @@ export default function MaterialUIPickers({name}) {
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+        var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 ))
+                    .toISOString()
+                    .split("T")[0];
+        console.log(dateString)
     };
 
     return (

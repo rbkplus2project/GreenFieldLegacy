@@ -18,7 +18,7 @@ class AppBarr extends React.Component {
     handleLoginClick = (e) => {
         e.preventDefault()
         fetch("http://127.0.0.1:5000/signout")
-        .then(()=>localStorage.removeItem("jwt-auth"))
+            .then(() => localStorage.removeItem("jwt-auth"))
     }
     render() {
         return (
@@ -31,13 +31,16 @@ class AppBarr extends React.Component {
                             </IconButton>
                             <Typography className="typography" variant="h4">
                                 HotelCom
-</Typography>
+                            </Typography>
                             <Button color="inherit" onClick={this.handleLoginClick}>
-                                Logout
-</Button>
+                                Sign-in
+                            </Button>
+                            <Button color="inherit" onClick={this.handleLoginClick}>
+                                Log-out
+                            </Button>
                             <Button color="inherit">
-                                Signup
-  </Button>
+                                Sign-up
+                            </Button>
                             <IconButton color='inherit' edge="start" aria-label="menu">
                                 <AccountCircleIcon className="Account" />
                             </IconButton>

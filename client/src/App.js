@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      initailItems: [{ city: "singapore", size: 'large' }, { city: "kualalumpur", size: 'large' }, { city: "losAngeles" }, { city: "rome" }, { city: "Barcelona" }, { city: 'paris' }],
+      initailItems: [{ city: "singapore", size: 'large' },{ city: "losAngeles" }, { city: "kualalumpur", size: 'large' },  { city: "rome" },  { city: 'paris' },{ city: "Barcelona" }],
      currentUser:"",
     }
   }
@@ -54,3 +54,29 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+
+//sign-up  sign-in
+//username/password
+//hash passowrd
+//save to db
+//retrieve the obj from db
+// generate token from id
+//send token in the header 
+//save the token in local storage
+
+//log out
+//res.header==>""
+//local storgare .removre item ("jwt-auth")  
+
+//logout sign-in sing-out ==>ready
+
+//now you need to verify the token!!!
+//send the token in the header as a get req from the front-end==> i need a middle-ware
+//middle ware function
+//take the token from the header==>req.header==>now i have the token
+//verify the token==>jwt.verify==>gives me the id of the user(id)
+//User.findOne({_id:id})==>gives me a user
+//send the user as a response to the front-end from the server 
+

@@ -27,11 +27,6 @@ app.get("/auth", auth, (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-  // console.log(req.body)
-  //generating a hash for the password
-  //saving the data in the db
-  //generating a token and send it the header(cookie) in the res
-
   const password = req.body.password
   const saltRounds = 10
   let data = req.body
