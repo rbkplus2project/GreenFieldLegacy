@@ -5,7 +5,7 @@ const cors = require("cors")
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt")
 const cookieParser = require("cookie-parser")
-const {auth,checkUser} = require("./middleware/auth")
+const { auth, checkUser } = require("./middleware/auth")
 
 let app = express();
 
@@ -14,24 +14,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 app.use(cookieParser())
 
-
-
-
-
 app.get("/auth", auth, (req, res) => {
-  res.json({
-    id: req.user._id,
-    displayName: req.user.displayName,
-    email: req.user.email
-  })
+  console.log(req.user)
+  if (req.user) {
+    res.json({
+      id: req.user._id,
+      displayName: req.user.displayName,
+      email: req.user.email
+    })
+  }
+
 })
 
 app.post('/signup', (req, res) => {
-  // console.log(req.body)
-  //generating a hash for the password
-  //saving the data in the db
-  //generating a token and send it the header(cookie) in the res
-
   const password = req.body.password
   const saltRounds = 10
   let data = req.body
@@ -48,7 +43,7 @@ app.post('/signup', (req, res) => {
           user.save()
             .then((data) => jwt.sign({ id: data._id }, 'mysecret', { expiresIn: 86400 }, (err, token) => {
               res.header("jwt-auth", token).json({
-                sucess:true,
+                sucess: true,
                 token: token
               })
             }))
@@ -69,7 +64,7 @@ app.post('/signin', (req, res) => {
               jwt.sign({ id: data._id }, 'mysecret', { expiresIn: 86400 }, (err, token) => {
                 if (err) return res.json({ message: "err creating the token" })
                 res.header("jwt-auth", token).json({
-                  sucess:true,
+                  sucess: true,
                   token: token
                 })
               })
@@ -84,9 +79,9 @@ app.post('/signin', (req, res) => {
     .catch(err => res.status(404).send(err))
 })
 
-app.get("signout",(req,res)=>{
-  res.header("jwt-auth","",{maxAge:1}).json({
-    token:""
+app.get("/signout", (req, res) => {
+  res.header("jwt-auth", "", { maxAge: 1 }).json({
+    token: ""
   })
 })
 

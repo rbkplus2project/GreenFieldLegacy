@@ -2,13 +2,26 @@ import React from 'react';
 import './menuItem.css'
 
 
-const MenuItem = ({item}) => {
-    return(
-        <div className={`${item.size} menu-item`} >
-            <div className = {`background-image ${item.city}`}>
+
+class MenuItem extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            resulsArray:[]
+        }
+    }
+ 
+
+    render() {
+        const { currentUser, searchValue} =this.props
+      
+        return (
+            <div className={`${this.props.item.size} menu-item`} onClick={(e) => {e.preventDefault(); searchValue(this.props.item.city)}} >
+                <div className={`background-image ${this.props.item.city} `}>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default MenuItem;

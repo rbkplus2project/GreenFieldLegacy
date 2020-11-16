@@ -5,36 +5,43 @@ import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
 import HomePage from "./pages/homePage/homePage"
-
-
+import CardComp from "./components/cardComponents/card"
+import NavAndSearch from "./components/navBar/navBar"
+import Profile from "./pages/profile/profile.jsx"
+import CardList from "./components/CardList/cardList"
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      email: '',
-      displayName: "",
-      initailItems: [{ city: "singapore", size: 'large' }, { city: "kualalumpur", size: 'large' }, { city: "losAngeles" }, { city: "rome" }, { city: "Barcelona" }, { city: 'paris' }],
-     
-
+      initailItems: [{ city: "singapore", size: 'large' }, { city: "losAngeles" }, { city: "kualalumpur", size: 'large' }, { city: "rome" }, { city: 'paris' }, { city: "Barcelona" }],
+      currentUser: "",
+      checkIn: "2020-11-24",
+      checkOut: "2020-11-30",
+      searchValue: "",
+      cityAndCountry: "",
+      resulsArray: []
     }
   }
+  handleCheckInChange = (checkIn) => {
+    this.setState({ checkIn })
+  }
 
-  componentDidMount() {
-    //checking the auth
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'jwt-auth': localStorage.getItem('jwt-auth') // signed by Mo'men
-      },
-    }
-    fetch("http://localhost:5000/auth",requestOptions)
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err.message))
+  handleCheckOutChange = async (checkOut) => {
+    await this.setState({ checkOut })
+    console.log(this.state)
+  }
 
-    // this.state.initailItems.map(item => {
-    //   fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${item.city}`, {
+  handlesearchValueChange = async (searchValue) => {
+    await this.setState({ searchValue })
+    console.log(this.state)
+  }
+  handleCityAndCountry = (cityAndCountry) => {
+    this.setState({ cityAndCountry })
+  }
+
+  handleSeachButtonClick = () => {
+    console.log("remove the comments to click me")
+    //   fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
     //     "method": "GET",
     //     "headers": {
     //       "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
@@ -45,7 +52,7 @@ class App extends React.Component {
     //       return response.json()
     //     })
     //     .then((data) => {
-    //       fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=2020-01-08&checkOut=2020-01-15&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
+    //       fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
     //         "method": "GET",
     //         "headers": {
     //           "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
@@ -53,33 +60,62 @@ class App extends React.Component {
     //         }
     //       })
     //         .then(response => {
-    //          return response.json()
+    //           return response.json()
     //         })
-    //         .then(data=>{
-    //           console.log(data.data.body.searchResults.results[0].address.countryCode)
-    //           let x=data.data.body.searchResults.results[0].address.countryCode
-    //   this.setState({[x]:data.data.body.searchResults.results})
-    //   console.log(data.data.body.searchResults.results)
-    //   })
-    //   .then(data=>console.log(this.state))
+    //         .then(data => {
+    //           this.setState({ resulsArray: data.data.body.searchResults.results })
+    //         })
+    //         .then(data => console.log(this.state))
     //         .catch(err => {
     //           console.error(err);
     //         });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-    // })
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+  }
+  componentDidMount() {
+    //checking the auth
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'jwt-auth': localStorage.getItem('jwt-auth')
+      },
+    }
+    fetch("http://localhost:5000/auth", requestOptions)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ currentUser: data.displayName })
+      })
+      .then(() => console.log(this.state))
+      .catch(err => console.log(err.message))
+
+    console.log("pathname", window.location.pathname);
 
   }
   render() {
-    // const {sg,my,us,it,es,fr}=this.state
     return (
       <div className="App">
         <BrowserRouter>
-          <Route exact path="/signin" component={SignInAndSignUpPage} />
+          <Route exact path="/signin" render={() =>
+            this.state.currentUser
+              ? (<Redirect to='/' />)
+              : (<SignInAndSignUpPage />)} />
+          {/* {
+                  (window.location.pathname==="/signin")?
+                  <div></div>
+                  :
+                  <NavAndSearch handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange}/>
+                } */}
+          <Route exact path="/profile" render={() =>
+            this.state.currentUser
+              ? (<Profile handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
+              : (<Redirect to='/' />)} />
           <Switch>
-            <Route exact path="/" component={HomePage} initailItems={this.state.initailItems} />
+            <Route exact path="/" render={() => <HomePage handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
+            <Route exact path="/card" render={() => <CardComp handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
+            <Route exact path="/cardlist" render={() => <CardList handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
           </Switch>
         </BrowserRouter>
 
@@ -89,3 +125,29 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+
+//sign-up  sign-in
+//username/password
+//hash passowrd
+//save to db
+//retrieve the obj from db
+// generate token from id
+//send token in the header 
+//save the token in local storage
+
+//log out
+//res.header==>""
+//local storgare .removre item ("jwt-auth")  
+
+//logout sign-in sing-out ==>ready
+
+//now you need to verify the token!!!
+//send the token in the header as a get req from the front-end==> i need a middle-ware
+//middle ware function
+//take the token from the header==>req.header==>now i have the token
+//verify the token==>jwt.verify==>gives me the id of the user(id)
+//User.findOne({_id:id})==>gives me a user
+//send the user as a response to the front-end from the server 
+
