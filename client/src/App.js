@@ -83,7 +83,7 @@ class App extends React.Component {
         'jwt-auth': localStorage.getItem('jwt-auth')
       },
     }
-    fetch("http://localhost:5000/auth", requestOptions)
+    fetch("http://localhost:5000/user/auth", requestOptions)
       .then(res => res.json())
       .then(data => {
         this.setState({ currentUser: data.displayName })

@@ -6,5 +6,8 @@ export default function CardComp({ currentUser,checkIn,checkOut,searchValue,city
     return (<div>
         <NavAndSearch handleSeachButtonClick={handleSeachButtonClick}currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry}/>
         <RecipeReviewCard />
+        <RecipeReviewCard />
+        <RecipeReviewCard />
+ 
     </div>)
 }
