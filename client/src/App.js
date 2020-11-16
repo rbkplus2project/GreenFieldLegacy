@@ -83,7 +83,7 @@ class App extends React.Component {
         'jwt-auth': localStorage.getItem('jwt-auth')
       },
     }
-    fetch("http://localhost:5000/auth", requestOptions)
+    fetch("http://localhost:5000/user/auth", requestOptions)
       .then(res => res.json())
       .then(data => {
         this.setState({ currentUser: data.displayName })
@@ -114,11 +114,10 @@ class App extends React.Component {
               : (<Redirect to='/' />)} />
           <Switch>
             <Route exact path="/" render={() => <HomePage handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
-            <Route exact path="/card" render={() => <CardComp handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
-            <Route exact path="/cardlist" render={() => <CardList handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
+            {/* <Route exact path="/card" render={() => <CardComp handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} /> */}
+            <Route exact path="/cardlist" render={() => <CardList handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray}/>} />
           </Switch>
         </BrowserRouter>
-
       </div>
     );
   }

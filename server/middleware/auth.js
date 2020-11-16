@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { User } = require("../database/index")
+const { User } = require("../database/User")
 
 const auth = async (req, res, next) => {
   const token = req.header('jwt-auth');
@@ -7,12 +7,13 @@ const auth = async (req, res, next) => {
   // Check for token
   if (!token)
     return res.status(401).json({ msg: 'No token, authorization denied' });
-
+ 
   try {
     // Verify token
     const decoded = await jwt.verify(token, "mysecret");
     const user = await User.findOne({ _id: decoded.id })
     // Add user from payload
+    console.log(user)
     req.user = user;
     next();
   } catch (e) {
@@ -22,4 +23,4 @@ const auth = async (req, res, next) => {
 
 
 
-module.exports = { auth};
+module.exports =  auth
