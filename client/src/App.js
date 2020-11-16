@@ -7,7 +7,8 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up
 import HomePage from "./pages/homePage/homePage"
 import CardComp from "./components/cardComponents/card"
 import NavAndSearch from "./components/navBar/navBar"
-
+import Profile from "./pages/profile/profile.jsx"
+import CardList from "./components/CardList/cardList"
 class App extends React.Component {
   constructor() {
     super()
@@ -73,7 +74,6 @@ class App extends React.Component {
     //       console.log(err);
     //     });
   }
-
   componentDidMount() {
     //checking the auth
     const requestOptions = {
@@ -100,17 +100,22 @@ class App extends React.Component {
         <BrowserRouter>
           <Route exact path="/signin" render={() =>
             this.state.currentUser
-            ? (<Redirect to='/' />)
-            : (<SignInAndSignUpPage />)} />
-                {/* {
+              ? (<Redirect to='/' />)
+              : (<SignInAndSignUpPage />)} />
+          {/* {
                   (window.location.pathname==="/signin")?
                   <div></div>
                   :
                   <NavAndSearch handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange}/>
                 } */}
+          <Route exact path="/profile" render={() =>
+            this.state.currentUser
+              ? (<Profile handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
+              : (<Redirect to='/' />)} />
           <Switch>
             <Route exact path="/" render={() => <HomePage handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
-            <Route exact path="/card" render={() => <CardComp handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange}/>} />
+            <Route exact path="/card" render={() => <CardComp handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
+            <Route exact path="/cardlist" render={() => <CardList handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
           </Switch>
         </BrowserRouter>
 

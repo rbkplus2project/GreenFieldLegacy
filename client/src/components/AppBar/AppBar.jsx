@@ -28,9 +28,6 @@ class AppBarr extends React.Component {
                 <div className="NavBar">
                     <AppBar position="static">
                         <Toolbar className="toolBar">
-                            {/* <IconButton color='inherit' edge="start" aria-label="menu">
-                                <MenuIcon />
-                            </IconButton> */}
                             <Link  to='/'>
                             <Typography className="typography mys" variant="h4">
                                 HotelCom
@@ -42,9 +39,12 @@ class AppBarr extends React.Component {
                                         <Button color="inherit" onClick={this.handleLoginClick}>
                                             Log-out
                                     </Button>
+                                        <Link  to='/profile' className="mys">
                                         <IconButton color='inherit' edge="start" aria-label="menu">
-                                            <AccountCircleIcon className="Account" />
+                                        <AccountCircleIcon className="Account" />
+                                           
                                         </IconButton>
+                                        </Link>
                                     </div>
 
                                     :
