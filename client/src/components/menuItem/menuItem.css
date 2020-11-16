@@ -1,0 +1,81 @@
+/* .menu-item {
+    width: 31vw;
+    height: 240px;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    margin: 0 15px 15px 0;
+    margin: 0 15px 15px 0;
+    overflow: hidden;
+    
+} */
+   .menu-item:hover {
+    cursor: pointer;
+    }
+ /* .background-image {
+   transform: scale(1.1);
+   transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      } */
+      .kualalumpur{
+        width: 31vw;
+        height: 250px;
+        background-image: url('https://static.asiawebdirect.com/m/kl/portals/kuala-lumpur-ws/homepage/pagePropertiesOgImage/kuala-lumpur.jpg.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border: 1px solid black;
+        margin: 0 15px 15px 0;
+    }
+    .singapore{
+      width: 31vw;
+      height: 250px;
+      background-image: url('https://i.pinimg.com/originals/51/9b/f5/519bf5f2b0ab2cbe84797f8b309baa16.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid black;
+      margin: 0 15px 15px 22px;
+  }
+  .losAngeles{
+    width: 31vw;
+    height: 250px;
+    background-image: url('https://i.ytimg.com/vi/tvDH4JM_gME/maxresdefault.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid black;
+    margin: 0 15px 15px 0;
+}
+.rome{
+  width: 23vw;
+  height: 250px;
+  background-image: url('https://cdn.citywonders.com/media/17764/rome-city.jpg?anchor=center&mode=crop&width=1200&height=600');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid black;
+  margin: 0 15px 15px 22px;
+}
+.paris{
+  width: 47vw;
+  height: 250px;
+  background-image: url('https://cdn.pubble.io/resources/web/pubble/img/city_paris.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid black;
+  margin: 0 15px 15px 0;
+}
+.Barcelona{
+  width: 23vw;
+  height: 250px;
+  background-image: url('https://www.jetsetter.com/wp-content/uploads/sites/7/2018/04/Zrlvh0hw-1380x690.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid black;
+  margin: 0 15px 15px 0;
+  
+}
