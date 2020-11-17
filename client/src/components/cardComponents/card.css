@@ -5,6 +5,7 @@
     width: 240px;
     height: 140px;
     overflow: hidden;
+    position: absolute;
 }
 
 #body{
@@ -49,18 +50,28 @@
     display: flex;
     flex: .5;
     justify-content: center; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.icon{
+    position: relative;
+    padding-left: 8px;
+    padding-top: 8px;
+    
 }
 .third_component_secondline{
     display: flex;
     flex: .5;
     justify-content: center;
-    padding: 1.25rem;
+    padding: 1rem;
     /* border: 1px solid; */
 }
 .third_component_thirdline{
     display: flex;
     flex: .5;
     justify-content: center;
+    /* padding-top: -10px; */
     /* border: 1px solid; */
 }
 

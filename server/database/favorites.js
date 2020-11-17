@@ -7,16 +7,17 @@ const favoriteSchema = new Schema = ({
     price: Float32Array,
     thumbnailUrl: String,
     destId: Number,
-    landmarks: {
-        label: String,
-        distance: String
-    },
     badge: String,
     countryN: String,
-    rating: Float32Array
+    rating: Float32Array,
+    userid: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
 },
     { timestamps: true }
 );
 
 let Favorite = mongoose.model('Favorite', favoriteSchema);
-module.exports = Favorite;
+module.exports.Favorite = Favorite;

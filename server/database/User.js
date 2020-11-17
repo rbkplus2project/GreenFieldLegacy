@@ -12,8 +12,8 @@ let userSchema = new Schema({
         unique: true,
         lowercase: true,
         required: [true, 'Please enter your name']
-    }, 
-    password: { 
+    },
+    password: {
         type: String,
         required: [true, 'Please enter your password'],
         minlength: [8, 'Minimum password length is 8 characters']
@@ -26,8 +26,9 @@ let userSchema = new Schema({
         validate: [isEmail, 'Please enter a valid Email']
     },
     reservations: [],
-    admin:Boolean
-},{ timestamps: true });
+    favorites: [],
+    admin: Boolean
+}, { timestamps: true });
 
 
 const User = mongoose.model('user', userSchema);//collection name must be: users
