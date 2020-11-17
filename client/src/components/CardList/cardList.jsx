@@ -13,17 +13,17 @@ class CardList extends React.Component {
         return (
             <div >
                 <NavAndSearch handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
-                {/* {
+                {
                     resulsArray.length? 
                     resulsArray.map((data,i)=>{
-                        return <CardComp data={data} key={i} />
+                        return <CardComp data={data} key={i} currentUser={currentUser}/>
                     })
                     :
                     <h2>
                         please search frist
                     </h2>
-                } */}
-                <CardComp  />
+                }
+                {/* <CardComp currentUser={currentUser} /> */}
                 
             </div>
         )

@@ -4,6 +4,7 @@ const { User } = require('../database/User')
 
 
 router.post('/add', (req, res) => {
+    // console.log(req.body)
     User.findOne({ displayName: req.body.displayName }, (err, result) => {
         if (err) {
             console.log(err)
@@ -12,6 +13,7 @@ router.post('/add', (req, res) => {
         }
     })
         .then((result) => {
+            console.log(result)
             let arr = result.reservations
             if (!arr.includes(req.body.reservations))
                 arr.push(req.body.reservations)

@@ -16,7 +16,7 @@ class MenuItem extends React.Component {
         const { currentUser,handleSeachButtonClick, searchValue } = this.props
 
         return (
-            <div onClick={(e) => { e.preventDefault(); searchValue(this.props.item.city); handleSeachButtonClick() }} >
+            <div onClick={async(e) => {  await searchValue(this.props.item.city); handleSeachButtonClick() }} >
                 <Link to='/cardlist'>
                     <div class="card 1">
                         <div class="card_image"> <img src={this.props.item.link} /> </div>

@@ -43,7 +43,7 @@ class App extends React.Component {
   }
 
   // handleSeachButtonClick = () => {
-  //   console.log("remove the comments to click me")
+  //   console.log(this.state.searchValue)
   //     fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
   //       "method": "GET",
   //       "headers": {

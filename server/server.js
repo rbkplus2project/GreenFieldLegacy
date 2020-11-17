@@ -12,7 +12,7 @@ app.use(cors())
 
 app.use('/user', require('./routes/user'));
 app.use('/fav', require('./routes/favourates'));
-app.use('/resevation', require('./routes/resevation'));
+app.use('/reservation', require('./routes/resevation'));  
 let port = 5000;
 
 app.listen(port, function () {
