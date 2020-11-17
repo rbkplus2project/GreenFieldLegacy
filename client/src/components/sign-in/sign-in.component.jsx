@@ -23,7 +23,7 @@ class SignIn extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    fetch('http://127.0.0.1:5000/signin', {
+    fetch('http://127.0.0.1:5000/user/signin', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',

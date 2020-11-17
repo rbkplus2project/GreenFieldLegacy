@@ -28,7 +28,7 @@ class SignUp extends React.Component {
       return;
     }
     // sign up the user
-    fetch('http://127.0.0.1:5000/signup', {
+    fetch('http://127.0.0.1:5000/user/signup', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',

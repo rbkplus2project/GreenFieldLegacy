@@ -9,6 +9,7 @@ import CardComp from "./components/cardComponents/card"
 import NavAndSearch from "./components/navBar/navBar"
 import Profile from "./pages/profile/profile.jsx"
 import CardList from "./components/CardList/cardList"
+import TrialCard from "./components/trialCard/trialCard.jsx"
 class App extends React.Component {
   constructor() {
     super()
@@ -19,7 +20,9 @@ class App extends React.Component {
       checkOut: "2020-11-30",
       searchValue: "",
       cityAndCountry: "",
-      resulsArray: []
+      resulsArray: [],
+      reservation:[],
+      favorites:[]
     }
   }
   handleCheckInChange = (checkIn) => {
@@ -39,41 +42,41 @@ class App extends React.Component {
     this.setState({ cityAndCountry })
   }
 
-  handleSeachButtonClick = () => {
-    console.log("remove the comments to click me")
-    //   fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
-    //     "method": "GET",
-    //     "headers": {
-    //       "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
-    //       "x-rapidapi-host": "hotels4.p.rapidapi.com"
-    //     }
-    //   })
-    //     .then(response => {
-    //       return response.json()
-    //     })
-    //     .then((data) => {
-    //       fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
-    //         "method": "GET",
-    //         "headers": {
-    //           "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
-    //           "x-rapidapi-host": "hotels4.p.rapidapi.com"
-    //         }
-    //       })
-    //         .then(response => {
-    //           return response.json()
-    //         })
-    //         .then(data => {
-    //           this.setState({ resulsArray: data.data.body.searchResults.results })
-    //         })
-    //         .then(data => console.log(this.state))
-    //         .catch(err => {
-    //           console.error(err);
-    //         });
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-  }
+  // handleSeachButtonClick = () => {
+  //   console.log(this.state.searchValue)
+  //     fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
+  //       "method": "GET",
+  //       "headers": {
+  //         "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+  //         "x-rapidapi-host": "hotels4.p.rapidapi.com"
+  //       }
+  //     })
+  //       .then(response => {
+  //         return response.json()
+  //       })
+  //       .then((data) => {
+  //         fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
+  //           "method": "GET",
+  //           "headers": {
+  //             "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+  //             "x-rapidapi-host": "hotels4.p.rapidapi.com"
+  //           }
+  //         })
+  //           .then(response => {
+  //             return response.json()
+  //           })
+  //           .then(data => {
+  //             this.setState({ resulsArray: data.data.body.searchResults.results })
+  //           })
+  //           .then(data => console.log(this.state))
+  //           .catch(err => {
+  //             console.error(err);
+  //           });
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  // }
   componentDidMount() {
     //checking the auth
     const requestOptions = {
@@ -83,7 +86,7 @@ class App extends React.Component {
         'jwt-auth': localStorage.getItem('jwt-auth')
       },
     }
-    fetch("http://localhost:5000/auth", requestOptions)
+    fetch("http://localhost:5000/user/auth", requestOptions)
       .then(res => res.json())
       .then(data => {
         this.setState({ currentUser: data.displayName })
@@ -114,11 +117,11 @@ class App extends React.Component {
               : (<Redirect to='/' />)} />
           <Switch>
             <Route exact path="/" render={() => <HomePage handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
-            <Route exact path="/card" render={() => <CardComp handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
-            <Route exact path="/cardlist" render={() => <CardList handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
+            {/* <Route exact path="/card" render={() => <CardComp handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} /> */}
+            {/* <Route exact path="/trial" render={() => <TrialCard />} /> */}
+            <Route exact path="/cardlist" render={() => <CardList handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray}/>} />
           </Switch>
         </BrowserRouter>
-
       </div>
     );
   }

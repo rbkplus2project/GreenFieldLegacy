@@ -1,106 +1,224 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { createMuiTheme, ThemeProvider, Theme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import './card.css';
+import img from "./singapore.png";
+import RateReviewIcon from '@material-ui/icons/RateReview';
 import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import { Button } from '@material-ui/core';
-
-var rate = 7.7
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            maxWidth: 700,
-            maxHeight: 340,
-        },
-        media: {
-            width: '40%',
-            height: '30%',
-            paddingTop: '20.25%', // 16:9
-        },
-        expand: {
-            transform: 'rotate(0deg)',
-            marginLeft: 'auto',
-            transition: theme.transitions.create('transform', {
-                duration: theme.transitions.duration.shortest,
-            }),
-        },
-        expandOpen: {
-            transform: 'rotate(180deg)',
-        },
-        avatar: {
-            backgroundColor: red[500],
-        },
-    }),
-);
-
-export default function RecipeReviewCard() {
-    const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
-
-    return (
-        <Card className={classes.root}>
-            <CardHeader
-
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-                title="Best Days Hotel"  //hotel name
-                subheader="Dortmond, Germany"//hotel city-country
-            />
-
-            <div style={{ width: '100%' }}>
-                <Box display="flex" flexDirection="row" p={1} m={1} bgcolor="background.paper">
-
-                    <CardMedia
-                        className={classes.media}
-                        image="https://i.pinimg.com/originals/d1/1a/49/d11a493133d0d9087ab0b588491ee4f6.jpg"
-                        title="Paella dish"
-                    />
-                    <CardContent><IconButton aria-label="add to favorites">
-                        <label>45</label>  <AttachMoneyIcon />
-                    </IconButton>
+import Button from '@material-ui/core/Button';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  details: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  content: {
+    flex: '1 0 auto',
+  },
+  cover: {
+    width: 151,
+  },
+  controls: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  playIcon: {
+    height: 38,
+    width: 38,
+  },
+}));
 
 
-                        <Button variant="contained" color="secondary" style={{ height: '30px', width: '150px' }}>
-                            Book Now
-                    </Button>
 
-                        <Button variant="contained" style={{ height: '30px', width: '150px', backgroundColor: '#03a9f4', color: 'white' }}>
-                            Show on map
-                    </Button>
-                    </CardContent>
-                </Box>
 
+export default function MediaControlCard({ data, currentUser }) {
+  const classes = useStyles();
+  const theme = useTheme();
+  const [favEmpty, setFav] = React.useState(true);
+  const [reservation, setReservation] = React.useState(false);
+
+
+  const handleFavAdd = (data, currentUser) => {
+    console.log("add is clicked")
+    fetch('http://127.0.0.1:5000/fav/add', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({"displayName": currentUser, "favorites": data }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    setFav(false)
+  }
+  const handleFavRemove = (data, currentUser) => {
+    fetch('http://127.0.0.1:5000/fav/delete', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "displayName": currentUser, "favorites": data }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    setFav(true)
+  }
+
+  const handleReserveAdd = (data, currentUser) => {
+    fetch('http://127.0.0.1:5000/reservation/add', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "displayName": currentUser, "reservations": data }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    setReservation(true)
+  }
+
+  const handleReserveRemove = (data, currentUser) => {
+    fetch('http://127.0.0.1:5000/reservation/delete', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "displayName": currentUser, "reservations": data }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data); 
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    setReservation(false)
+  }
+
+  return (
+    <Card className={classes.root} id="body">
+      <div className="first_img">
+        <div  >
+          < img src={data.thumbnailUrl} className="img img_abs"/>
+          {/* < img src={img} className="img img_abs" /> */}
+          {currentUser ?
+            favEmpty ?
+              <FavoriteBorderIcon color="action" fontSize="large" className="icon" onClick={() => handleFavAdd(data, currentUser)} />
+              :
+              <FavoriteIcon color="error" fontSize="large" className="icon" onClick={() => handleFavRemove(data, currentUser)} />
+            :
+            <div></div>
+          }
+
+
+
+        </div>
+      </div>
+      <div className="center">
+        <div className={classes.details}>
+          <CardContent className={classes.content}>
+            <div>
+              <Typography component="h5" variant="h5">
+                {/* Seneca Lake (and vicinity) */}
+          {data.name}
+              </Typography>
             </div>
-            <CardContent>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteBorderIcon />
-                </IconButton>
-                <IconButton>
-                    <Rating name="half-rating-read" defaultValue={rate / 2} precision={0.5} readOnly />
-                </IconButton>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    Here we will put all the facilites, Gym, pool, events
-        </Typography>
-            </CardContent>
+            <div className="center-second">
+              <Typography variant="subtitle1" color="textSecondary">
+                <div className="citysize">
+                  {/* New York, United States of America */}
+          {data.address.locality}, {data.address.countryName}
+                </div>
+              </Typography>
+            </div>
+          </CardContent>
+          <div className="dollers">
+            <Typography  >
+              <div className="facility">
+                {/* swimming pool,Airport shuttle,Tea/Coffee maker */}
+        {data.address.streetAddress}
+              </div>
+            </Typography>
+           {/* $ 19.99 */}
+          {data.ratePlan.price.current}
+          </div>
+        </div>
+      </div>
+      <div className='third_component'>
+        <div className="thirdcom_firstone">
+          {/* <Rating name="half-rating-read" defaultValue={4} precision={0.5} readOnly /> */}
+          <Rating name="half-rating-read" defaultValue={data.starRating} precision={0.5} readOnly />
+
+        </div>
+        <div className="third_component_thirdline">
+          <Typography component="h6" variant="h6">
+            {/* guest reviews {data.guestReviews.unformattedRating} */}
+           guest reviews
+          </Typography>
+          <div style={{ padding: "6px" }}>
+            <RateReviewIcon className='ratereview' />
+          </div>
+        </div>
+        <div className="third_component_secondline">
+          {
+            currentUser ?
+              reservation ?
+                <Button variant="contained" color="primary" onClick={() => handleReserveRemove(data, currentUser)}>
+                  remove reservation
+          </Button>
+                :
+                <Button variant="contained" color="primary" onClick={() => handleReserveAdd(data, currentUser)}>
+                  reserve here
+          </Button>
+              : <div></div>
+          }
+
+        </div>
+      </div>
 
 
-        </Card>
-    );
+
+      {/* <div className={classes.controls}>
+          <IconButton aria-label="previous">
+            {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
+          </IconButton>
+          <IconButton aria-label="play/pause">
+            <PlayArrowIcon className={classes.playIcon} />
+          </IconButton>
+          <IconButton aria-label="next">
+            {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+          </IconButton>
+        </div> */}
+
+
+    </Card>
+  );
 }
