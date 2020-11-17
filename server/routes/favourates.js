@@ -19,8 +19,8 @@ router.post('/add', (req, res) => {
             if (!arr.includes(req.body.favorites))
                 arr.push(req.body.favorites)
             result.updateOne({ favorites: arr })
-                .then(() => {
-                    res.end()
+                .then((data) => {
+                    res.json(data)
                     console.log('saved')
                 })
                 .catch((err) => {
@@ -47,8 +47,8 @@ router.post('/delete', (req, res) => {
             }
             arr.splice(index, 1)
             result.updateOne({ favorites: arr })
-                .then(() => {
-                    res.end()
+                .then((data) => {
+                    res.json(data)
                     console.log('saved')
                 })
                 .catch((err) => {

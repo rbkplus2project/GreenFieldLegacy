@@ -39,26 +39,36 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MediaControlCard({ data, currentUser }) {
+export default function MediaControlCard({ data, currentUser, reservationArray,favoritesArray }) {
   const classes = useStyles();
   const theme = useTheme();
   const [favEmpty, setFav] = React.useState(true);
   const [reservation, setReservation] = React.useState(false);
 
-
-  const handleFavAdd = (data, currentUser) => {
+const fetchUser=(currentUser)=>{
+  return fetch("http://127.0.0.1:5000/user/getuser", {
+    method: 'POST', // or 'PUT'
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({"displayName": currentUser}),
+  })
+  .then(data=>data.json())
+  .then(data=>data)
+}
+  const handleFavAdd =  (data, currentUser) => {
     console.log("add is clicked")
     fetch('http://127.0.0.1:5000/fav/add', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({"displayName": currentUser, "favorites": data }),
+      body: JSON.stringify({"displayName": currentUser, "favorites": "data" }),
     })
       .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-
+      .then(async (data) => {
+        let user = await fetchUser(currentUser)
+        favoritesArray(user.favorites)
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -71,12 +81,12 @@ export default function MediaControlCard({ data, currentUser }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "displayName": currentUser, "favorites": data }),
+      body: JSON.stringify({ "displayName": currentUser, "favorites": "data" }),
     })
       .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-
+      .then(async data => {
+        let user = await fetchUser(currentUser)
+        favoritesArray(user.favorites)
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -90,11 +100,12 @@ export default function MediaControlCard({ data, currentUser }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "displayName": currentUser, "reservations": data }),
+      body: JSON.stringify({ "displayName": currentUser, "reservations": "data" }),
     })
       .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
+      .then(async data => {
+        let user = await fetchUser(currentUser)
+        reservationArray(user.reservations)
 
       })
       .catch((error) => {
@@ -109,11 +120,12 @@ export default function MediaControlCard({ data, currentUser }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "displayName": currentUser, "reservations": data }),
+      body: JSON.stringify({ "displayName": currentUser, "reservations": "data" }),
     })
       .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data); 
+      .then(async data => {
+        let user = await fetchUser(currentUser)
+        reservationArray(user.reservations)
 
       })
       .catch((error) => {
@@ -127,8 +139,8 @@ export default function MediaControlCard({ data, currentUser }) {
     <Card className={classes.root} id="body">
       <div className="first_img">
         <div  >
-          < img src={data.thumbnailUrl} className="img img_abs"/>
-          {/* < img src={img} className="img img_abs" /> */}
+          {/* < img src={data.thumbnailUrl} className="img img_abs"/> */}
+          < img src={img} className="img img_abs" />
           {currentUser ?
             favEmpty ?
               <FavoriteBorderIcon color="action" fontSize="large" className="icon" onClick={() => handleFavAdd(data, currentUser)} />
@@ -147,15 +159,15 @@ export default function MediaControlCard({ data, currentUser }) {
           <CardContent className={classes.content}>
             <div>
               <Typography component="h5" variant="h5">
-                {/* Seneca Lake (and vicinity) */}
-          {data.name}
+                Seneca Lake (and vicinity)
+          {/* {data.name} */}
               </Typography>
             </div>
             <div className="center-second">
               <Typography variant="subtitle1" color="textSecondary">
                 <div className="citysize">
-                  {/* New York, United States of America */}
-          {data.address.locality}, {data.address.countryName}
+                  New York, United States of America
+          {/* {data.address.locality}, {data.address.countryName} */}
                 </div>
               </Typography>
             </div>
@@ -163,19 +175,19 @@ export default function MediaControlCard({ data, currentUser }) {
           <div className="dollers">
             <Typography  >
               <div className="facility">
-                {/* swimming pool,Airport shuttle,Tea/Coffee maker */}
-        {data.address.streetAddress}
+                swimming pool,Airport shuttle,Tea/Coffee maker
+        {/* {data.address.streetAddress} */}
               </div>
             </Typography>
-           {/* $ 19.99 */}
-          {data.ratePlan.price.current}
+           $ 19.99
+          {/* {data.ratePlan.price.current} */}
           </div>
         </div>
       </div>
       <div className='third_component'>
         <div className="thirdcom_firstone">
-          {/* <Rating name="half-rating-read" defaultValue={4} precision={0.5} readOnly /> */}
-          <Rating name="half-rating-read" defaultValue={data.starRating} precision={0.5} readOnly />
+          <Rating name="half-rating-read" defaultValue={4} precision={0.5} readOnly />
+          {/* <Rating name="half-rating-read" defaultValue={data.starRating} precision={0.5} readOnly /> */}
 
         </div>
         <div className="third_component_thirdline">

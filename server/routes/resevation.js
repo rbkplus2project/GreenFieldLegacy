@@ -18,8 +18,8 @@ router.post('/add', (req, res) => {
             if (!arr.includes(req.body.reservations))
                 arr.push(req.body.reservations)
             result.updateOne({ reservations: arr })
-                .then(() => {
-                    res.end()
+                .then((data) => {
+                    res.json(data)
                     console.log('saved')
                 })
                 .catch((err) => {
@@ -42,8 +42,8 @@ router.post('/delete', (req, res) => {
             let index = arr.indexOf(req.body.reservations)
             arr.splice(index, 1)
             result.updateOne({ reservations: arr })
-                .then(() => {
-                    res.end()
+                .then((data) => {
+                    res.json(data)
                     console.log('saved')
                 })
                 .catch((err) => {

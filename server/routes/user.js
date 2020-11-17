@@ -11,11 +11,17 @@ router.get("/auth", auth, (req, res) => {
     res.json({
       id: req.user._id,
       displayName: req.user.displayName,
+      favorites:req.user.favorites,
+      reservations:req.user.reservations,
       email: req.user.email
     })
   }
 })
-
+router.post("/getuser", (req, res) => {
+  User.findOne({displayName:req.body.displayName})
+    .then((data) => res.status(200).send(data))
+    .catch((err) => res.status(404).send("error getting the data"))
+})
 router.post('/signup', (req, res) => {
   const password = req.body.password
   const saltRounds = 10
