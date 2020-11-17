@@ -7,7 +7,7 @@ import './card.css';
 import img from "./singapore.png";
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import Rating from '@material-ui/lab/Rating';
-
+import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,67 +36,75 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MediaControlCard() {
+export default function MediaControlCard({ data, cityAndCountry }) {
   const classes = useStyles();
   const theme = useTheme();
 
   return (
     <Card className={classes.root} id="body">
-    <div className="first_img">
-    <div  >
-      < img src={img} className="img img_abs"/>
-      {/* <FavoriteBorderIcon className="fav_rel" /> */}
-      </div>
-    </div>
-    <div className ="center">
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-        <div>
-          <Typography component="h5" variant="h5">
-          Seneca Lake (and vicinity)
-          </Typography>
-          </div>
-          <div className="center-second">
-          <Typography variant="subtitle1" color="textSecondary">
-          <div className="citysize">
-          New York, United States of America
-          </div>
-          </Typography>
-          </div>
-        </CardContent>
-        <div className="dollers">
-        <Typography  >
-        <div className="facility">
-        swimming pool,Airport shuttle,Tea/Coffee maker
-        </div>
-          </Typography>
-           $ 19.99
-          
-          </div>
-        </div>
-        </div>
-        <div className='third_component'>
-        <div className="thirdcom_firstone">
-        <Typography component="h6" variant="h6">
-          very good
-          </Typography>
-          </div>
-          <div className="third_component_secondline">
-          <Rating />
-          </div>
-          <div className="third_component_thirdline">
-          <Typography component="h6" variant="h6">
-           total reviews
-          </Typography>
-          <div style={{padding:"6px"}}>
-          <RateReviewIcon className='ratereview'/>
-          </div>
-          </div>
-        </div>
-        
+      <div className="first_img">
+        <div  >
+          {/* < img src={data.thumbnailUrl} className="img img_abs"/> */}
+          < img src={img} className="img img_abs" />
 
-       
-        {/* <div className={classes.controls}>
+          {/* <FavoriteBorderIcon className="fav_rel" /> */}
+        </div>
+      </div>
+      <div className="center">
+        <div className={classes.details}>
+          <CardContent className={classes.content}>
+            <div>
+              <Typography component="h5" variant="h5">
+                Seneca Lake (and vicinity)
+          {/* {data.name} */}
+              </Typography>
+            </div>
+            <div className="center-second">
+              <Typography variant="subtitle1" color="textSecondary">
+                <div className="citysize">
+                  New York, United States of America
+          {/* {data.address.locality}, {data.address.countryName} */}
+                </div>
+              </Typography>
+            </div>
+          </CardContent>
+          <div className="dollers">
+            <Typography  >
+              <div className="facility">
+                swimming pool,Airport shuttle,Tea/Coffee maker
+        {/* {data.address.streetAddress} */}
+              </div>
+            </Typography>
+           $ 19.99
+          {/* {data.ratePlan.price.current} */}
+          </div>
+        </div>
+      </div>
+      <div className='third_component'>
+        <div className="thirdcom_firstone">
+          <Rating name="half-rating-read" defaultValue={4} precision={0.5} readOnly />
+          {/* <Rating name="half-rating-read" defaultValue={data.starRating} precision={0.5} readOnly /> */}
+
+        </div>
+        <div className="third_component_thirdline">
+          <Typography component="h6" variant="h6">
+            {/* guest reviews {data.guestReviews.unformattedRating} */}
+           guest reviews
+          </Typography>
+          <div style={{ padding: "6px" }}>
+            <RateReviewIcon className='ratereview' />
+          </div>
+        </div>
+        <div className="third_component_secondline">
+          <Button variant="contained" color="primary">
+          reserve here
+          </Button>
+        </div>
+      </div>
+
+
+
+      {/* <div className={classes.controls}>
           <IconButton aria-label="previous">
             {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
           </IconButton>
@@ -107,8 +115,8 @@ export default function MediaControlCard() {
             {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
           </IconButton>
         </div> */}
-      
-     
+
+
     </Card>
   );
 }
