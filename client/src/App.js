@@ -20,11 +20,21 @@ class App extends React.Component {
       checkOut: "2020-11-30",
       searchValue: "",
       cityAndCountry: "",
+      adults:1,
       resulsArray: [],
       reservationArray:[],
       favoritesArray:[]
     }
   }
+
+  //converting the date into numbers
+  dateDifferenceNumber=()=>{    
+    let x=this.state.checkIn.split("-")
+    let y=this.state.checkOut.split("-")
+    
+    return res=(y[0]-x[0])*365+(y[1]-x[1])*30+(y[2]-x[2])
+  }
+
   handleCheckInChange = (checkIn) => {
     this.setState({ checkIn })
   }
@@ -131,7 +141,7 @@ class App extends React.Component {
             <Route exact path="/" render={() => <HomePage handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
             {/* <Route exact path="/card" render={() => <CardComp handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} /> */}
             {/* <Route exact path="/trial" render={() => <TrialCard />} /> */}
-            <Route exact path="/cardlist" render={() => <CardList reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray}/>} />
+            <Route exact path="/cardlist" render={() => <CardList adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray}/>} />
           </Switch>
         </BrowserRouter>
       </div>

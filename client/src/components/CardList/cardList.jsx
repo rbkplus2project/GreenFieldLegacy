@@ -2,13 +2,13 @@ import React from 'react';
 import './cardList.css'
 import NavAndSearch from "../navBar/navBar"
 import CardComp from "../cardComponents/card"
-
+import StripeCheckoutButton from "../stripe/stripe"
 class CardList extends React.Component {
     constructor(props) {
         super(props)
     }
     render() {
-        const { checkIn, checkOut, reservationArray,favoritesArray, searchValue, cityAndCountry, handleSeachButtonClick, currentUser,resulsArray } = this.props
+        const {adults,dateDifferenceNumber, checkIn, checkOut, reservationArray,favoritesArray, searchValue, cityAndCountry, handleSeachButtonClick, currentUser,resulsArray } = this.props
 
         return (
             <div >
@@ -16,15 +16,15 @@ class CardList extends React.Component {
                 {/* {
                     resulsArray.length? 
                     resulsArray.map((data,i)=>{
-                        return <CardComp data={data} key={i} currentUser={currentUser} reservationArray={reservationArray} favoritesArray={favoritesArray}/>
+                        return <CardComp data={data} key={i} adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser} reservationArray={reservationArray} favoritesArray={favoritesArray}/>
                     })
                     :
                     <h2>
                         please search frist
                     </h2>
                 } */}
-                <CardComp currentUser={currentUser} reservationArray={reservationArray} favoritesArray={favoritesArray}/>
-                
+                <CardComp adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser}  reservationArray={reservationArray} favoritesArray={favoritesArray}/>
+                <StripeCheckoutButton/>
             </div>
         )
     }

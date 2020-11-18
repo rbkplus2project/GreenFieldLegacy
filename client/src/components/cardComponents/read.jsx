@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MediaControlCard({ data, currentUser, reservationArray,favoritesArray }) {
+export default function MediaControlCard({adutls,dateDifferenceNumber, data, currentUser, reservationArray,favoritesArray }) {
   const classes = useStyles();
   const theme = useTheme();
   const [favEmpty, setFav] = React.useState(true);
@@ -180,7 +180,7 @@ const fetchUser=(currentUser)=>{
               </div>
             </Typography>
            $ 19.99
-          {/* {data.ratePlan.price.current} */}
+          {/* {data.ratePlan.price.current*adults*dateDifferenceNumber()} */}
           </div>
         </div>
       </div>
