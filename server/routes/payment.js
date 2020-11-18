@@ -2,15 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const db = require("./database")
 const cors = require("cors")
-
-
 let app = express();
-
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors())
-
-
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -40,12 +35,10 @@ app.post('/payment', (req, res) => {
     }
   })
 })
-
 app.use('/user', require('./routes/user'));
 app.use('/fav', require('./routes/favourates'));
-app.use('/reservation', require('./routes/resevation'));  
+app.use('/reservation', require('./routes/resevation'));
 let port = 5000;
-
 app.listen(port, function () {
   console.log(`listening on port ${port}`);
 });
