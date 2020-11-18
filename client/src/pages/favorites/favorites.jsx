@@ -7,46 +7,46 @@ class Favorites extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      reserveShow: true,
-      favoriteEmp: false,
-      result: []
+      favoriteNotEmp: true,
+      hideRes:true,
+      result: [],
+      currentUser:''
     }
   }
   componentDidMount=()=> {
-    const { currentUser } = this.props
-    console.log(currentUser)
-
+       
     fetch("http://127.0.0.1:5000/user/getuser", {
-      method: 'POST', // or 'PUT'
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ "displayName": currentUser }),
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "displayName": this.props.currentUser }),
     })
-      .then(data => data.json())
-      .then(data => { this.setState({ result: data.favorites }); })
-  }
+        .then(data => data.json())
+        .then(data =>this.setState({result: data.favorites,currentUser:data.displayName}))
+        .then(()=>console.log(this.state))
+}
 
-  render() {
-    const { dateDifferenceNumber, adults, currentUser, checkIn, checkOut, searchValue, cityAndCountry, handleSeachButtonClick, reservationArray } = this.props
-    return (
-      <div>
-        <AppBarr currentUser={currentUser} />
+render() {
+const {  adults } = this.props
+return (
+    <div>
+        <AppBarr currentUser={this.state.currentUser} />
         {
-          this.state.result.length ?
+            this.state.result.length ?
             this.state.result.map((data, i) => {
-              console.log(data)
-              if (typeof data === "object" && data.name)
-                return <CardComp data={data} adults={adults} compDidmountF={this.componentDidMount} reserveShow={this.state.reserveShow} favoriteEmp={this.state.favoriteEmp} adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser} reservationArray={reservationArray} />
-            })
-            :
-            <h2>
-              there are no items
-                    </h2>
+                    {/* console.log(data) */}
+                    if (typeof data === "object" && data.name)
+                        return <CardComp key={i} data={data} adults={adults} compDidmountF={this.componentDidMount} favoriteNotEmp={this.state.favoriteNotEmp} hideRes={this.state.hideRes}   currentUser={this.state.currentUser}  />
+                })
+                :
+                <h2>
+                   there are no items
+            </h2>
         }
 
-      </div>
-    );
-  }
+    </div>
+);
+}
 }
 export default Favorites;

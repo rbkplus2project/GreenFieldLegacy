@@ -14,7 +14,6 @@ router.post('/add', (req, res) => {
         }
     })
         .then((result) => {
-            console.log(result)
             let arr = result.favorites
             if (!arr.includes(req.body.favorites))
                 arr.push(req.body.favorites)
@@ -39,21 +38,26 @@ router.post('/delete', (req, res) => {
         }
     })
         .then((result) => {
+            // console.log(result.favorites)
+            // console.log(req.body)
             let arr = result.favorites
             let index = -1
             for (let i = 0; i < arr.length; i++) {
+                console.log("req.body.name",req.body.favorites.name)
+                console.log("arr[i].name",arr[i].name) 
                 if (arr[i].name === req.body.name)
                     index = i
             }
-            arr.splice(index, 1)
-            result.updateOne({ favorites: arr })
-                .then((data) => {
-                    res.json(data)
-                    console.log('saved')
-                })
-                .catch((err) => {
-                    console.log('errrrrrr')
-                })
+            // console.log(index)
+            // arr.splice(index, 1)
+            // result.updateOne({ favorites: arr })
+            //     .then((data) => {
+            //         res.json(data)
+            //         console.log('saved')
+            //     })
+            //     .catch((err) => {
+            //         console.log('errrrrrr')
+            //     })
         })
 })
 

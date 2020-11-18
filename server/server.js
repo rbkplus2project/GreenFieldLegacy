@@ -36,10 +36,11 @@ app.post('/payment', (req, res) => {
     console.log(stripeErr)
     if (stripeErr) res.status(500).send({ error: stripeErr })
     else {
+      
       res.status(200).send({ success: stripeRes })
     }
   })
-})
+}) 
 
 app.use('/user', require('./routes/user'));
 app.use('/fav', require('./routes/favourates'));

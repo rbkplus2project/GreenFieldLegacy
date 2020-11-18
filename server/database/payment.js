@@ -15,7 +15,7 @@ let paymentSchema = new Schema({
         type: Date,
         required: true,
     },
-    pin: {
+    pin: { 
         type: Number,
         unique: true,
         required: true

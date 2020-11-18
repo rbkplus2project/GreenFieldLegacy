@@ -14,7 +14,7 @@ class CardList extends React.Component {
             <div >
                 <NavAndSearch handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
                 {
-                    resulsArray.length? 
+                    resulsArray.length?  
                     resulsArray.map((data,i)=>{
                         return <CardComp data={data} key={i} adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser} reservationArray={reservationArray} favoritesArray={favoritesArray}/>
                     })

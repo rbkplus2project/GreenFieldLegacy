@@ -39,47 +39,34 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MediaControlCard({compDidmountF,compDidmount,reserveShow,favoriteEmp,adutls,dateDifferenceNumber, data, currentUser, reservationArray,favoritesArray }) {
+export default function MediaControlCard({ compDidmountF, compDidmount, reserveShow, favoriteNotEmp, adutls, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
   const classes = useStyles();
   const theme = useTheme();
-  let x=true
-  if(favoriteEmp===false)x=false
-  const [favEmpty, setFav] = React.useState(favoriteEmp);
-  const [reservation, setReservation] = React.useState((reserveShow||false));
 
-const fetchUser=(currentUser)=>{
-  return fetch("http://127.0.0.1:5000/user/getuser", {
-    method: 'POST', // or 'PUT'
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({"displayName": currentUser}),
-  })
-  .then(data=>data.json())
-  .then(data=>data)
-}
-  const handleFavAdd =  (data, currentUser) => {
+  const [favNotEmpty, setFav] = React.useState(false ||favoriteNotEmp);
+  const [reservation, setReservation] = React.useState((reserveShow || false));
+
+
+  const handleFavAdd = (data, currentUser) => {
     console.log("add is clicked")
     fetch('http://127.0.0.1:5000/fav/add', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({"displayName": currentUser, "favorites": data}),
+      body: JSON.stringify({ "displayName": currentUser, "favorites": data }),
     })
       .then(response => response.json())
-      .then(async (data) => {
-        // let user = await fetchUser(currentUser)
-        // favoritesArray(user.favorites)
-        console.log("ddddddddd")
+      .then((data) => {
         compDidmountF()
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-    setFav(false)
+    setFav(true)
   }
   const handleFavRemove = (data, currentUser) => {
+    // console.log(data)
     fetch('http://127.0.0.1:5000/fav/delete', {
       method: 'POST', // or 'PUT'
       headers: {
@@ -88,16 +75,13 @@ const fetchUser=(currentUser)=>{
       body: JSON.stringify({ "displayName": currentUser, "favorites": data }),
     })
       .then(response => response.json())
-      .then(async data => {
-        // let user = await fetchUser(currentUser)
-        // favoritesArray(user.favorites)
-        console.log("ddddddddd")
-        compDidmountF()
+      .then(data => {
+        compDidmountF() 
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-    setFav(true)
+    setFav(false)
   }
 
   const handleReserveAdd = (data, currentUser) => {
@@ -109,12 +93,8 @@ const fetchUser=(currentUser)=>{
       body: JSON.stringify({ "displayName": currentUser, "reservations": data }),
     })
       .then(response => response.json())
-      .then(async data => {
-        // let user = await fetchUser(currentUser)
-        // console.log(user.reservations)
-        // reservationArray(user.reservations)
+      .then(data => {
         compDidmount()
-
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -128,13 +108,10 @@ const fetchUser=(currentUser)=>{
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "displayName": currentUser, "reservations": data}),
+      body: JSON.stringify({ "displayName": currentUser, "reservations": data }),
     })
       .then(response => response.json())
-      .then(async data => {
-        // let user = await fetchUser(currentUser)
-        // console.log(user.reservations)
-        // reservationArray(user.reservations)
+      .then(data => {
         compDidmount()
       })
       .catch((error) => {
@@ -148,15 +125,19 @@ const fetchUser=(currentUser)=>{
     <Card className={classes.root} id="body">
       <div className="first_img">
         <div  >
-          < img src={data.thumbnailUrl} className="img img_abs"/>
+          < img src={data.thumbnailUrl} className="img img_abs" />
           {/* < img src={img} className="img img_abs" /> */}
-          {currentUser ?
-            favEmpty ?
-              <FavoriteBorderIcon color="action" fontSize="large" className="icon" onClick={() => handleFavAdd(data, currentUser)} />
-              :
-              <FavoriteIcon color="error" fontSize="large" className="icon" onClick={() => handleFavRemove(data, currentUser)} />
-            :
+
+          {hideFav ?
             <div></div>
+            :
+            currentUser ?
+            !favNotEmpty ?
+                <FavoriteBorderIcon color="action" fontSize="large" className="icon" onClick={() => handleFavAdd(data, currentUser)} />
+                :
+                <FavoriteIcon color="error" fontSize="large" className="icon" onClick={() => handleFavRemove(data, currentUser)} />
+              :
+              <div></div>
           }
 
 
@@ -185,12 +166,12 @@ const fetchUser=(currentUser)=>{
             <Typography  >
               <div className="facility">
                 {/* swimming pool,Airport shuttle,Tea/Coffee maker */}
-        {data.address.streetAddress}
+                {data.address.streetAddress}
               </div>
             </Typography>
-           {/* $ 19.99 */}
-          {/* {data.ratePlan.price.current*adults*dateDifferenceNumber()} */}
-          {data.ratePlan.price.current}
+            {/* $ 19.99 */}
+            {/* {data.ratePlan.price.current*adults*dateDifferenceNumber()} */}
+            {data.ratePlan.price.current}
           </div>
         </div>
       </div>
@@ -210,7 +191,9 @@ const fetchUser=(currentUser)=>{
           </div>
         </div>
         <div className="third_component_secondline">
-          {
+          {hideRes ?
+            <div></div>
+            :
             currentUser ?
               reservation ?
                 <Button variant="contained" color="primary" onClick={() => handleReserveRemove(data, currentUser)}>
