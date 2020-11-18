@@ -13,7 +13,7 @@ class CardList extends React.Component {
         return (
             <div >
                 <NavAndSearch handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
-                {/* {
+                {
                     resulsArray.length? 
                     resulsArray.map((data,i)=>{
                         return <CardComp data={data} key={i} adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser} reservationArray={reservationArray} favoritesArray={favoritesArray}/>
@@ -22,8 +22,8 @@ class CardList extends React.Component {
                     <h2>
                         please search frist
                     </h2>
-                } */}
-                <CardComp adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser}  reservationArray={reservationArray} favoritesArray={favoritesArray}/>
+                }
+                {/* <CardComp adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser}  reservationArray={reservationArray} favoritesArray={favoritesArray}/> */}
                 <StripeCheckoutButton price={100}/>
             </div>
         )

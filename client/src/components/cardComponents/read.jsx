@@ -39,11 +39,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MediaControlCard({adutls,dateDifferenceNumber, data, currentUser, reservationArray,favoritesArray }) {
+export default function MediaControlCard({compDidmountF,compDidmount,reserveShow,favoriteEmp,adutls,dateDifferenceNumber, data, currentUser, reservationArray,favoritesArray }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [favEmpty, setFav] = React.useState(true);
-  const [reservation, setReservation] = React.useState(false);
+  let x=true
+  if(favoriteEmp===false)x=false
+  const [favEmpty, setFav] = React.useState(favoriteEmp);
+  const [reservation, setReservation] = React.useState((reserveShow||false));
 
 const fetchUser=(currentUser)=>{
   return fetch("http://127.0.0.1:5000/user/getuser", {
@@ -63,12 +65,14 @@ const fetchUser=(currentUser)=>{
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({"displayName": currentUser, "favorites": "data" }),
+      body: JSON.stringify({"displayName": currentUser, "favorites": data}),
     })
       .then(response => response.json())
       .then(async (data) => {
-        let user = await fetchUser(currentUser)
-        favoritesArray(user.favorites)
+        // let user = await fetchUser(currentUser)
+        // favoritesArray(user.favorites)
+        console.log("ddddddddd")
+        compDidmountF()
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -81,12 +85,14 @@ const fetchUser=(currentUser)=>{
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "displayName": currentUser, "favorites": "data" }),
+      body: JSON.stringify({ "displayName": currentUser, "favorites": data }),
     })
       .then(response => response.json())
       .then(async data => {
-        let user = await fetchUser(currentUser)
-        favoritesArray(user.favorites)
+        // let user = await fetchUser(currentUser)
+        // favoritesArray(user.favorites)
+        console.log("ddddddddd")
+        compDidmountF()
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -100,12 +106,14 @@ const fetchUser=(currentUser)=>{
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "displayName": currentUser, "reservations": "data" }),
+      body: JSON.stringify({ "displayName": currentUser, "reservations": data }),
     })
       .then(response => response.json())
       .then(async data => {
-        let user = await fetchUser(currentUser)
-        reservationArray(user.reservations)
+        // let user = await fetchUser(currentUser)
+        // console.log(user.reservations)
+        // reservationArray(user.reservations)
+        compDidmount()
 
       })
       .catch((error) => {
@@ -120,13 +128,14 @@ const fetchUser=(currentUser)=>{
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "displayName": currentUser, "reservations": "data" }),
+      body: JSON.stringify({ "displayName": currentUser, "reservations": data}),
     })
       .then(response => response.json())
       .then(async data => {
-        let user = await fetchUser(currentUser)
-        reservationArray(user.reservations)
-
+        // let user = await fetchUser(currentUser)
+        // console.log(user.reservations)
+        // reservationArray(user.reservations)
+        compDidmount()
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -139,8 +148,8 @@ const fetchUser=(currentUser)=>{
     <Card className={classes.root} id="body">
       <div className="first_img">
         <div  >
-          {/* < img src={data.thumbnailUrl} className="img img_abs"/> */}
-          < img src={img} className="img img_abs" />
+          < img src={data.thumbnailUrl} className="img img_abs"/>
+          {/* < img src={img} className="img img_abs" /> */}
           {currentUser ?
             favEmpty ?
               <FavoriteBorderIcon color="action" fontSize="large" className="icon" onClick={() => handleFavAdd(data, currentUser)} />
@@ -160,14 +169,14 @@ const fetchUser=(currentUser)=>{
             <div>
               <Typography component="h5" variant="h5">
                 Seneca Lake (and vicinity)
-          {/* {data.name} */}
+          {data.name}
               </Typography>
             </div>
             <div className="center-second">
               <Typography variant="subtitle1" color="textSecondary">
                 <div className="citysize">
                   New York, United States of America
-          {/* {data.address.locality}, {data.address.countryName} */}
+          {data.address.locality}, {data.address.countryName}
                 </div>
               </Typography>
             </div>
@@ -175,19 +184,20 @@ const fetchUser=(currentUser)=>{
           <div className="dollers">
             <Typography  >
               <div className="facility">
-                swimming pool,Airport shuttle,Tea/Coffee maker
-        {/* {data.address.streetAddress} */}
+                {/* swimming pool,Airport shuttle,Tea/Coffee maker */}
+        {data.address.streetAddress}
               </div>
             </Typography>
-           $ 19.99
+           {/* $ 19.99 */}
           {/* {data.ratePlan.price.current*adults*dateDifferenceNumber()} */}
+          {data.ratePlan.price.current}
           </div>
         </div>
       </div>
       <div className='third_component'>
         <div className="thirdcom_firstone">
-          <Rating name="half-rating-read" defaultValue={4} precision={0.5} readOnly />
-          {/* <Rating name="half-rating-read" defaultValue={data.starRating} precision={0.5} readOnly /> */}
+          {/* <Rating name="half-rating-read" defaultValue={4} precision={0.5} readOnly /> */}
+          <Rating name="half-rating-read" defaultValue={data.starRating} precision={0.5} readOnly />
 
         </div>
         <div className="third_component_thirdline">
