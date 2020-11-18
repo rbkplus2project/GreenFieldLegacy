@@ -41,11 +41,15 @@ router.post('/delete', (req, res) => {
             let arr = result.reservations
             let index = -1
             for (let i = 0; i < arr.length; i++) {
-                console.log("req.body.name", req.body.name)
+                console.log("req.body.name", req.body.reservations.name)
                 console.log("arr[i].name", arr[i].name)
-                if (arr[i].name === req.body.name)
+                if (arr[i].name === req.body.reservations.name){
                     index = i
+                    console.log("helllllllllo")
+                }
+                   
             }
+
             console.log(index)
             arr.splice(index, 1)
             result.updateOne({ reservations: arr })

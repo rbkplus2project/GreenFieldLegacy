@@ -2,7 +2,6 @@ import React from 'react';
 import './cardList.css'
 import NavAndSearch from "../navBar/navBar"
 import CardComp from "../cardComponents/card"
-import StripeCheckoutButton from "../stripe/stripe"
 class CardList extends React.Component {
     constructor(props) {
         super(props)
@@ -24,7 +23,7 @@ class CardList extends React.Component {
                     </h2>
                 }
                 {/* <CardComp adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser}  reservationArray={reservationArray} favoritesArray={favoritesArray}/> */}
-                <StripeCheckoutButton price={100}/>
+               
             </div>
         )
     }

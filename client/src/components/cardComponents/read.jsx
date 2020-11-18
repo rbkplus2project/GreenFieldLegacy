@@ -43,7 +43,7 @@ export default function MediaControlCard({ compDidmountF, compDidmount, reserveS
   const classes = useStyles();
   const theme = useTheme();
 
-  const [favNotEmpty, setFav] = React.useState(false ||favoriteNotEmp);
+  const [favNotEmpty, setFav] = React.useState(false || favoriteNotEmp);
   const [reservation, setReservation] = React.useState((reserveShow || false));
 
 
@@ -63,7 +63,7 @@ export default function MediaControlCard({ compDidmountF, compDidmount, reserveS
       .catch((error) => {
         console.error('Error:', error);
       });
-    setFav(true)
+      setFav(true)
   }
   const handleFavRemove = (data, currentUser) => {
     // console.log(data)
@@ -76,12 +76,13 @@ export default function MediaControlCard({ compDidmountF, compDidmount, reserveS
     })
       .then(response => response.json())
       .then(data => {
-        compDidmountF() 
+        compDidmountF()
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-    setFav(false)
+    if (!hideRes)
+      setFav(false)
   }
 
   const handleReserveAdd = (data, currentUser) => {
@@ -117,7 +118,7 @@ export default function MediaControlCard({ compDidmountF, compDidmount, reserveS
       .catch((error) => {
         console.error('Error:', error);
       });
-
+      if(!hideFav)
     setReservation(false)
   }
 
@@ -132,7 +133,7 @@ export default function MediaControlCard({ compDidmountF, compDidmount, reserveS
             <div></div>
             :
             currentUser ?
-            !favNotEmpty ?
+              !favNotEmpty ?
                 <FavoriteBorderIcon color="action" fontSize="large" className="icon" onClick={() => handleFavAdd(data, currentUser)} />
                 :
                 <FavoriteIcon color="error" fontSize="large" className="icon" onClick={() => handleFavRemove(data, currentUser)} />

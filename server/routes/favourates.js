@@ -45,19 +45,19 @@ router.post('/delete', (req, res) => {
             for (let i = 0; i < arr.length; i++) {
                 console.log("req.body.name",req.body.favorites.name)
                 console.log("arr[i].name",arr[i].name) 
-                if (arr[i].name === req.body.name)
+                if (arr[i].name === req.body.favorites.name)
                     index = i
             }
-            // console.log(index)
-            // arr.splice(index, 1)
-            // result.updateOne({ favorites: arr })
-            //     .then((data) => {
-            //         res.json(data)
-            //         console.log('saved')
-            //     })
-            //     .catch((err) => {
-            //         console.log('errrrrrr')
-            //     })
+            console.log(index)
+            arr.splice(index, 1)
+            result.updateOne({ favorites: arr })
+                .then((data) => {
+                    res.json(data)
+                    console.log('saved')
+                })
+                .catch((err) => {
+                    console.log('errrrrrr')
+                })
         })
 })
 
