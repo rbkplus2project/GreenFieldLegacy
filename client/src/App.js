@@ -10,11 +10,13 @@ import NavAndSearch from "./components/navBar/navBar"
 import Profile from "./pages/profile/profile.jsx"
 import CardList from "./components/CardList/cardList"
 import TrialCard from "./components/trialCard/trialCard.jsx"
+
+
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      initailItems: [{ city: "singapore", size: 'large' }, { city: "losAngeles" }, { city: "kualalumpur", size: 'large' }, { city: "rome" }, { city: 'paris' }, { city: "Barcelona" }],
+      // initailItems: [ { city: "rome" },{ city: "losAngeles" }, { city: "kualalumpur", size: 'large' }, { city: "singapore", size: 'large' }, { city: 'paris' }, { city: "Barcelona" }],
       currentUser: "",
       checkIn: "2020-11-24",
       checkOut: "2020-11-30",
@@ -32,7 +34,7 @@ class App extends React.Component {
     let x=this.state.checkIn.split("-")
     let y=this.state.checkOut.split("-")
     
-    return res=(y[0]-x[0])*365+(y[1]-x[1])*30+(y[2]-x[2])
+    return(y[0]-x[0])*365+(y[1]-x[1])*30+(y[2]-x[2])
   }
 
   handleCheckInChange = (checkIn) => {

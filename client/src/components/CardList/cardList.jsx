@@ -24,7 +24,7 @@ class CardList extends React.Component {
                     </h2>
                 } */}
                 <CardComp adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser}  reservationArray={reservationArray} favoritesArray={favoritesArray}/>
-                <StripeCheckoutButton/>
+                <StripeCheckoutButton price={100}/>
             </div>
         )
     }
