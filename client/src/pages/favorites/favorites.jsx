@@ -8,9 +8,11 @@ class Favorites extends React.Component {
     super(props)
     this.state = {
       favoriteNotEmp: true,
-      hideRes:true,
+      removeGetRes:false,
       result: [],
-      currentUser:''
+      currentUser:'',
+      reservationsArray:[]
+      
     }
   }
   componentDidMount=()=> {
@@ -23,7 +25,7 @@ class Favorites extends React.Component {
         body: JSON.stringify({ "displayName": this.props.currentUser }),
     })
         .then(data => data.json())
-        .then(data =>this.setState({result: data.favorites,currentUser:data.displayName}))
+        .then(data =>this.setState({result: data.favorites,currentUser:data.displayName,reservationsArray:data.reservations}))
         .then(()=>console.log(this.state))
 }
 
@@ -35,9 +37,12 @@ return (
         {
             this.state.result.length ?
             this.state.result.map((data, i) => {
-                    {/* console.log(data) */}
+              let ele=this.state.removeGetRes
+                    if(this.state.reservationsArray.includes(data)){
+                      ele=true
+                    }
                     if (typeof data === "object" && data.name)
-                        return <CardComp key={i} data={data} adults={adults} compDidmountF={this.componentDidMount} favoriteNotEmp={this.state.favoriteNotEmp} hideRes={this.state.hideRes}   currentUser={this.state.currentUser}  />
+                        return <CardComp removeGetRes={ele} key={i} data={data} adults={adults} compDidmountF={this.componentDidMount} favoriteNotEmp={this.state.favoriteNotEmp} hideRes={this.state.hideRes}   currentUser={this.state.currentUser}  />
                 })
                 :
                 <h2>

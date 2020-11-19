@@ -11,14 +11,14 @@ router.get("/auth", auth, (req, res) => {
     res.json({
       id: req.user._id,
       displayName: req.user.displayName,
-      favorites:req.user.favorites,
-      reservations:req.user.reservations,
+      favorites: req.user.favorites,
+      reservations: req.user.reservations,
       email: req.user.email
     })
   }
 })
 router.post("/getuser", (req, res) => {
-  User.findOne({displayName:req.body.displayName})
+  User.findOne({ displayName: req.body.displayName })
     .then((data) => res.status(200).send(data))
     .catch((err) => res.status(404).send("error getting the data"))
 })
@@ -41,7 +41,7 @@ router.post('/signup', (req, res) => {
               res.header("jwt-auth", token).json({
                 sucess: true,
                 token: token,
-                displayName:data.displayName
+                displayName: data.displayName
               })
             }))
             .catch(err => res.status(404).send(err))
@@ -51,7 +51,6 @@ router.post('/signup', (req, res) => {
 })
 
 router.post('/signin', (req, res) => {
-
   User.findOne({ email: req.body.email })
     .then(data => {
       if (data) {
@@ -61,25 +60,29 @@ router.post('/signin', (req, res) => {
               jwt.sign({ id: data._id }, 'mysecret', { expiresIn: 86400 }, (err, token) => {
                 if (err) return res.json({ message: "err creating the token" })
                 res.header("jwt-auth", token).json({
-                  sucess: true,
+                  success: true,
                   token: token,
-                  displayName:data.displayName
+                  displayName: data.displayName
                 })
               })
             } else {
               throw Error("incorrect password")
             }
           })
+          .catch(err => res.status(404).json({ success: false }))
       } else {
         throw Error("incorrect email")
       }
-    })  
-    .catch(err => res.josn({"msg":err}))
+    })
+    .catch(err => res.status(404).json({ success: false }))
+
+
+
 })
 
 router.get("/signout", (req, res) => {
   res.header("jwt-auth", "", { maxAge: 1 }).json({
-    token: "" 
+    token: ""
 
   })
 })

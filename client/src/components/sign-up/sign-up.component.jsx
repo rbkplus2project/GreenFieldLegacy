@@ -37,9 +37,18 @@ class SignUp extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        localStorage.setItem("jwt-auth", data.token)
+        if(data.token){
+          localStorage.setItem("jwt-auth", data.token)
+          return true
+        }else if(data.message){
+          alert("Email Already Exists")
+        }else{
+          alert("User Name already Exists")
+        }
+       
         console.log('Success:', data);
       })
+      .then(()=> window.location.reload())
       .catch((error) => {
         console.error('Error:', error);
       });
@@ -49,9 +58,7 @@ class SignUp extends React.Component {
       password: '',
       confirmPassword: ''
     })
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000)
+    
 
   }
 
