@@ -37,23 +37,23 @@ class Reservations extends React.Component {
             return (acc + x)
 
         }, 0)
-        return res
-        console.log(res)
+        return res*this.props.adults*this.props.dateDifferenceNumber()
+        // console.log(res)
         // let res = price.split("$")
         // let x = Number(res[1])
         // x += this.state.price
         //  this.setState({ price: res })
     }
     render() {
-        const { adults } = this.props
+        const { adults,dateDifferenceNumber } = this.props
         return (
             <div>
-                <AppBarr currentUser={this.state.currentUser} onClick={()=>this.handlePrice()} />
+                <AppBarr currentUser={this.state.currentUser}  />
                 {
                     this.state.result.length ?
                         this.state.result.map((data, i) => {
                             if (data) {
-                                return <CardComp key={i} data={data} adults={adults} compDidmount={this.componentDidMount} reserveShow={this.state.reserveShow} hideFav={this.state.hideFav} currentUser={this.state.currentUser} />
+                                return <CardComp key={i} data={data} adults={adults} dateDifferenceNumber={dateDifferenceNumber} compDidmount={this.componentDidMount} reserveShow={this.state.reserveShow} hideFav={this.state.hideFav} currentUser={this.state.currentUser} />
 
                             }
 

@@ -39,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MediaControlCard({ compDidmountF, compDidmount, reserveShow, favoriteNotEmp, adutls, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
+export default function MediaControlCard({ removeGetRes,compDidmountF, compDidmount, reserveShow, favoriteNotEmp, adults, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
   const classes = useStyles();
   const theme = useTheme();
 
   const [favNotEmpty, setFav] = React.useState(false || favoriteNotEmp);
-  const [reservation, setReservation] = React.useState((reserveShow || false));
+  const [reservation, setReservation] = React.useState((removeGetRes||reserveShow ||false));
 
 
   const handleFavAdd = (data, currentUser) => {
@@ -122,6 +122,12 @@ export default function MediaControlCard({ compDidmountF, compDidmount, reserveS
     setReservation(false)
   }
 
+  const priceConverter=(price,adults,date)=>{
+    let res = price.split("$")
+        let x = Number(res[1])
+        console.log ( adults)
+        return x*adults*date
+  }
   return (
     <Card className={classes.root} id="body">
       <div className="first_img">
@@ -171,8 +177,8 @@ export default function MediaControlCard({ compDidmountF, compDidmount, reserveS
               </div>
             </Typography>
             {/* $ 19.99 */}
-            {/* {data.ratePlan.price.current*adults*dateDifferenceNumber()} */}
-            {data.ratePlan.price.current}
+            ${priceConverter(data.ratePlan.price.current,adults,dateDifferenceNumber())}
+            {/* {data.ratePlan.price.current} */}
           </div>
         </div>
       </div>
@@ -192,9 +198,7 @@ export default function MediaControlCard({ compDidmountF, compDidmount, reserveS
           </div>
         </div>
         <div className="third_component_secondline">
-          {hideRes ?
-            <div></div>
-            :
+          {
             currentUser ?
               reservation ?
                 <Button variant="contained" color="primary" onClick={() => handleReserveRemove(data, currentUser)}>
