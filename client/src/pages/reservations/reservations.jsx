@@ -27,38 +27,47 @@ class Reservations extends React.Component {
         })
             .then(data => data.json())
             .then(data => { console.log(data); this.setState({ result: data.reservations, currentUser: data.displayName, userid: data._id }) })
-        // .then(() => console.log(this.state))
+        .then(() => console.log(this.state))
     }
 
-    handlePrice = (price) => {
-        let res = price.split("$")
-        let x = Number(res[1])
-        x+=this.state.price
-        this.setState({ price: x })
+    handlePrice=() => {
+       let res= this.state.result.reduce((acc, el) => {
+            let res = el.ratePlan.price.current.split("$")
+            let x = Number(res[1])
+            return (acc + x)
+
+        }, 0)
+        return res
+        console.log(res)
+        // let res = price.split("$")
+        // let x = Number(res[1])
+        // x += this.state.price
+        //  this.setState({ price: res })
     }
     render() {
         const { adults } = this.props
         return (
             <div>
-                <AppBarr currentUser={this.state.currentUser} />
+                <AppBarr currentUser={this.state.currentUser} onClick={()=>this.handlePrice()} />
                 {
                     this.state.result.length ?
                         this.state.result.map((data, i) => {
-                            {/* console.log(data) */ }
-                            if (data){
-                                this.handlePrice()
+                            if (data) {
                                 return <CardComp key={i} data={data} adults={adults} compDidmount={this.componentDidMount} reserveShow={this.state.reserveShow} hideFav={this.state.hideFav} currentUser={this.state.currentUser} />
 
                             }
-                                
+
                         })
                         :
                         <h2>
                             there are no items
                     </h2>
                 }
-                <div className='total'>TOTAL: ${this.state.price}</div>
-                <StripeCheckoutButton price={this.state.price} userid={this.state.userid} />
+                <div className="center-me">
+                    {/* <div className='t   otal'>TOTAL: ${this.state.price}</div> */}
+                    <StripeCheckoutButton className="payment" price={this.handlePrice()*1000} userid={this.state.userid} />
+                </div>
+
             </div>
         );
     }

@@ -40,7 +40,7 @@ class AppBarr extends React.Component {
                                             Log-out
                                     </Button>
                                         <Link  to='/profile' className="mys">
-                                        <IconButton color='inherit' edge="start" aria-label="menu">
+                                        <IconButton color='inherit' edge="start" aria-label="menu" >
                                         <AccountCircleIcon className="Account" />
                                            
                                         </IconButton>
