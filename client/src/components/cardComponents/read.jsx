@@ -39,11 +39,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MediaControlCard({ data, currentUser }) {
+export default function MediaControlCard({ removeGetRes,compDidmountF, compDidmount, reserveShow, favoriteNotEmp, adults, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
   const classes = useStyles();
   const theme = useTheme();
-  const [favEmpty, setFav] = React.useState(true);
-  const [reservation, setReservation] = React.useState(false);
+
+  const [favNotEmpty, setFav] = React.useState(false || favoriteNotEmp);
+  const [reservation, setReservation] = React.useState((removeGetRes||reserveShow ||false));
 
 
   const handleFavAdd = (data, currentUser) => {
@@ -53,19 +54,19 @@ export default function MediaControlCard({ data, currentUser }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({"displayName": currentUser, "favorites": data }),
+      body: JSON.stringify({ "displayName": currentUser, "favorites": data }),
     })
       .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-
+      .then((data) => {
+        compDidmountF()
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-    setFav(false)
+      setFav(true)
   }
   const handleFavRemove = (data, currentUser) => {
+    // console.log(data)
     fetch('http://127.0.0.1:5000/fav/delete', {
       method: 'POST', // or 'PUT'
       headers: {
@@ -75,13 +76,13 @@ export default function MediaControlCard({ data, currentUser }) {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data);
-
+        compDidmountF()
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-    setFav(true)
+    if (!hideRes)
+      setFav(false)
   }
 
   const handleReserveAdd = (data, currentUser) => {
@@ -94,8 +95,7 @@ export default function MediaControlCard({ data, currentUser }) {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data);
-
+        compDidmount()
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -113,29 +113,38 @@ export default function MediaControlCard({ data, currentUser }) {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data); 
-
+        compDidmount()
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-
+      if(!hideFav)
     setReservation(false)
   }
 
+  const priceConverter=(price,adults,date)=>{
+    let res = price.split("$")
+        let x = Number(res[1])
+        console.log ( adults)
+        return x*adults*date
+  }
   return (
     <Card className={classes.root} id="body">
       <div className="first_img">
         <div  >
-          < img src={data.thumbnailUrl} className="img img_abs"/>
+          < img src={data.thumbnailUrl} className="img img_abs" />
           {/* < img src={img} className="img img_abs" /> */}
-          {currentUser ?
-            favEmpty ?
-              <FavoriteBorderIcon color="action" fontSize="large" className="icon" onClick={() => handleFavAdd(data, currentUser)} />
-              :
-              <FavoriteIcon color="error" fontSize="large" className="icon" onClick={() => handleFavRemove(data, currentUser)} />
-            :
+
+          {hideFav ?
             <div></div>
+            :
+            currentUser ?
+              !favNotEmpty ?
+                <FavoriteBorderIcon color="action" fontSize="large" className="icon" onClick={() => handleFavAdd(data, currentUser)} />
+                :
+                <FavoriteIcon color="error" fontSize="large" className="icon" onClick={() => handleFavRemove(data, currentUser)} />
+              :
+              <div></div>
           }
 
 
@@ -164,11 +173,12 @@ export default function MediaControlCard({ data, currentUser }) {
             <Typography  >
               <div className="facility">
                 {/* swimming pool,Airport shuttle,Tea/Coffee maker */}
-        {data.address.streetAddress}
+                {data.address.streetAddress}
               </div>
             </Typography>
-           {/* $ 19.99 */}
-          {data.ratePlan.price.current}
+            {/* $ 19.99 */}
+            ${priceConverter(data.ratePlan.price.current,adults,dateDifferenceNumber())}
+            {/* {data.ratePlan.price.current} */}
           </div>
         </div>
       </div>

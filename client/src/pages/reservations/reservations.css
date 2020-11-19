@@ -1,0 +1,17 @@
+ .total {
+    /* margin-top: 30px; */
+    /* margin-left: auto; */
+    font-size: 26px;
+  }
+  .payment{
+      padding: 30px;
+      margin: auto;
+  } 
+  .center-me{
+      width: 60vw;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      /* justify-content: space-between; */
+      align-items: center;
+  } 

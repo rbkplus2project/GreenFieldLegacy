@@ -19,6 +19,7 @@ class AppBarr extends React.Component {
         fetch("http://127.0.0.1:5000/signout")
             .then(() => {
                 localStorage.removeItem("jwt-auth")
+                
                 window.location.reload()
             })
     }
@@ -40,7 +41,7 @@ class AppBarr extends React.Component {
                                             Log-out
                                     </Button>
                                         <Link  to='/profile' className="mys">
-                                        <IconButton color='inherit' edge="start" aria-label="menu">
+                                        <IconButton color='inherit' edge="start" aria-label="menu" >
                                         <AccountCircleIcon className="Account" />
                                            
                                         </IconButton>

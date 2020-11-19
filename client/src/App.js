@@ -10,21 +10,34 @@ import NavAndSearch from "./components/navBar/navBar"
 import Profile from "./pages/profile/profile.jsx"
 import CardList from "./components/CardList/cardList"
 import TrialCard from "./components/trialCard/trialCard.jsx"
+import Favorites from "./pages/favorites/favorites.jsx"
+import Reservations from "./pages/reservations/reservations.jsx"
+
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      initailItems: [{ city: "singapore", size: 'large' }, { city: "losAngeles" }, { city: "kualalumpur", size: 'large' }, { city: "rome" }, { city: 'paris' }, { city: "Barcelona" }],
+      // initailItems: [ { city: "rome" },{ city: "losAngeles" }, { city: "kualalumpur", size: 'large' }, { city: "singapore", size: 'large' }, { city: 'paris' }, { city: "Barcelona" }],
       currentUser: "",
       checkIn: "2020-11-24",
       checkOut: "2020-11-30",
       searchValue: "",
       cityAndCountry: "",
+      adults: 1,
       resulsArray: [],
-      reservation:[],
-      favorites:[]
+      reservationArray: [],
+      favoritesArray: []
     }
   }
+
+  //converting the date into numbers
+  dateDifferenceNumber = () => {
+    let x = this.state.checkIn.split("-")
+    let y = this.state.checkOut.split("-")
+
+    return (y[0] - x[0]) * 365 + (y[1] - x[1]) * 30 + (y[2] - x[2])
+  }
+
   handleCheckInChange = (checkIn) => {
     this.setState({ checkIn })
   }
@@ -77,6 +90,15 @@ class App extends React.Component {
   //         console.log(err);
   //       });
   // }
+
+  handleReservationArray = async (reservationArray) => {
+    await this.setState({ reservationArray })
+    console.log(this.state)
+  }
+  handleFavoritesArray = async (favoritesArray) => {
+    await this.setState({ favoritesArray })
+    console.log(this.state)
+  }
   componentDidMount() {
     //checking the auth
     const requestOptions = {
@@ -89,12 +111,16 @@ class App extends React.Component {
     fetch("http://localhost:5000/user/auth", requestOptions)
       .then(res => res.json())
       .then(data => {
-        this.setState({ currentUser: data.displayName })
+        this.setState({
+          currentUser: data.displayName, favoritesArray: data.favorites, reservationArray: data.reservations
+        })
       })
       .then(() => console.log(this.state))
       .catch(err => console.log(err.message))
 
     console.log("pathname", window.location.pathname);
+
+
 
   }
   render() {
@@ -115,11 +141,21 @@ class App extends React.Component {
             this.state.currentUser
               ? (<Profile handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
               : (<Redirect to='/' />)} />
+          <Route exact path="/profile/favorites" render={() =>
+            this.state.currentUser
+              ? (<Favorites adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
+              : (<Redirect to='/' />)} />
+
+          <Route exact path="/profile/reservations" render={() =>
+            this.state.currentUser
+              ? (<Reservations adults={this.state.adults} currentUser={this.state.currentUser} dateDifferenceNumber={this.dateDifferenceNumber}  handleSeachButtonClick={this.handleSeachButtonClick}  cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
+              : (<Redirect to='/' />)} />
           <Switch>
             <Route exact path="/" render={() => <HomePage handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
             {/* <Route exact path="/card" render={() => <CardComp handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} /> */}
             {/* <Route exact path="/trial" render={() => <TrialCard />} /> */}
-            <Route exact path="/cardlist" render={() => <CardList handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray}/>} />
+            <Route exact path="/cardlist" render={() => <CardList adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
+
           </Switch>
         </BrowserRouter>
       </div>
