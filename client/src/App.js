@@ -9,10 +9,9 @@ import CardComp from "./components/cardComponents/card"
 import NavAndSearch from "./components/navBar/navBar"
 import Profile from "./pages/profile/profile.jsx"
 import CardList from "./components/CardList/cardList"
-import TrialCard from "./components/trialCard/trialCard.jsx"
 import Favorites from "./pages/favorites/favorites.jsx"
 import Reservations from "./pages/reservations/reservations.jsx"
-
+import TrialCard from "./components/trialCard/trialCard.jsx"
 class App extends React.Component {
   constructor() {
     super()
@@ -140,6 +139,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" render={() => <HomePage handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
             <Route exact path="/cardlist" render={() => <CardList adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
+            <Route exact path="/trial" render={() => <TrialCard  />} />
           </Switch>
         </BrowserRouter>
       </div>
