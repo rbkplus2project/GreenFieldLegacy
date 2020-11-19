@@ -38,12 +38,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
+ 
 export default function MediaControlCard({ removeGetRes,compDidmountF, compDidmount, reserveShow, favoriteNotEmp, adults, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [favNotEmpty, setFav] = React.useState(false || favoriteNotEmp);
+  const [favNotEmpty, setFav] = React.useState( favoriteNotEmp||false );
   const [reservation, setReservation] = React.useState((removeGetRes||reserveShow ||false));
 
 
@@ -139,7 +139,7 @@ export default function MediaControlCard({ removeGetRes,compDidmountF, compDidmo
             <div></div>
             :
             currentUser ?
-              !favNotEmpty ?
+              !favoriteNotEmp ?
                 <FavoriteBorderIcon color="action" fontSize="large" className="icon" onClick={() => handleFavAdd(data, currentUser)} />
                 :
                 <FavoriteIcon color="error" fontSize="large" className="icon" onClick={() => handleFavRemove(data, currentUser)} />

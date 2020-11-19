@@ -25,8 +25,7 @@ class App extends React.Component {
       cityAndCountry: "",
       adults: 1,
       resulsArray: [],
-      reservationArray: [],
-      favoritesArray: []
+      admin:false
     }
   }
 
@@ -112,7 +111,7 @@ class App extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          currentUser: data.displayName, favoritesArray: data.favorites, reservationArray: data.reservations
+          currentUser: data.displayName, admin:data.admin
         })
       })
       .catch(err => console.log(err.message))
