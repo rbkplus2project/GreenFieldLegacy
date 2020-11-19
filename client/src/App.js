@@ -115,13 +115,7 @@ class App extends React.Component {
           currentUser: data.displayName, favoritesArray: data.favorites, reservationArray: data.reservations
         })
       })
-      .then(() => console.log(this.state))
       .catch(err => console.log(err.message))
-
-    console.log("pathname", window.location.pathname);
-
-
-
   }
   render() {
     return (
@@ -131,12 +125,6 @@ class App extends React.Component {
             this.state.currentUser
               ? (<Redirect to='/' />)
               : (<SignInAndSignUpPage />)} />
-          {/* {
-                  (window.location.pathname==="/signin")?
-                  <div></div>
-                  :
-                  <NavAndSearch handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange}/>
-                } */}
           <Route exact path="/profile" render={() =>
             this.state.currentUser
               ? (<Profile handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
@@ -148,14 +136,11 @@ class App extends React.Component {
 
           <Route exact path="/profile/reservations" render={() =>
             this.state.currentUser
-              ? (<Reservations adults={this.state.adults} currentUser={this.state.currentUser} dateDifferenceNumber={this.dateDifferenceNumber}  handleSeachButtonClick={this.handleSeachButtonClick}  cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
+              ? (<Reservations adults={this.state.adults} currentUser={this.state.currentUser} dateDifferenceNumber={this.dateDifferenceNumber} handleSeachButtonClick={this.handleSeachButtonClick} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
               : (<Redirect to='/' />)} />
           <Switch>
             <Route exact path="/" render={() => <HomePage handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
-            {/* <Route exact path="/card" render={() => <CardComp handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} /> */}
-            {/* <Route exact path="/trial" render={() => <TrialCard />} /> */}
             <Route exact path="/cardlist" render={() => <CardList adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
-
           </Switch>
         </BrowserRouter>
       </div>

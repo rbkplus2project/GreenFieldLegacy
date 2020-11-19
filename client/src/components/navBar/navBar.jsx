@@ -28,7 +28,7 @@ class NavAndSearch extends React.Component {
             <MaterialUIPickers name="check in" checkInOrOut={checkIn} />
             <MaterialUIPickers name="check out" checkInOrOut={checkOut}/>
             <div className="search">
-              <Button  variant="contained" size="medium"  onClick={(e)=>{e.preventDefault();handleSeachButtonClick()}}>
+              <Button  variant="outlined" color="primary" size="medium"  onClick={(e)=>{e.preventDefault();handleSeachButtonClick()}}>
               <Link  to='/cardlist' >
               search
               </Link>

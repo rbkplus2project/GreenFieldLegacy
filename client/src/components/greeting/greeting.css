@@ -1,7 +1,9 @@
 .greeting{
+    font-family: 'Courier New', Courier, monospace;
     background-color: rgb(255, 250, 250);
     height: 10rem;
     display: flex;
     align-items: center;
     justify-content: center;
+
     }

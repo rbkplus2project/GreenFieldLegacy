@@ -15,8 +15,7 @@ class HomePage extends React.Component {
    const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick} =this.props
     return (
       <div>
-        <NavAndSearch handleSeachButtonClick={handleSeachButtonClick}currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry}/>
-        {/* <div className='directory-menu' > */}
+        <NavAndSearch handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry}/>
         <div className="cards-list"> 
           { 
             this.state.initailItems.map((item, id) => (
@@ -27,7 +26,6 @@ class HomePage extends React.Component {
             ))
           }
             </div>
-        {/* </div>  */}
       </div>
     );
   }
