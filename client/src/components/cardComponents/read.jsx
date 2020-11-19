@@ -150,14 +150,14 @@ export default function MediaControlCard({ compDidmountF, compDidmount, reserveS
           <CardContent className={classes.content}>
             <div>
               <Typography component="h5" variant="h5">
-                Seneca Lake (and vicinity)
+                {/* Seneca Lake (and vicinity) */}
           {data.name}
               </Typography>
             </div>
             <div className="center-second">
               <Typography variant="subtitle1" color="textSecondary">
                 <div className="citysize">
-                  New York, United States of America
+                  {/* New York, United States of America */}
           {data.address.locality}, {data.address.countryName}
                 </div>
               </Typography>

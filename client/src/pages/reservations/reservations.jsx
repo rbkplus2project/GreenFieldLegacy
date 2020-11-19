@@ -65,7 +65,7 @@ class Reservations extends React.Component {
                 }
                 <div className="center-me">
                     {/* <div className='t   otal'>TOTAL: ${this.state.price}</div> */}
-                    <StripeCheckoutButton className="payment" price={this.handlePrice()*1000} userid={this.state.userid} />
+                    <StripeCheckoutButton className="payment" price={this.handlePrice()} userid={this.state.userid} />
                 </div>
 
             </div>

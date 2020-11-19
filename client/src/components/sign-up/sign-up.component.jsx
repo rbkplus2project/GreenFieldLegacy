@@ -50,7 +50,7 @@ class SignUp extends React.Component {
       confirmPassword: ''
     })
     setTimeout(() => {
-      window.location.reload(false);
+      window.location.reload();
     }, 1000)
 
   }

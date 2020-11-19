@@ -1,13 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const db = require("./database")
-const cors = require("cors")
 const { Payment } = require("../database/payment")
+const router = express.Router()
 
-let app = express();
-app.use(cors())
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -17,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
   })
 }
-app.post('/payment', (req, res) => {
+router.post('/payment', (req, res) => {
   console.log('reached ********************************')
   console.log(req.body.token.id)
   console.log(' ********************************')
@@ -35,7 +29,7 @@ app.post('/payment', (req, res) => {
     if (stripeErr) res.status(500).send({ error: stripeErr })
     else {
       let paymentR = new Payment({
-        amount: stripeRes.amount,
+        amount: stripeRes.amount/100,
         userid: req.body.userid,
         city: stripeRes.billing_details.address.city,
         country: stripeRes.billing_details.address.country,
@@ -56,10 +50,4 @@ app.post('/payment', (req, res) => {
     }
   })
 })
-app.use('/user', require('./routes/user'));
-app.use('/fav', require('./routes/favourates'));
-app.use('/reservation', require('./routes/resevation'));
-let port = 5000;
-app.listen(port, function () {
-  console.log(`listening on port ${port}`);
-});
+module.exports = router

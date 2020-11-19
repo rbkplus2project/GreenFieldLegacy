@@ -40,7 +40,8 @@ router.post('/signup', (req, res) => {
             .then((data) => jwt.sign({ id: data._id }, 'mysecret', { expiresIn: 86400 }, (err, token) => {
               res.header("jwt-auth", token).json({
                 sucess: true,
-                token: token
+                token: token,
+                displayName:data.displayName
               })
             }))
             .catch(err => res.status(404).send(err))
@@ -61,7 +62,8 @@ router.post('/signin', (req, res) => {
                 if (err) return res.json({ message: "err creating the token" })
                 res.header("jwt-auth", token).json({
                   sucess: true,
-                  token: token
+                  token: token,
+                  displayName:data.displayName
                 })
               })
             } else {
@@ -71,13 +73,14 @@ router.post('/signin', (req, res) => {
       } else {
         throw Error("incorrect email")
       }
-    })
-    .catch(err => res.status(404).send(err))
+    })  
+    .catch(err => res.josn({"msg":err}))
 })
 
 router.get("/signout", (req, res) => {
   res.header("jwt-auth", "", { maxAge: 1 }).json({
-    token: ""
+    token: "" 
+
   })
 })
 

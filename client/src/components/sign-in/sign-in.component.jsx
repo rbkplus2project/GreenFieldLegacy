@@ -13,8 +13,7 @@ class SignIn extends React.Component {
 
     this.state = {
       email: '',
-      password: '',
-      token: ""
+      password: ''
     };
   }
   componentDidMount() {
@@ -32,19 +31,17 @@ class SignIn extends React.Component {
     })
       .then(response => response.json())
       .then( (data) => {
-        // this.setState({token:localStorage.getItem("token")})
-        localStorage.setItem("jwt-auth", data.token)
-
+        localStorage.setItem("jwt-auth", data.token)      
         console.log('Success:', data);
       })
       .then(()=> window.location.reload())
       .catch((error) => {
         console.error('Error:', error);
-      });
-
+      })
+ 
     this.setState({ email: '', password: '' })
   }
-
+     
   handleChange = event => {
     const { value, name } = event.target;
     this.setState({ [name]: value })
