@@ -19,7 +19,7 @@ class App extends React.Component {
       adults: 1,
       resulsArray: [],
       admin: false,
-      cityAndCountry:""
+      cityAndCountry: ""
     }
   }
 
@@ -34,57 +34,61 @@ class App extends React.Component {
     this.setState({ checkIn })
   }
 
-  handleCheckOutChange = (checkOut) => {
-    this.setState({ checkOut })
+  handleCheckOutChange = async (checkOut) => {
+    await this.setState({ checkOut })
+    let x = this.state.checkIn.split("-")
+    let y = this.state.checkOut.split("-")
+    if ((y[0] - x[0]) * 365 + (y[1] - x[1]) * 30 + (y[2] - x[2]) < 0)
+      alert("check-in date should be before check-out")
   }
 
   handlesearchValueChange = (searchValue) => {
     this.setState({ searchValue })
   }
 
-  handleAdultsChange =  (data) => {
-    let data1=Number(data)
-     this.setState({ adults: data1 })
+  handleAdultsChange = (data) => {
+    let data1 = Number(data)
+    this.setState({ adults: data1 })
   }
 
-  handleCityAndCountry=(cityAndCountry)=>{
-this.setState({cityAndCountry})
+  handleCityAndCountry = (cityAndCountry) => {
+    this.setState({ cityAndCountry })
   }
-  handleSeachButtonClick = () => {
-    console.log(this.state.searchValue)
-      fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
-        "method": "GET",
-        "headers": {
-          "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
-          "x-rapidapi-host": "hotels4.p.rapidapi.com"
-        }
-      })
-        .then(response => {
-          return response.json()
-        })
-        .then((data) => {
-          fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
-            "method": "GET",
-            "headers": {
-              "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
-              "x-rapidapi-host": "hotels4.p.rapidapi.com"
-            }
-          })
-            .then(response => {
-              return response.json()
-            })
-            .then(data => {
-              this.setState({ resulsArray: data.data.body.searchResults.results })
-            })
-            .then(data => console.log(this.state))
-            .catch(err => {
-              console.error(err);
-            });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-  }
+  // handleSeachButtonClick = () => {
+  //   console.log(this.state.searchValue)
+  //     fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
+  //       "method": "GET",
+  //       "headers": {
+  //         "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+  //         "x-rapidapi-host": "hotels4.p.rapidapi.com"
+  //       }
+  //     })
+  //       .then(response => {
+  //         return response.json()
+  //       })
+  //       .then((data) => {
+  //         fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
+  //           "method": "GET",
+  //           "headers": {
+  //             "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+  //             "x-rapidapi-host": "hotels4.p.rapidapi.com"
+  //           }
+  //         })
+  //           .then(response => {
+  //             return response.json()
+  //           })
+  //           .then(data => {
+  //             this.setState({ resulsArray: data.data.body.searchResults.results })
+  //           })
+  //           .then(data => console.log(this.state))
+  //           .catch(err => {
+  //             console.error(err);
+  //           });
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  // }
 
   componentDidMount() {
     //checking the auth 
@@ -119,7 +123,7 @@ this.setState({cityAndCountry})
               : (<Redirect to='/' />)} />
           <Switch>
             <Route exact path="/" render={() => <HomePage handleAdultsChange={this.handleAdultsChange} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
-            <Route exact path="/cardlist" render={() => <CardList  handleAdultsChange={this.handleAdultsChange} adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
+            <Route exact path="/cardlist" render={() => <CardList handleAdultsChange={this.handleAdultsChange} adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
           </Switch>
         </BrowserRouter>
       </div>
