@@ -13,8 +13,7 @@ class SignIn extends React.Component {
 
     this.state = {
       email: '',
-      password: '',
-      token: ""
+      password: ''
     };
   }
   componentDidMount() {
@@ -31,16 +30,22 @@ class SignIn extends React.Component {
       body: JSON.stringify(this.state),
     })
       .then(response => response.json())
-      .then( (data) => {
-        // this.setState({token:localStorage.getItem("token")})
-        localStorage.setItem("jwt-auth", data.token)
-
+      .then((data) => {
+        if (data.success){
+          localStorage.setItem("jwt-auth", data.token)
+          localStorage.setItem("current-user", data.displayName)
+        }
+         
+        else {
+          throw Error("incorrect credentials")
+        }
         console.log('Success:', data);
       })
-      .then(()=> window.location.reload())
+      .then(() => { window.location.reload() })
       .catch((error) => {
+        alert(error)
         console.error('Error:', error);
-      });
+      })
 
     this.setState({ email: '', password: '' })
   }

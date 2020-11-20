@@ -11,11 +11,18 @@ router.get("/auth", auth, (req, res) => {
     res.json({
       id: req.user._id,
       displayName: req.user.displayName,
-      email: req.user.email
+      favorites: req.user.favorites,
+      reservations: req.user.reservations,
+      email: req.user.email,
+      admin:req.body.admin
     })
   }
 })
-
+router.post("/getuser", (req, res) => {
+  User.findOne({ displayName: req.body.displayName })
+    .then((data) => res.status(200).send(data))
+    .catch((err) => res.status(404).send("error getting the data"))
+})
 router.post('/signup', (req, res) => {
   const password = req.body.password
   const saltRounds = 10
@@ -29,12 +36,15 @@ router.post('/signup', (req, res) => {
         .then((salt) => bcrypt.hash(password, salt))
         .then((hashedPassword) => {
           data.password = hashedPassword
+          data.admin=true
           let user = new User(data)
           user.save()
             .then((data) => jwt.sign({ id: data._id }, 'mysecret', { expiresIn: 86400 }, (err, token) => {
               res.header("jwt-auth", token).json({
                 sucess: true,
-                token: token
+                token: token,
+                displayName: data.displayName,
+                admin:data.admin
               })
             }))
             .catch(err => res.status(404).send(err))
@@ -44,7 +54,6 @@ router.post('/signup', (req, res) => {
 })
 
 router.post('/signin', (req, res) => {
-
   User.findOne({ email: req.body.email })
     .then(data => {
       if (data) {
@@ -54,24 +63,31 @@ router.post('/signin', (req, res) => {
               jwt.sign({ id: data._id }, 'mysecret', { expiresIn: 86400 }, (err, token) => {
                 if (err) return res.json({ message: "err creating the token" })
                 res.header("jwt-auth", token).json({
-                  sucess: true,
-                  token: token
+                  success: true,
+                  token: token,
+                  displayName: data.displayName,
+                  admin:data.admin
                 })
               })
             } else {
               throw Error("incorrect password")
             }
           })
+          .catch(err => res.status(404).json({ success: false }))
       } else {
         throw Error("incorrect email")
       }
     })
-    .catch(err => res.status(404).send(err))
+    .catch(err => res.status(404).json({ success: false }))
+
+
+
 })
 
 router.get("/signout", (req, res) => {
   res.header("jwt-auth", "", { maxAge: 1 }).json({
-    token: ""
+    token: "",
+    currentUser:""
   })
 })
 

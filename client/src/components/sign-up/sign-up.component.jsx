@@ -22,11 +22,15 @@ class SignUp extends React.Component {
     event.preventDefault();
 
     const { password, confirmPassword } = this.state;
-
+if(password.length<8){
+  alert("Password should not be less than 8 charecters")
+  return 
+}
     if (password !== confirmPassword) {
       alert("Passwords Don't Match")
       return;
     }
+
     // sign up the user
     fetch('http://127.0.0.1:5000/user/signup', {
       method: 'POST', // or 'PUT'
@@ -37,9 +41,19 @@ class SignUp extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        localStorage.setItem("jwt-auth", data.token)
+        if(data.token){
+          localStorage.setItem("jwt-auth", data.token)
+          localStorage.setItem("current-user", data.displayName)
+          return true
+        }else if(data.message){
+          alert("Email Already Exists")
+        }else{
+          alert("User Name already Exists")
+        }
+       
         console.log('Success:', data);
       })
+      .then(()=> window.location.reload())
       .catch((error) => {
         console.error('Error:', error);
       });
@@ -49,9 +63,7 @@ class SignUp extends React.Component {
       password: '',
       confirmPassword: ''
     })
-    setTimeout(() => {
-      window.location.reload(false);
-    }, 1000)
+    
 
   }
 

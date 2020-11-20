@@ -9,20 +9,19 @@ import {
 } from '@material-ui/pickers';
 import { da } from 'date-fns/locale';
 
-export default function MaterialUIPickers({name,checkInOrOut}) {
+export default function MaterialUIPickers({ name, checkInOrOut }) {
     // The first commit of Material-UI
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2020-11-14T21:11:54'));
+    const [selectedDate, setSelectedDate] = React.useState(new Date('2020-11-21T21:11:54'));
     const [open, setOpen] = React.useState(false);
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
         setOpen(false)
-        var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 ))
-                    .toISOString()
-                    .split("T")[0];
+        var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+            .toISOString()
+            .split("T")[0];
         console.log(dateString)
         checkInOrOut(dateString)
-       
     };
 
     return (
