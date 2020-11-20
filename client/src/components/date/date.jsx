@@ -22,7 +22,6 @@ export default function MaterialUIPickers({ name, checkInOrOut }) {
             .split("T")[0];
         console.log(dateString)
         checkInOrOut(dateString)
-
     };
 
     return (

@@ -11,7 +11,7 @@ export default function DisabledTabs({handleFavPrevChange,compDidmount}) {
   };
 
   return (
-    <Paper square>
+    <Paper square style={{borderBottomRightRadius:'20px', borderTopRightRadius:'20px'}}>
       <Tabs
         value={value}
         indicatorColor="primary"

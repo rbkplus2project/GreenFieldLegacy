@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MediaControlCard({ removeGetRes, compDidmountF, compDidmount, reserveShow, favoriteNotEmp, adults, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
+export default function MediaControlCard({ removeGetRes,compDidmount, reserveShow, favoriteNotEmp, adults, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -58,7 +58,7 @@ export default function MediaControlCard({ removeGetRes, compDidmountF, compDidm
     })
       .then(response => response.json())
       .then((data) => {
-        compDidmountF()
+        compDidmount()
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -76,7 +76,7 @@ export default function MediaControlCard({ removeGetRes, compDidmountF, compDidm
     })
       .then(response => response.json())
       .then(data => {
-        compDidmountF()
+        compDidmount()
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -129,10 +129,10 @@ export default function MediaControlCard({ removeGetRes, compDidmountF, compDidm
     return x * adults * date
   }
   return (
-    <Card className={classes.root} id="body">
+    <Card className={classes.root} id="body" style={{borderRadius:"15px"}}>
       <div className="first_img">
         <div  >
-          < img src={data.thumbnailUrl} className="img img_abs" />
+          < img src={data.thumbnailUrl} className="img img_abs" style={{borderRadius:"15px"}}/>
           {/* < img src={img} className="img img_abs" /> */}
 
           {hideFav ?

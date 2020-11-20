@@ -66,12 +66,13 @@ class ProfileBody extends React.Component {
             hideFav: true,
             userid: "",
             price: 0,
-            favPrev: true
+            favPrev: true,
+            admin: false,
+            master: false,
         }
     }
 
     componentDidMount = () => {
-
         fetch("http://127.0.0.1:5000/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
@@ -80,7 +81,7 @@ class ProfileBody extends React.Component {
             body: JSON.stringify({ "displayName": this.props.currentUser }),
         })
             .then(data => data.json())
-            .then(data => this.setState({ result: data.favorites, currentUser: data.displayName, reservationsArray: data.reservations, email: data.email, userid: data._id }))
+            .then(data => this.setState({ result: data.favorites, currentUser: data.displayName, reservationsArray: data.reservations, email: data.email, userid: data._id, admin: data.admin, master: data.master }))
             .then(() => this.setState({ price: this.handlePrice() }))
     }
     handleFavPrevChange = (data) => {
@@ -101,19 +102,19 @@ class ProfileBody extends React.Component {
 
         return (
 
-            <div style={{ maxWidth: "1000px", margin: "0px auto" }}>
+            <div style={{ maxWidth: "1050px", margin: "0px auto" }}>
                 <div style={{
                 }}>
                     <div className="background_img">
                         <img style={{ width: "160px", marginTop: '30px', marginLeft: '30px', height: "160px", borderRadius: "80px " }}
                             src="https://ca.slack-edge.com/TTVPM20S0-U018HTXLNDD-c9c19858d7dc-512" />
                         <div style={{ marginLeft: "55px", display: "flex", justifyContent: "space-around", width: "15%" }}>
-                            <h4 style={{ margin: "0px", color: "white" }}>{currentUser}</h4>
-                            <div style={{ paddingLeft: "5px", margin: "0px" }} className="active"></div>
+                            <h2 style={{ margin: "0px", color: "white" }}>{currentUser}</h2>
+                            <div style={{ paddingLeft: "5px", margin: "0px", marginTop: '5px' }} className="active"></div>
                         </div>
                     </div>
                 </div>
-                <div style={{ display: "flex", height: "100vh" }}>
+                <div style={{ display: "flex", height: "50vh" }}>
                     <div style={{ flex: ".27", backgroundColor: "#f2f2f2", boxShadow: '3px 3px #d9d9d9', borderTopLeftRadius: "45px" }} >
                         <div >
                             <h3 style={{ padding: "30px 10px 20px 15px" }}> username: {currentUser}</h3>
@@ -123,7 +124,7 @@ class ProfileBody extends React.Component {
                         </div>
                     </div>
                     <div style={{ flex: '.73' }}>
-                        <DisabledTabs handleFavPrevChange={this.handleFavPrevChange} compDidmount={this.componentDidMount}/>
+                        <DisabledTabs admin={this.state.admin} master={this.state.master} handleFavPrevChange={this.handleFavPrevChange} compDidmount={this.componentDidMount} />
                         {/* component code for FAVORITES*/}
                         <div className="gallery">
                             {this.state.favPrev ?
@@ -138,7 +139,7 @@ class ProfileBody extends React.Component {
                                                     }
                                                 })
                                                 if (typeof data === "object" && data.name)
-                                                    return <CardComp dateDifferenceNumber={dateDifferenceNumber} removeGetRes={ele} key={i} data={data} adults={adults} compDidmountF={this.componentDidMount} favoriteNotEmp={this.state.favoriteNotEmp} hideRes={this.state.hideRes} currentUser={this.state.currentUser} />
+                                                    return <CardComp dateDifferenceNumber={dateDifferenceNumber} removeGetRes={ele} key={i} data={data} adults={adults} compDidmount={this.componentDidMount} favoriteNotEmp={this.state.favoriteNotEmp} hideRes={this.state.hideRes} currentUser={this.state.currentUser} />
                                             })
                                             :
                                             <h2>
@@ -149,26 +150,38 @@ class ProfileBody extends React.Component {
                                 : <div>
                                     {/* component code for RESERVATIONS*/}
                                     {
-                                        this.state.reservationsArray.length ?
-                                            this.state.reservationsArray.map((data, i) => {
-                                                if (data) {
-                                                    return <CardComp key={i} data={data} adults={adults} dateDifferenceNumber={dateDifferenceNumber} compDidmount={this.componentDidMount} reserveShow={this.state.reserveShow} hideFav={this.state.hideFav} currentUser={this.state.currentUser} />
-                                                }
+                                        <div>
 
-                                            })
-                                            :
-                                            <h2>
-                                                there are no items
-                                    </h2>
+                                            {this.state.reservationsArray.length ?
+                                                <div>
+
+                                                    {this.state.reservationsArray.map((data, i) => {
+                                                        if (data) {
+                                                            return <CardComp key={i} data={data} adults={adults} dateDifferenceNumber={dateDifferenceNumber} compDidmount={this.componentDidMount} reserveShow={this.state.reserveShow} hideFav={this.state.hideFav} currentUser={this.state.currentUser} />
+                                                        }
+
+                                                    })
+
+                                                    }
+                                                    <div className="center-me">
+                                                        <div className='total'>TOTAL: ${this.state.price}</div>
+                                                        <StripeCheckoutButton className="payment" price={this.handlePrice()} userid={this.state.userid} />
+                                                    </div>
+                                                </div>
+
+                                                :
+                                                <h2>
+                                                    there are no items
+                                    </h2>}
+
+                                        </div>
+
                                     }
-                                    <div className="center-me">
-                                        <div className='total'>TOTAL: ${this.state.price}</div>
-                                        <StripeCheckoutButton className="payment" price={this.handlePrice()} userid={this.state.userid} />
-                                    </div>
+
                                 </div>
                             }
-
-
+                            {/* users list */}
+                            { }
 
 
                         </div>

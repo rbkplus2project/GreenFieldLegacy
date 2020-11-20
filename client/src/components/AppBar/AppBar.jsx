@@ -6,7 +6,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import "./appBar.css"
 import { Link } from 'react-router-dom';
 import "./appBar.css"
-import hotel from './resort.png'
 import logo from './great2.png'
 
 class AppBarr extends React.Component {
@@ -45,7 +44,6 @@ class AppBarr extends React.Component {
                                         <Link to='/profile' className="mys">
                                             <IconButton color='inherit' edge="start" aria-label="menu" size="large" m={2}>
                                                 <AccountCircleIcon className="Account" />
-
                                             </IconButton>
                                         </Link>
                                     </div>
@@ -63,7 +61,6 @@ class AppBarr extends React.Component {
                                          </Link>
                                         </Button>
                                     </div>
-
                             }
 
 
