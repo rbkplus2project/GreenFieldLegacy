@@ -102,7 +102,7 @@ class ProfileBody extends React.Component {
 
         return (
 
-            <div style={{ maxWidth: "1050px", margin: "0px auto" }}>
+            <div style={{ maxWidth: "1070px", margin: "0px auto" }}>
                 <div style={{
                 }}>
                     <div className="background_img">
