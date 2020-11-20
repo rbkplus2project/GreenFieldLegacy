@@ -86,8 +86,8 @@ router.post('/signin', (req, res) => {
 
 router.get("/signout", (req, res) => {
   res.header("jwt-auth", "", { maxAge: 1 }).json({
-    token: ""
-
+    token: "",
+    currentUser:""
   })
 })
 

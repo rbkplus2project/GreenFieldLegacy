@@ -20,7 +20,7 @@ class AppBarr extends React.Component {
         fetch("http://127.0.0.1:5000/signout")
             .then(() => {
                 localStorage.removeItem("jwt-auth")
-
+                localStorage.removeItem("current-user")
                 window.location.reload()
             })
     }

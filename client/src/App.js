@@ -5,26 +5,21 @@ import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
 import HomePage from "./pages/homePage/homePage"
-import CardComp from "./components/cardComponents/card"
-import NavAndSearch from "./components/navBar/navBar"
 import Profile from "./pages/profile/profile.jsx"
 import CardList from "./components/CardList/cardList"
-import Favorites from "./pages/favorites/favorites.jsx"
-import Reservations from "./pages/reservations/reservations.jsx"
-import TrialCard from "./components/trialCard/trialCard.jsx"
+
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      // initailItems: [ { city: "rome" },{ city: "losAngeles" }, { city: "kualalumpur", size: 'large' }, { city: "singapore", size: 'large' }, { city: 'paris' }, { city: "Barcelona" }],
-      currentUser: "",
+      currentUser: localStorage.getItem("current-user"),
       checkIn: "2020-11-24",
       checkOut: "2020-11-30",
       searchValue: "",
-      cityAndCountry: "",
       adults: 1,
       resulsArray: [],
-      admin:false
+      admin: false,
+      cityAndCountry:""
     }
   }
 
@@ -32,7 +27,6 @@ class App extends React.Component {
   dateDifferenceNumber = () => {
     let x = this.state.checkIn.split("-")
     let y = this.state.checkOut.split("-")
-
     return (y[0] - x[0]) * 365 + (y[1] - x[1]) * 30 + (y[2] - x[2])
   }
 
@@ -40,19 +34,22 @@ class App extends React.Component {
     this.setState({ checkIn })
   }
 
-  handleCheckOutChange = async (checkOut) => {
-    await this.setState({ checkOut })
-    console.log(this.state)
+  handleCheckOutChange = (checkOut) => {
+    this.setState({ checkOut })
   }
 
-  handlesearchValueChange = async (searchValue) => {
-    await this.setState({ searchValue })
-    console.log(this.state)
-  }
-  handleCityAndCountry = (cityAndCountry) => {
-    this.setState({ cityAndCountry })
+  handlesearchValueChange = (searchValue) => {
+    this.setState({ searchValue })
   }
 
+  handleAdultsChange =  (data) => {
+    let data1=Number(data)
+     this.setState({ adults: data1 })
+  }
+
+  handleCityAndCountry=(cityAndCountry)=>{
+this.setState({cityAndCountry})
+  }
   // handleSeachButtonClick = () => {
   //   console.log(this.state.searchValue)
   //     fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
@@ -89,16 +86,8 @@ class App extends React.Component {
   //       });
   // }
 
-  handleReservationArray = async (reservationArray) => {
-    await this.setState({ reservationArray })
-    console.log(this.state)
-  }
-  handleFavoritesArray = async (favoritesArray) => {
-    await this.setState({ favoritesArray })
-    console.log(this.state)
-  }
   componentDidMount() {
-    //checking the auth
+    //checking the auth 
     const requestOptions = {
       method: 'GET',
       headers: {
@@ -109,8 +98,9 @@ class App extends React.Component {
     fetch("http://localhost:5000/user/auth", requestOptions)
       .then(res => res.json())
       .then(data => {
+        if (data.displayName) localStorage.setItem("current-user", data.displayName)
         this.setState({
-          currentUser: data.displayName, admin:data.admin
+          admin: data.admin
         })
       })
       .catch(err => console.log(err.message))
@@ -127,19 +117,9 @@ class App extends React.Component {
             this.state.currentUser
               ? (<Profile adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
               : (<Redirect to='/' />)} />
-          <Route exact path="/profile/favorites" render={() =>
-            this.state.currentUser
-              ? (<Favorites adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
-              : (<Redirect to='/' />)} />
-
-          <Route exact path="/profile/reservations" render={() =>
-            this.state.currentUser
-              ? (<Reservations adults={this.state.adults} currentUser={this.state.currentUser} dateDifferenceNumber={this.dateDifferenceNumber} handleSeachButtonClick={this.handleSeachButtonClick} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
-              : (<Redirect to='/' />)} />
           <Switch>
-            <Route exact path="/" render={() => <HomePage  handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
-            <Route exact path="/cardlist" render={() => <CardList adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
-            <Route exact path="/trial" render={() => <TrialCard  />} />
+            <Route exact path="/" render={() => <HomePage handleAdultsChange={this.handleAdultsChange} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
+            <Route exact path="/cardlist" render={() => <CardList  handleAdultsChange={this.handleAdultsChange} adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
           </Switch>
         </BrowserRouter>
       </div>

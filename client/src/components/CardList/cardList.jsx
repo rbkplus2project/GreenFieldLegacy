@@ -1,5 +1,4 @@
 import React from 'react';
-import './cardList.css'
 import NavAndSearch from "../navBar/navBar"
 import CardComp from "../cardComponents/card"
 class CardList extends React.Component {
@@ -7,11 +6,11 @@ class CardList extends React.Component {
         super(props)
     }
     render() {
-        const {adults,dateDifferenceNumber, checkIn, checkOut, reservationArray,favoritesArray, searchValue, cityAndCountry, handleSeachButtonClick, currentUser,resulsArray } = this.props
+        const { handleAdultsChange,adults,dateDifferenceNumber, checkIn, checkOut, reservationArray,favoritesArray, searchValue, cityAndCountry, handleSeachButtonClick, currentUser,resulsArray } = this.props
 
         return (
             <div >
-                <NavAndSearch handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
+                <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
                 {
                     resulsArray.length?  
                     resulsArray.map((data,i)=>{

@@ -31,8 +31,11 @@ class SignIn extends React.Component {
     })
       .then(response => response.json())
       .then((data) => {
-        if (data.success)
+        if (data.success){
           localStorage.setItem("jwt-auth", data.token)
+          localStorage.setItem("current-user", data.displayName)
+        }
+         
         else {
           throw Error("incorrect credentials")
         }

@@ -43,6 +43,7 @@ if(password.length<8){
       .then(data => {
         if(data.token){
           localStorage.setItem("jwt-auth", data.token)
+          localStorage.setItem("current-user", data.displayName)
           return true
         }else if(data.message){
           alert("Email Already Exists")

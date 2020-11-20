@@ -139,7 +139,7 @@ export default function MediaControlCard({ removeGetRes, compDidmountF, compDidm
             <div></div>
             :
             currentUser ?
-              !favoriteNotEmp ?
+              !(favNotEmpty || favoriteNotEmp) ?
                 <FavoriteBorderIcon color="action" fontSize="large" className="icon" onClick={() => handleFavAdd(data, currentUser)} />
                 :
                 <FavoriteIcon color="error" fontSize="large" className="icon" onClick={() => handleFavRemove(data, currentUser)} />
