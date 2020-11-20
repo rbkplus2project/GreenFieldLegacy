@@ -38,13 +38,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 
- 
-export default function MediaControlCard({ removeGetRes,compDidmountF, compDidmount, reserveShow, favoriteNotEmp, adults, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
+
+export default function MediaControlCard({ removeGetRes, compDidmountF, compDidmount, reserveShow, favoriteNotEmp, adults, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [favNotEmpty, setFav] = React.useState( favoriteNotEmp||false );
-  const [reservation, setReservation] = React.useState((removeGetRes||reserveShow ||false));
+  const [favNotEmpty, setFav] = React.useState(favoriteNotEmp || false);
+  const [reservation, setReservation] = React.useState((removeGetRes || reserveShow || false));
 
 
   const handleFavAdd = (data, currentUser) => {
@@ -63,7 +63,7 @@ export default function MediaControlCard({ removeGetRes,compDidmountF, compDidmo
       .catch((error) => {
         console.error('Error:', error);
       });
-      setFav(true)
+    setFav(true)
   }
   const handleFavRemove = (data, currentUser) => {
     // console.log(data)
@@ -118,15 +118,15 @@ export default function MediaControlCard({ removeGetRes,compDidmountF, compDidmo
       .catch((error) => {
         console.error('Error:', error);
       });
-      if(!hideFav)
-    setReservation(false)
+    if (!hideFav)
+      setReservation(false)
   }
 
-  const priceConverter=(price,adults,date)=>{
+  const priceConverter = (price, adults, date) => {
     let res = price.split("$")
-        let x = Number(res[1])
-        console.log ( adults)
-        return x*adults*date
+    let x = Number(res[1])
+    console.log(adults)
+    return x * adults * date
   }
   return (
     <Card className={classes.root} id="body">
@@ -157,14 +157,14 @@ export default function MediaControlCard({ removeGetRes,compDidmountF, compDidmo
             <div>
               <Typography component="h5" variant="h5">
                 {/* Seneca Lake (and vicinity) */}
-          {data.name}
+                {data.name}
               </Typography>
             </div>
             <div className="center-second">
               <Typography variant="subtitle1" color="textSecondary">
                 <div className="citysize">
                   {/* New York, United States of America */}
-          {data.address.locality}, {data.address.countryName}
+                  {data.address.locality}, {data.address.countryName}
                 </div>
               </Typography>
             </div>
@@ -177,7 +177,7 @@ export default function MediaControlCard({ removeGetRes,compDidmountF, compDidmo
               </div>
             </Typography>
             {/* $ 19.99 */}
-            ${priceConverter(data.ratePlan.price.current,adults,dateDifferenceNumber())}
+            ${priceConverter(data.ratePlan.price.current, adults, dateDifferenceNumber())}
             {/* {data.ratePlan.price.current} */}
           </div>
         </div>
@@ -190,8 +190,20 @@ export default function MediaControlCard({ removeGetRes,compDidmountF, compDidmo
         </div>
         <div className="third_component_thirdline">
           <Typography component="h6" variant="h6">
-            {/* guest reviews {data.guestReviews.unformattedRating} */}
-           guest reviews
+            {
+              data.guestReviews ?
+                <div>
+                  guest reviews : {data.guestReviews.unformattedRating}
+                </div>
+
+                :
+                <div>
+                  no guest reviews
+            </div>
+            }
+
+
+
           </Typography>
           <div style={{ padding: "6px" }}>
             <RateReviewIcon className='ratereview' />

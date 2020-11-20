@@ -1,4 +1,3 @@
-import './favorites.css';
 import React from "react"
 
 import AppBarr from "../../components/AppBar/AppBar"

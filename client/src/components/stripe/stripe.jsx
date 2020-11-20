@@ -1,6 +1,6 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
-
+import hotel from './resort.png'
 const StripeCheckoutButton = ({ price,userid }) => {
   const priceForStripe = price * 100;
   const publishableKey = 'pk_test_51HoFgjCxgtcfoZwvsKFbfVjfG9zEtZV8SlBCIQ9gziIN1dFFj5WbV4vgjHGQslUdfoenn0j5bGqHu9fwKBVb8WvB0077gk8H7w';
@@ -35,7 +35,7 @@ const StripeCheckoutButton = ({ price,userid }) => {
       name='HotelCom Ltd.'
       billingAddress
       // shippingAddress
-      image='https://svgshare.com/i/CUz.svg'
+      image="https://png.pngtree.com/png-clipart/20190705/original/pngtree-hotel-icon-for-personal-and-commercial-use-png-image_4341927.jpg"
       description={`Your total is $${price}`}
       amount={priceForStripe}
       panelLabel='Pay Now'

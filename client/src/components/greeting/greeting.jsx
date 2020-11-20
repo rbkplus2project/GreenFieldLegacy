@@ -11,13 +11,13 @@ class Greeting extends React.Component {
     }
     render() {
         return (
-            <div>
-                <div position="static" className="greeting" >
-                    <Typography variant="h3" className="text" >
-                        Where to next, .......
-                                 </Typography>
-                </div>
+            <div style={{ backgroundColor: "lavender" }}>
+            <div position="static" className="greeting" style={{ backgroundColor: "lavender" }} >
+                <Typography variant="h3" className="text" style={{ backgroundColor: "lavender" }}>
+                    <p style={{ color: "black", fontFamily: "Dancing Script", fontSize: "36px", fontStyle: "normal", fontWeight: "bolder", fontVariant: "normal", fontHeight: 700, lineHeight: "26.4px" }}>Where To Next, .......</p>
+                </Typography>
             </div>
+        </div>
         )
     }
 }

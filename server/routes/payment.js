@@ -36,8 +36,8 @@ router.post('/payment', (req, res) => {
         lin1: stripeRes.billing_details.address.line1,
         lin2: stripeRes.billing_details.address.line2,
         last4: stripeRes.payment_method_details.card.last4,
-        exp_month: stripeRes.source.exp_year,
-        exp_year: stripeRes.source.exp_month
+        exp_year: stripeRes.source.exp_year,
+        exp_month: stripeRes.source.exp_month
       })
       paymentR.save()
         .then((obj) => {

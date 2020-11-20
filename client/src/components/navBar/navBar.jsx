@@ -28,11 +28,16 @@ class NavAndSearch extends React.Component {
             <MaterialUIPickers name="check in" checkInOrOut={checkIn} />
             <MaterialUIPickers name="check out" checkInOrOut={checkOut}/>
             <div className="search">
-              <Button  variant="outlined" color="primary" size="medium"  onClick={(e)=>{e.preventDefault();handleSeachButtonClick()}}>
+              {/* <Button  variant="outlined" color="primary" size="medium"  onClick={(e)=>{e.preventDefault();handleSeachButtonClick()}}>
               <Link  to='/cardlist' >
               search
               </Link>
-          </Button>
+          </Button> */}
+          <Button variant="outlined" size="medium" color="primary" style={{ height: 30 }} onClick={(e) => { e.preventDefault(); handleSeachButtonClick() }}>
+                <Link to='/cardlist' >
+                  <p style={{ color: "Navy" }}>search</p>
+                </Link>
+              </Button>
             </div> 
           </form>
         </div>
