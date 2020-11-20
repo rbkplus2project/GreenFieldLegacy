@@ -13,7 +13,7 @@ class MenuItem extends React.Component {
 
 
     render() {
-        const { currentUser,handleSeachButtonClick, searchValue } = this.props
+        const { handleSeachButtonClick, searchValue } = this.props
 
         return (
             <div onClick={async(e) => {  await searchValue(this.props.item.city); handleSeachButtonClick() }} >

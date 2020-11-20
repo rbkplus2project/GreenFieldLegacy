@@ -1,6 +1,5 @@
 import './homePage.css';
 import React from "react"
-import { Link } from 'react-router-dom';
 import MenuItems from "../../components/menuItem/menuItem"
 import NavAndSearch from "../../components/navBar/navBar"
 
@@ -12,22 +11,20 @@ class HomePage extends React.Component {
     }
   }
   render() {
-   const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick} =this.props
+   const {handleAdultsChange, currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick} =this.props
     return (
       <div>
-        <NavAndSearch handleSeachButtonClick={handleSeachButtonClick}currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry}/>
-        {/* <div className='directory-menu' > */}
+        <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry}/>
         <div className="cards-list"> 
           { 
             this.state.initailItems.map((item, id) => (
-               
-              <MenuItems item={item} key={id} currentUser={currentUser} handleSeachButtonClick={handleSeachButtonClick} searchValue={searchValue} />
+                
+              <MenuItems item={item} key={id} handleSeachButtonClick={handleSeachButtonClick} searchValue={searchValue} />
              
               
             ))
           }
             </div>
-        {/* </div>  */}
       </div>
     );
   }

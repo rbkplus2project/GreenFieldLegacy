@@ -13,7 +13,8 @@ router.get("/auth", auth, (req, res) => {
       displayName: req.user.displayName,
       favorites: req.user.favorites,
       reservations: req.user.reservations,
-      email: req.user.email
+      email: req.user.email,
+      admin:req.body.admin
     })
   }
 })
@@ -35,13 +36,15 @@ router.post('/signup', (req, res) => {
         .then((salt) => bcrypt.hash(password, salt))
         .then((hashedPassword) => {
           data.password = hashedPassword
+          data.admin=true
           let user = new User(data)
           user.save()
             .then((data) => jwt.sign({ id: data._id }, 'mysecret', { expiresIn: 86400 }, (err, token) => {
               res.header("jwt-auth", token).json({
                 sucess: true,
                 token: token,
-                displayName: data.displayName
+                displayName: data.displayName,
+                admin:data.admin
               })
             }))
             .catch(err => res.status(404).send(err))
@@ -62,7 +65,8 @@ router.post('/signin', (req, res) => {
                 res.header("jwt-auth", token).json({
                   success: true,
                   token: token,
-                  displayName: data.displayName
+                  displayName: data.displayName,
+                  admin:data.admin
                 })
               })
             } else {
@@ -82,8 +86,8 @@ router.post('/signin', (req, res) => {
 
 router.get("/signout", (req, res) => {
   res.header("jwt-auth", "", { maxAge: 1 }).json({
-    token: ""
-
+    token: "",
+    currentUser:""
   })
 })
 

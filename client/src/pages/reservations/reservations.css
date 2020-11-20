@@ -11,7 +11,7 @@
       width: 60vw;
       margin: auto;
       display: flex;
-      justify-content: center;
-      /* justify-content: space-between; */
+      /* justify-content: center; */
+      justify-content: space-between;
       align-items: center;
   } 
