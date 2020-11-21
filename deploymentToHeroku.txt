@@ -2,8 +2,8 @@
 
 * make sure you are using the proxy(putting the localhost:5000) for your master branch in pakege json of the client(and remove all local/5000) from all of the files
 * make sure to put "heroku-postbuild" : "cd client && npm install && npm run build" in the pakege json of the client
-* in server.js process.env.PORT || 5000; && th if(process.env.NODE_ENV === 'production')...
-* mongo db index process.env.MONGODB_URI  file add 
+* in server.js process.env.PORT || 5000; && the if(process.env.NODE_ENV === 'production')...
+* mongo db index  file add  process.env.MONGODB_URI || dbUri
 * remove the yarn lock file
 * remove the .gitIgnore(where you don't need it (inside server file)) file
 * "start": "node server.js" in pakege.json of the server
