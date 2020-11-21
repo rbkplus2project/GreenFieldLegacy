@@ -1,0 +1,14 @@
+* make sure you are using the proxy in pakege json of the client(and remove all local/5000) from all of the files
+* make sure to put "heroku-postbuild" : "cd client && npm install && npm run build" in the pakege json of the client
+* in server.js process.env.PORT || 5000; && th if(process.env.NODE_ENV === 'production')...
+* mongo db index process.env.MONGODB_URI  file add 
+* remove the yarn lock file
+* remove the .gitIgnore(where you don't need it (inside server file)) file
+* "start": "node server.js" in pakege.json of the server
+* remove the cached files in your project git rm  -r --cached . (the . for all)
+* make a branch for heroku deployments and put this in the packega.json==>"proxy" : "https://raptors-hotel.herokuapp.com"
+* heroku login
+* heroku create (your app name)
+* git add .
+* git commit -m "deploying"
+* git push (name of the branch) master
