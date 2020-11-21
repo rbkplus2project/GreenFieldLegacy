@@ -11,6 +11,7 @@
 * make a branch for heroku deployments and put this in the packega.json==>"proxy" : "https://raptors-hotel.herokuapp.com"
 * heroku login
 * heroku create (your app name)
+* go to heroku dashboard ==>on your projct-settings-reveal config files ==>click on it and put MONGODB_URI and your mongo link
 * git add .
 * git commit -m "deploying"
 * git push (name of the branch) master
