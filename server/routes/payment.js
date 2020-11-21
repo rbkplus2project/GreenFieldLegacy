@@ -5,12 +5,7 @@ const router = express.Router()
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static.apply(path.join(__dirname, 'client/build')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
-  })
-}
+
 router.post('/payment', (req, res) => {
   console.log('reached ********************************')
   console.log(req.body.token.id)
