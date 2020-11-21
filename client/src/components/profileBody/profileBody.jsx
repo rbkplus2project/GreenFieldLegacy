@@ -1,52 +1,3 @@
-// import './profileBody.css';
-// import React from "react"
-
-// import Avatar from '@material-ui/core/Avatar';
-// import { Link } from 'react-router-dom';
-// class PfofileBody extends React.Component {
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//         }
-//     }
-
-//     render() {
-//         //  const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick} =this.props
-//         return (
-//             <div >
-
-
-//                 <form className="form1">
-//                     <h2>
-//                         <Avatar alt="ameedasmah" src="https://ca.slack-edge.com/TTVPM20S0-U018HTXLNDD-6ec65bc18cc7-512" />
-//                     </h2>
-//                     <label className="label1" for="username">Email : ameed asmah</label>
-
-//                     <label className="label1" for="email">Email : ameed.asmah1@gmail.com</label>
-
-//                     <label className="label1" for="creditcard">cardnumber : "1234-1234-1234-1234"</label>
-
-//                     <label className="label1" for="favourit number">favorite number : "4" </label>
-
-//                     <label className="label1" for="res number">res number : 2</label>
-
-//                     <div className="buttondiv">
-//                         <Link to='/profile/favorites'>
-//                             <button className="button">favorites</button>
-//                         </Link>
-//                         <Link to='/profile/reservations'>
-//                             <button className="button">reservations</button>
-//                         </Link>
-
-//                     </div>
-//                 </form>
-//             </div>
-
-//         );
-//     }
-// }
-// export default PfofileBody;
-
 import './profileBody.css';
 import React from "react"
 import DisabledTabs from './tab';
@@ -73,7 +24,7 @@ class ProfileBody extends React.Component {
     }
 
     componentDidMount = () => {
-        fetch("http://127.0.0.1:5000/user/getuser", {
+        fetch("/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -102,7 +53,7 @@ class ProfileBody extends React.Component {
 
         return (
 
-            <div style={{ maxWidth: "1070px", margin: "0px auto" }}>
+            <div style={{ maxWidth: "1200px", margin: "0px auto" }}>
                 <div style={{
                 }}>
                     <div className="background_img">
@@ -127,7 +78,7 @@ class ProfileBody extends React.Component {
                         <DisabledTabs admin={this.state.admin} master={this.state.master} handleFavPrevChange={this.handleFavPrevChange} compDidmount={this.componentDidMount} />
                         {/* component code for FAVORITES*/}
                         <div className="gallery">
-                            {this.state.favPrev ?
+                     {this.state.favPrev ?
                                 <div>
                                     {
                                         this.state.result.length ?
@@ -142,7 +93,7 @@ class ProfileBody extends React.Component {
                                                     return <CardComp dateDifferenceNumber={dateDifferenceNumber} removeGetRes={ele} key={i} data={data} adults={adults} compDidmount={this.componentDidMount} favoriteNotEmp={this.state.favoriteNotEmp} hideRes={this.state.hideRes} currentUser={this.state.currentUser} />
                                             })
                                             :
-                                            <h2>
+                                            <h2 style={{textAlign:"center"}}>
                                                 there are no items
                                      </h2>
                                     }
@@ -170,7 +121,7 @@ class ProfileBody extends React.Component {
                                                 </div>
 
                                                 :
-                                                <h2>
+                                                <h2 style={{textAlign:"center"}}>
                                                     there are no items
                                     </h2>}
 
