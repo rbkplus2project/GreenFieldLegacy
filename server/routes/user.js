@@ -14,10 +14,33 @@ router.get("/auth", auth, (req, res) => {
       favorites: req.user.favorites,
       reservations: req.user.reservations,
       email: req.user.email,
-      admin:req.body.admin
+      admin: req.body.admin
     })
   }
 })
+
+
+router.get("/allusers", (req, res) => {
+  User.find({ admin: false })
+    .then(data => res.status(200).json({ users: data }))
+    .catch(err => res.status(404).json({ err: err.message }))
+})
+
+router.get("/alladmins", (req, res) => {
+  User.find({ admin: true })
+    .then(data => res.status(200).json({ admins: data }))
+    .catch(err => res.status(404).json({ err: err.message }))
+})
+
+router.post("/deleteuser", (req, res) => {
+  User.findOne({ displayName: req.body.displayName })
+    .then(user => {
+      User.remove({ _id: user._id })
+        .then(() => res.status(201).json({ msg: "user was deleted" }))
+    })
+    .catch(err => res.status(404).json({ err: err.message }))
+})
+
 router.post("/getuser", (req, res) => {
   User.findOne({ displayName: req.body.displayName })
     .then((data) => res.status(200).send(data))
@@ -36,7 +59,8 @@ router.post('/signup', (req, res) => {
         .then((salt) => bcrypt.hash(password, salt))
         .then((hashedPassword) => {
           data.password = hashedPassword
-          data.admin=true
+          data.admin = false
+          data.master = false
           let user = new User(data)
           user.save()
             .then((data) => jwt.sign({ id: data._id }, 'mysecret', { expiresIn: 86400 }, (err, token) => {
@@ -44,7 +68,8 @@ router.post('/signup', (req, res) => {
                 sucess: true,
                 token: token,
                 displayName: data.displayName,
-                admin:data.admin
+                admin: data.admin,
+                master: data.master
               })
             }))
             .catch(err => res.status(404).send(err))
@@ -66,7 +91,8 @@ router.post('/signin', (req, res) => {
                   success: true,
                   token: token,
                   displayName: data.displayName,
-                  admin:data.admin
+                  admin: data.admin,
+                  master: data.master
                 })
               })
             } else {
@@ -87,7 +113,7 @@ router.post('/signin', (req, res) => {
 router.get("/signout", (req, res) => {
   res.header("jwt-auth", "", { maxAge: 1 }).json({
     token: "",
-    currentUser:""
+    currentUser: ""
   })
 })
 

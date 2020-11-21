@@ -27,7 +27,8 @@ let userSchema = new Schema({
     },
     reservations: [],
     favorites: [],
-    admin: Boolean
+    admin: Boolean,
+    master:Boolean
 }, { timestamps: true });
 
 
