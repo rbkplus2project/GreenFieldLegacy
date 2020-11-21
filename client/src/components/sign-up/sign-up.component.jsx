@@ -32,7 +32,7 @@ if(password.length<8){
     }
 
     // sign up the user
-    fetch('http://127.0.0.1:5000/user/signup', {
+    fetch('/user/signup', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',

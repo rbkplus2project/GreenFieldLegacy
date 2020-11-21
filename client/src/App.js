@@ -54,41 +54,41 @@ class App extends React.Component {
   handleCityAndCountry = (cityAndCountry) => {
     this.setState({ cityAndCountry })
   }
-  // handleSeachButtonClick = () => {
-  //   console.log(this.state.searchValue)
-  //     fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
-  //       "method": "GET",
-  //       "headers": {
-  //         "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
-  //         "x-rapidapi-host": "hotels4.p.rapidapi.com"
-  //       }
-  //     })
-  //       .then(response => {
-  //         return response.json()
-  //       })
-  //       .then((data) => {
-  //         fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
-  //           "method": "GET",
-  //           "headers": {
-  //             "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
-  //             "x-rapidapi-host": "hotels4.p.rapidapi.com"
-  //           }
-  //         })
-  //           .then(response => {
-  //             return response.json()
-  //           })
-  //           .then(data => {
-  //             this.setState({ resulsArray: data.data.body.searchResults.results })
-  //           })
-  //           .then(data => console.log(this.state))
-  //           .catch(err => {
-  //             console.error(err);
-  //           });
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  // }
+  handleSeachButtonClick = () => {
+    console.log(this.state.searchValue)
+      fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+          "x-rapidapi-host": "hotels4.p.rapidapi.com"
+        }
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then((data) => {
+          fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
+            "method": "GET",
+            "headers": {
+              "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+              "x-rapidapi-host": "hotels4.p.rapidapi.com"
+            }
+          })
+            .then(response => {
+              return response.json()
+            })
+            .then(data => {
+              this.setState({ resulsArray: data.data.body.searchResults.results })
+            })
+            .then(data => console.log(this.state))
+            .catch(err => {
+              console.error(err);
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+  }
 
   componentDidMount() {
     //checking the auth 
@@ -99,7 +99,7 @@ class App extends React.Component {
         'jwt-auth': localStorage.getItem('jwt-auth')
       },
     }
-    fetch("http://localhost:5000/user/auth", requestOptions)
+    fetch("/user/auth", requestOptions)
       .then(res => res.json())
       .then(data => {
         if (data.displayName) localStorage.setItem("current-user", data.displayName)
