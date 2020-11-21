@@ -1,6 +1,6 @@
 
 
-* make sure you are using the proxy(putting the localhost:5000) in pakege json of the client(and remove all local/5000) from all of the files
+* make sure you are using the proxy(putting the localhost:5000) for your master branch in pakege json of the client(and remove all local/5000) from all of the files
 * make sure to put "heroku-postbuild" : "cd client && npm install && npm run build" in the pakege json of the client
 * in server.js process.env.PORT || 5000; && th if(process.env.NODE_ENV === 'production')...
 * mongo db index process.env.MONGODB_URI  file add 
