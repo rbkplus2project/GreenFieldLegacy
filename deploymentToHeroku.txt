@@ -9,6 +9,7 @@
 * remove the .gitIgnore(where you don't need it (inside server file)
 * remove the cached files in your project (git rm  -r --cached .) (the . for all)
 * make a branch for heroku deployments and put this in the packega.json==>"proxy" : "https://raptors-hotel.herokuapp.com"
+* download the heroku cli to use its props in git bash
 * heroku login
 * heroku create (your app name)
 * go to heroku dashboard ==>on your projct-settings==>(scroll down)reveal config files ==>click on it and put MONGODB_URI and your mongo link
