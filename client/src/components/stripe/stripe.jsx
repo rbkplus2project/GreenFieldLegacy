@@ -7,7 +7,7 @@ const StripeCheckoutButton = ({ price,userid }) => {
 
   const onToken = token => {
     console.log(token);
-    fetch('/payment/payment', {
+    fetch('http://127.0.0.1:5000/payment/payment', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
