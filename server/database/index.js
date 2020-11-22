@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+require('dotenv').config()
 
-const dbURI = 'mongodb+srv://asemOne:asem1234@cluster0.xqniz.mongodb.net/hotels?retryWrites=true&w=majority'
+const dbURI = process.env.MONGODB;
+
+mongoose.set('useFindAndModify', false);
+
 mongoose.connect(process.env.MONGODB_URI ||dbURI, { useNewUrlParser: true, useUnifiedTopology: true, 'useCreateIndex': true, 'useFindAndModify': false })
 const connect = mongoose.connect(dbURI,
   {
