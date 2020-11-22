@@ -1,0 +1,46 @@
+
+     .gallery{
+      display: flex;
+    flex-wrap : wrap;
+    justify-content: space-around;
+    margin-top: 10px;
+    }
+    .item{
+      width:30%
+    }
+    .background_img{ 
+      background: url("https://i.pinimg.com/originals/8d/fb/ef/8dfbefe579837533072622af04cd05f0.jpg") no-repeat  ;
+      background-size:cover;
+      height:15rem  ;
+      border-bottom-left-radius:40px;
+      border-bottom-right-radius:40px;
+    
+    
+    }      
+    
+    .active{
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;  
+      margin-top : 20px;
+      margin-left : 10px;
+      /* position: absolute; */
+      right: calc(50% - 70px);
+      top: 75px;
+      background-color: #07ff3d;
+      border: 3px solid #fff;
+    
+    }
+    .center-me{
+      width: 60vw;
+      margin: auto;
+      display: flex;
+      /* justify-content: center; */
+      justify-content: space-between;
+      align-items: center;
+  } 
+  .total {
+    /* margin-top: 30px; */
+    /* margin-left: auto; */
+    font-size: 26px;
+  }

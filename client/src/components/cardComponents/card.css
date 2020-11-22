@@ -1,0 +1,90 @@
+.img{
+    /* border: 1px solid #ddd; */
+    border-radius: 4px;
+    padding: 5px;
+    width: 240px;
+    height: 140px;
+    overflow: hidden;
+    position: absolute;
+}
+
+#body{
+    /* padding: 1rem 13rem; */
+    margin: auto;
+    margin-bottom: 20px;
+    box-shadow: black;
+    width: 60vw;
+}
+.first_img{
+    flex: .30;
+    display: flex;
+     
+}
+
+.center{
+    flex : .40;
+    margin: 5px;
+}
+
+.center-second{
+    padding-bottom:.9rem ;
+    padding-left:.2rem;
+}
+.facility{
+    font-size: 11px;
+    padding-left:1rem;
+}
+.citysize{
+    font-size:16px;
+}
+
+.third_component{
+
+    flex : .30;
+    margin: auto;
+    float:right;
+    /* padding: 10px; */
+}
+
+.thirdcom_firstone{
+    display: flex;
+    flex: .5;
+    justify-content: center; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.icon{
+    position: relative;
+    padding-left: 8px;
+    padding-top: 8px;
+    
+}
+.third_component_secondline{
+    display: flex;
+    flex: .5;
+    justify-content: center;
+    padding: 1rem;
+    /* border: 1px solid; */
+}
+.third_component_thirdline{
+    display: flex;
+    flex: .5;
+    justify-content: center;
+    /* padding-top: -10px; */
+    /* border: 1px solid; */
+}
+
+.dollers{
+    display: flex;
+    justify-content: space-between;
+}
+.dollers2{
+    /* padding: 0.5rem; */
+}
+/* .fav_rel{
+    position: relative;
+}
+.img_abs{
+    position: absolute;
+} */

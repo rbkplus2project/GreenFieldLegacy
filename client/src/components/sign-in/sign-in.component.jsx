@@ -16,14 +16,45 @@ class SignIn extends React.Component {
       password: ''
     };
   }
+  componentDidMount() {
+    // this.handleSubmit()
+  }
+  handleSubmit = (event) => {
+    event.preventDefault()
 
-  handleSubmit = async event => {
-    
-  };
+    fetch('/user/signin', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state),
+    })
+      .then(response => response.json())
+      .then((data) => {
+        if (data.success){
+          localStorage.setItem("jwt-auth", data.token)
+          localStorage.setItem("current-user", data.displayName)
+        }
+         
+        else {
+          throw Error("incorrect credentials")
+        }
+        console.log('Success:', data);
+      })
+      .then(() => { window.location.reload() })
+      .catch((error) => {
+        alert(error)
+        console.error('Error:', error);
+      })
+
+    this.setState({ email: '', password: '' })
+  }
 
   handleChange = event => {
-  
-  };
+    const { value, name } = event.target;
+    this.setState({ [name]: value })
+
+  }
 
   render() {
     return (
@@ -50,7 +81,7 @@ class SignIn extends React.Component {
           />
           <div className='buttons'>
             <CustomButton type='submit'> Sign in </CustomButton>
-           
+
           </div>
         </form>
       </div>
