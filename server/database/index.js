@@ -3,6 +3,9 @@ var Schema = mongoose.Schema;
 require('dotenv').config()
 
 const dbURI = process.env.MONGODB;
+
+mongoose.set('useFindAndModify', false);
+
 mongoose.connect(process.env.MONGODB_URI ||dbURI, { useNewUrlParser: true, useUnifiedTopology: true, 'useCreateIndex': true, 'useFindAndModify': false })
 const connect = mongoose.connect(dbURI,
   {
