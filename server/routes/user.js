@@ -2,8 +2,12 @@ const express = require('express')
 const router = express.Router()
 const { User } = require('../database/User')
 const bcrypt = require('bcrypt')
+const crypto = require('crypto');
+const sgMail = require('@sendgrid/mail')
 const jwt = require('jsonwebtoken')
 const auth = require('../middleware/auth')
+require('dotenv').config();
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 router.get("/auth", auth, (req, res) => {
   console.log(req.user)
@@ -115,6 +119,60 @@ router.get("/signout", (req, res) => {
     token: "",
     currentUser: ""
   })
+})
+
+
+router.post("/forgot-password", (req, res, next) => {
+
+    const { email } = req.body
+    const user = User.findOne({ email })
+    if (!user) {
+      return 'No user found with that email address.'
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+
+    var expireDate = new Date().getTime() + 10800000;
+
+    User.findOneAndUpdate({ email: req.body.email }, { expiration: expireDate, token: token, used: 0 })
+
+    const msg = {
+      to: process.env.SENDGRID_TO, // Change to your recipient  //req.headers.host  //process.env.SENDGRID_TO
+      from: process.env.SENDGRID_FROM, // Change to your verified sender  
+      subject: 'From hotels.com',
+      text: 'Weclome to our hotel booking website, Hope you Enjoy your experience. You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+        'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+    }
+    // sgMail
+    //   .send(msg)
+    //   .then(() => {
+    //     console.log('Email sent')
+    //     res.status(200);
+    //     next();
+
+    //   })
+    //   .catch((error) => {
+    //     console.error(error)
+    //   })
+})
+
+
+router.post("reset/:token", (req, res) => {
+  const { password, token } = req.body
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync(password, salt);
+
+  const user = User.findOne({ token })
+  if (user.expiration > new Date().getTime() && user.used < 1) {
+    User.findOneAndUpdate({ token: req.body.token }, { password: hash, used: 1 });
+  }
+
+  if (!user) {
+    return 'Password reset token is invalid or has expired.'
+  }
+
 })
 
 module.exports = router
