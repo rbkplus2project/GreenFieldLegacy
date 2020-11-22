@@ -15,9 +15,9 @@ class Profile extends React.Component {
   render() {
     //  const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick} =this.props
     return (
-      <div >
+      <div>
         <div className="navbar">
-          <AppBarr  />
+          <AppBarr />
         </div>
         {/* <div className="total_button">
           <div className="buttongroup1">
@@ -38,39 +38,39 @@ class Profile extends React.Component {
             </ButtonGroup>
           </div>
         </div> */}
-       
-          <form >
-            <h2>
+
+        <form >
+          <h2>
             <Avatar alt="ameedasmah" src="https://ca.slack-edge.com/TTVPM20S0-U018HTXLNDD-6ec65bc18cc7-512" />
-            </h2>
-            <label for="username">Email : ameed asmah</label>
+          </h2>
+          <label for="username">Email : ameed asmah</label>
 
-            <label for="email">Email : ameed.asmah1@gmail.com</label>
-            
-            <label for="creditcard">cardnumber : "1234-1234-1234-1234"</label>
+          <label for="email">Email : ameed.asmah1@gmail.com</label>
 
-            <label for="favourit number">favorite number : "4" </label>
+          <label for="creditcard">cardnumber : "1234-1234-1234-1234"</label>
 
-            <label for="res number">res number : 2</label>
+          <label for="favourit number">favorite number : "4" </label>
+
+          <label for="res number">res number : 2</label>
 
 
-            {/* <input type="text" name="cardnumber" placeholder="1234-1234-1234-1234" required /> */}
-            {/* <div class="email error">some error</div> */}
-            {/* <label for="password">Password</label>
+          {/* <input type="text" name="cardnumber" placeholder="1234-1234-1234-1234" required /> */}
+          {/* <div class="email error">some error</div> */}
+          {/* <label for="password">Password</label>
             <input type="password" name="password" required />
             <div class="password error"></div> */}
-            <div className="buttondiv">
-            <button>favorite</button> 
+          <div className="buttondiv">
+            <button>favorite</button>
             <button>reserve</button>
-            </div>
-          </form>
-<!--    const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick ,adults,dateDifferenceNumber} =this.props
+          </div>
+        </form>
+    {/* const { currentUser, checkIn, checkOut, searchValue, cityAndCountry, handleSeachButtonClick, adults, dateDifferenceNumber} =this.props
     return (
-      <div>
-        <AppBarr currentUser={currentUser}/>
-        <ProfileBody adults={adults} currentUser={currentUser} dateDifferenceNumber={dateDifferenceNumber} /> -->
-      </div>
-
+        <div>
+          <AppBarr currentUser={currentUser} />
+          <ProfileBody adults={adults} currentUser={currentUser} dateDifferenceNumber={dateDifferenceNumber} />
+        </div> */}
+    </div>
     );  
   }
 }
