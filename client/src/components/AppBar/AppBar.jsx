@@ -4,9 +4,9 @@ import { Toolbar, AppBar, IconButton, Typography, Button } from '@material-ui/co
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import "./appBar.css"
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "./appBar.css"
-
+import logo from './great2.png'
 
 class AppBarr extends React.Component {
     constructor() {
@@ -19,6 +19,7 @@ class AppBarr extends React.Component {
         fetch("http://127.0.0.1:5000/signout")
             .then(() => {
                 localStorage.removeItem("jwt-auth")
+                localStorage.removeItem("current-user")
                 window.location.reload()
             })
     }
@@ -28,10 +29,11 @@ class AppBarr extends React.Component {
                 <div className="NavBar">
                     <AppBar position="static">
                         <Toolbar className="toolBar">
-                            <Link  to='/'>
-                            <Typography className="typography mys" variant="h4">
-                                HotelCom
-                            </Typography>
+                            <Link to='/'>
+                                <Typography className="typography mys center" variant="h4">
+                                    {/* <img alt='hotelImg' src={hotel} style={{ height: 35, width: 35, marginTop: 20 }} /> */}
+                                    <img alt='HotelCom' src={logo} />
+                                </Typography>
                             </Link>
                             {
                                 this.props.currentUser ?
@@ -39,28 +41,26 @@ class AppBarr extends React.Component {
                                         <Button color="inherit" onClick={this.handleLoginClick}>
                                             Log-out
                                     </Button>
-                                        <Link  to='/profile' className="mys">
-                                        <IconButton color='inherit' edge="start" aria-label="menu">
-                                        <AccountCircleIcon className="Account" />
-                                           
-                                        </IconButton>
+                                        <Link to='/profile' className="mys">
+                                            <IconButton color='inherit' edge="start" aria-label="menu" size="large" m={2}>
+                                                <AccountCircleIcon className="Account" />
+                                            </IconButton>
                                         </Link>
                                     </div>
 
                                     :
                                     <div >
                                         <Button >
-                                        <Link  to='/signin' className="mys">
-                                            Sign-in
+                                            <Link to='/signin' className="mys">
+                                                Sign-in
                                          </Link>
-                                         </Button>
-                                         <Button color="inherit">
-                                         <Link  to='/signin' className="mys">
-                                            Sign-up
+                                        </Button>
+                                        <Button color="inherit">
+                                            <Link to='/signin' className="mys">
+                                                Sign-up
                                          </Link>
-                                          </Button>
+                                        </Button>
                                     </div>
-
                             }
 
 

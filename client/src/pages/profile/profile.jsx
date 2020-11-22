@@ -4,7 +4,7 @@ import React from "react"
 // import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Avatar from '@material-ui/core/Avatar';
 import AppBarr from "../../components/AppBar/AppBar"
-
+import ProfileBody from "../../components/profileBody/profileBody"
 class Profile extends React.Component {
   constructor(props) {
     super(props)
@@ -64,6 +64,11 @@ class Profile extends React.Component {
             <button>reserve</button>
             </div>
           </form>
+<!--    const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick ,adults,dateDifferenceNumber} =this.props
+    return (
+      <div>
+        <AppBarr currentUser={currentUser}/>
+        <ProfileBody adults={adults} currentUser={currentUser} dateDifferenceNumber={dateDifferenceNumber} /> -->
       </div>
 
     );  

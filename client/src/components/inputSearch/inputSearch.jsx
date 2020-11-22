@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-class Asynchronous extends React.Component {
+class InputSearch extends React.Component { 
     constructor(props) {
         super(props)
         this.state = {
@@ -67,4 +67,4 @@ class Asynchronous extends React.Component {
     }
 }
 
-export default Asynchronous
+export default InputSearch
