@@ -22,8 +22,8 @@ class SignUp extends React.Component {
     event.preventDefault();
 
     const { password, confirmPassword } = this.state;
-if(password.length<8){
-  alert("Password should not be less than 8 charecters")
+if(password.length<4){                                   //*  originaly was 8 char.  *//
+  alert("Password should not be less than 4 charecters")
   return 
 }
     if (password !== confirmPassword) {
