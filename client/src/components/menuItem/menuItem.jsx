@@ -18,9 +18,9 @@ class MenuItem extends React.Component {
         return (
             <div onClick={async(e) => {  await searchValue(this.props.item.city); handleSeachButtonClick() }} >
                 <Link to='/cardlist'>
-                    <div class="card 1">
-                        <div class="card_image"> <img src={this.props.item.link} /> </div>
-                        <div class="card_title title-white">
+                    <div className="card 1">
+                        <div className="card_image"> <img src={this.props.item.link} alt=""/> </div>
+                        <div className="card_title title-white">
                             <p>{this.props.item.city.toUpperCase()}</p>
                         </div>
                     </div>
