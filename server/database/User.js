@@ -28,7 +28,10 @@ let userSchema = new Schema({
     reservations: [],
     favorites: [],
     admin: Boolean,
-    master:Boolean
+    master:Boolean,
+    token: String,
+    expiration: Date,
+    used: Number
 }, { timestamps: true });
 
 
