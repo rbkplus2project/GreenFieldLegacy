@@ -1,10 +1,11 @@
 import React from 'react';
-
+// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 
-import './sign-up.styles.css';
+// import './sign-up.styles.css';
 
 class SignUp extends React.Component {
   constructor() {
@@ -22,10 +23,10 @@ class SignUp extends React.Component {
     event.preventDefault();
 
     const { password, confirmPassword } = this.state;
-if(password.length<4){                                   //*  originaly was 8 char.  *//
-  alert("Password should not be less than 4 charecters")
-  return 
-}
+    if (password.length < 4) {                                   //*  originaly was 8 char.  *//
+      alert("Password should not be less than 4 charecters")
+      return
+    }
     if (password !== confirmPassword) {
       alert("Passwords Don't Match")
       return;
@@ -41,19 +42,19 @@ if(password.length<4){                                   //*  originaly was 8 ch
     })
       .then(response => response.json())
       .then(data => {
-        if(data.token){
+        if (data.token) {
           localStorage.setItem("jwt-auth", data.token)
           localStorage.setItem("current-user", data.displayName)
           return true
-        }else if(data.message){
+        } else if (data.message) {
           alert("Email Already Exists")
-        }else{
+        } else {
           alert("User Name already Exists")
         }
-       
+
         console.log('Success:', data);
       })
-      .then(()=> window.location.reload())
+      .then(() => window.location.reload())
       .catch((error) => {
         console.error('Error:', error);
       });
@@ -63,7 +64,7 @@ if(password.length<4){                                   //*  originaly was 8 ch
       password: '',
       confirmPassword: ''
     })
-    
+
 
   }
 
@@ -78,9 +79,8 @@ if(password.length<4){                                   //*  originaly was 8 ch
     const { displayName, email, password, confirmPassword } = this.state;
     return (
       <div className='sign-up'>
-        <h2 className='title'>I do not have a account</h2>
-        <span>Sign up with your email and password</span>
         <form className='sign-up-form' onSubmit={this.handleSubmit}>
+          <h2 className='title'>Sign Up</h2>
           <FormInput
             type='text'
             name='displayName'
@@ -114,6 +114,7 @@ if(password.length<4){                                   //*  originaly was 8 ch
             required
           />
           <CustomButton type='submit'>SIGN UP</CustomButton>
+          <p >Already have an account? <Link to="/signin" >Sign In</Link></p>
         </form>
       </div>
     );
