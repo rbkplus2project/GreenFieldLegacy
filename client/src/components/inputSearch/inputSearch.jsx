@@ -29,8 +29,6 @@ class InputSearch extends React.Component {
           let val=value.display_name.split(",")[0]
             await this.setState({ city: val })
             this.props.searchValue(val)
-
-            console.log(this.state.city)
         }
     }
 
@@ -58,7 +56,6 @@ class InputSearch extends React.Component {
                             label="Countries/Cities"
                             // variant="filled"
                             onChange={this.onchange}
-                            onClick={() => console.log("click")}
                         />
                     )}
                 />

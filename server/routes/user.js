@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const auth = require('../middleware/auth')
 
 router.get("/auth", auth, (req, res) => {
-  console.log(req.user)
+  // console.log(req.user)
   if (req.user) {
     res.json({
       id: req.user._id,
@@ -105,9 +105,6 @@ router.post('/signin', (req, res) => {
       }
     })
     .catch(err => res.status(404).json({ success: false }))
-
-
-
 })
 
 router.get("/signout", (req, res) => {

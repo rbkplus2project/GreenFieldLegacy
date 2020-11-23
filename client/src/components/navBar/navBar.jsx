@@ -4,9 +4,9 @@ import { Button } from '@material-ui/core';
 import MaterialUIPickers from "../date/date";
 import InputSearch from "../inputSearch/inputSearch";
 import { Link } from "react-router-dom";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import { InputLabel } from '@material-ui/core';
+// import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+// import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+// import { InputLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 
 import AppBarr from '../AppBar/AppBar';
@@ -14,9 +14,6 @@ import Greeting from '../greeting/greeting';
 import "./navBar.css"
 
 class NavAndSearch extends React.Component {
-  constructor(props) {
-    super(props)
-  }
   render() {
     const { handleAdultsChange,checkIn, checkOut, searchValue, cityAndCountry, handleSeachButtonClick, currentUser } = this.props
     return (
