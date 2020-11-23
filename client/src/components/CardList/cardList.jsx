@@ -15,7 +15,7 @@ class CardList extends React.Component {
 
 
     componentDidMount = () => {
-        fetch("/user/getuser", {
+        fetch("http://localhost:5000/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -23,13 +23,14 @@ class CardList extends React.Component {
             body: JSON.stringify({ "displayName": this.props.currentUser }),
         })
             .then(data => {
-                return data.json()
-            })
-            .then(data => {
-                if (data) {
-                    this.setState({ reservationsArray: data.reservations })
+                if (data.status === 200) {
+                    data.json()
+                } else {
+                    throw new Error('user not found')
                 }
             })
+            .then(data => this.setState({ reservationsArray: data.reservations }))
+            .catch(err => console.log(err))
     }
     
     render() {

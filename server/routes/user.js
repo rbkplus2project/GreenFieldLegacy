@@ -19,8 +19,9 @@ router.get("/auth", auth, (req, res) => {
       email: req.user.email,
       admin: req.body.admin
     })
-  }else{
-  res.json()}
+  } else {
+    res.json()
+  }
 })
 
 
@@ -46,9 +47,15 @@ router.post("/deleteuser", (req, res) => {
 })
 
 router.post("/getuser", (req, res) => {
-  User.findOne({ displayName: req.body.displayName })
-    .then((data) => res.status(200).send(data))
-    .catch((err) => res.status(404).send("error getting the data"))
+  User.findOne({ displayName: req.body.displayName }, (err, data) => {
+    if (data === null) {
+      res.status(404).send("error getting the data")
+    } else {
+      res.status(200).json(data)
+    }
+  })
+  // .then((data) => res.status(200).json(data))
+  // .catch((err) => res.status(404).send("error getting the data"))
 })
 router.post('/signup', (req, res) => {
   const password = req.body.password
@@ -119,44 +126,44 @@ router.get("/signout", (req, res) => {
 })
 
 
-router.post("/forgot-password", async(req, res, next) => {
+router.post("/forgot-password", async (req, res, next) => {
 
-    const { email } = req.body
-    const user = await User.findOne({ email })
-    if (!user) {
-      return 'No user found with that email address.'
-    }
+  const { email } = req.body
+  const user = await User.findOne({ email })
+  if (!user) {
+    return 'No user found with that email address.'
+  }
 
-    const token = crypto.randomBytes(32).toString('hex');
+  const token = crypto.randomBytes(32).toString('hex');
 
-    var expireDate = new Date().getTime() + 10800000;
+  var expireDate = new Date().getTime() + 10800000;
 
-    await User.findOneAndUpdate({ email: req.body.email }, { expiration: expireDate, token: token, used: 0 })
+  await User.findOneAndUpdate({ email: req.body.email }, { expiration: expireDate, token: token, used: 0 })
 
-    const msg = {
-      to: process.env.SENDGRID_TO, // Change to your recipient  //req.headers.host  //process.env.SENDGRID_TO
-      from: process.env.SENDGRID_FROM, // Change to your verified sender  
-      subject: 'From hotels.com',
-      text: 'Weclome to our hotel booking website, Hope you Enjoy your experience. You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-        'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-    }
-    // sgMail
-    //   .send(msg)
-    //   .then(() => {
-    //     console.log('Email sent')
-    //     res.status(200);
-    //     next();
+  const msg = {
+    to: process.env.SENDGRID_TO, // Change to your recipient  //req.headers.host  //process.env.SENDGRID_TO
+    from: process.env.SENDGRID_FROM, // Change to your verified sender  
+    subject: 'From hotels.com',
+    text: 'Weclome to our hotel booking website, Hope you Enjoy your experience. You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+      'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+      'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+  }
+  // sgMail
+  //   .send(msg)
+  //   .then(() => {
+  //     console.log('Email sent')
+  //     res.status(200);
+  //     next();
 
-    //   })
-    //   .catch((error) => {
-    //     console.error(error)
-    //   })
+  //   })
+  //   .catch((error) => {
+  //     console.error(error)
+  //   })
 })
 
 
-router.post("/reset/token", async(req, res) => {
+router.post("/reset/token", async (req, res) => {
   const { password, token } = req.body
   var salt = bcrypt.genSaltSync(10);
   var hash = bcrypt.hashSync(password, salt);
