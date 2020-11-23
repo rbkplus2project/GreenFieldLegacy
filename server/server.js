@@ -1,6 +1,8 @@
 const express = require('express');
-const cors = require("cors")
+const bodyParser = require('body-parser');
 const db = require("./database")
+const cors = require("cors")
+const path = require('path');
 
 let app = express();
 
@@ -9,6 +11,7 @@ db()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
+
 
 app.use('/user', require('./routes/user'));
 app.use('/fav', require('./routes/favourates'));

@@ -15,7 +15,7 @@ class CardList extends React.Component {
 
 
     componentDidMount = () => {
-        fetch("http://127.0.0.1:5000/user/getuser", {
+        fetch("/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -47,6 +47,7 @@ class CardList extends React.Component {
                 <button onClick={() => { this.setState({ map: 'block' }); this.props.refresh()}}>use map</button>
                 {this.state.map === 'block' ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}></Map> : <div></div> }
                 {
+
                     resulsArray.length ?
                         resulsArray.map((data, i) => {
                             let ele = this.state.removeGetRes
