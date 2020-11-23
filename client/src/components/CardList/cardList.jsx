@@ -26,7 +26,7 @@ class CardList extends React.Component {
                 if (data.status === 200) {
                     data.json()
                 } else {
-                    throw new Error('user not found')
+                    throw new Error('You are not signed in')
                 }
             })
             .then(data => {if(data){this.setState({ reservationsArray: data.reservations })}})
