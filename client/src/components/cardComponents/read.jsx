@@ -181,7 +181,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
       <div className='third_component'>
         <div className="thirdcom_firstone">
           {/* <Rating name="half-rating-read" defaultValue={4} precision={0.5} readOnly /> */}
-          <Rating name="half-rating-read" defaultValue={data.starRating} precision={0.5} readOnly />
+          <Rating name="half-rating-read" defaultValue={data.starRating ? data.starRating : 0} precision={0.5} controlled />
 
         </div>
         <div className="third_component_thirdline">

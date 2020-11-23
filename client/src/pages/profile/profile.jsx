@@ -43,20 +43,20 @@ class Profile extends React.Component {
             <h2>
             <Avatar alt="ameedasmah" src="https://ca.slack-edge.com/TTVPM20S0-U018HTXLNDD-6ec65bc18cc7-512" />
             </h2>
-            <label for="username">Email : ameed asmah</label>
 
-            <label for="email">Email : ameed.asmah1@gmail.com</label>
+            <p>Email : ameed asmah</p>
+
+            <p>Email : ameed.asmah1@gmail.com</p>
             
-            <label for="creditcard">cardnumber : "1234-1234-1234-1234"</label>
+            <p>cardnumber : "1234-1234-1234-1234"</p>
 
-            <label for="favourit number">favorite number : "4" </label>
+            <p>favorite number : "4" </p>
 
-            <label for="res number">res number : 2</label>
-
+            <p>res number : 2</p>
 
             {/* <input type="text" name="cardnumber" placeholder="1234-1234-1234-1234" required /> */}
             {/* <div className="email error">some error</div> */}
-            {/* <label for="password">Password</label>
+            {/* <label htmlFor="password">Password</label>
             <input type="password" name="password" required />
             <div className="password error"></div> */}
             <div className="buttondiv">
@@ -64,13 +64,12 @@ class Profile extends React.Component {
             <button>reserve</button>
             </div>
           </form>
-    {/* const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick ,adults,dateDifferenceNumber} =this.props
-    return (
-      <div>
-        <AppBarr currentUser={currentUser}/>
-        <ProfileBody adults={adults} currentUser={currentUser} dateDifferenceNumber={dateDifferenceNumber} /> */}
-      </div>
-
+          {/* const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick ,adults,dateDifferenceNumber} =this.props
+          return (
+          <div>
+          <AppBarr currentUser={currentUser}/>
+          <ProfileBody adults={adults} currentUser={currentUser} dateDifferenceNumber={dateDifferenceNumber} /> */}
+          </div>
     );  
   }
 }
