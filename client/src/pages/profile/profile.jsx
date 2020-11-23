@@ -1,4 +1,3 @@
-import './profile.css';
 import React from "react"
 import AppBarr from "../../components/AppBar/AppBar"
 import ProfileBody from "../../components/profileBody/profileBody"
