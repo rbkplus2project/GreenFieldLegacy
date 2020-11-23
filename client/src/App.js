@@ -1,12 +1,10 @@
-import './App.css';
-import React from "react"
-import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
-
-
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
-import HomePage from "./pages/homePage/homePage"
-import Profile from "./pages/profile/profile.jsx"
+import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import CardList from "./components/CardList/cardList"
+import Profile from "./pages/profile/profile.jsx"
+import HomePage from "./pages/homePage/homePage"
+import React from "react"
+import './App.css';
 
 class App extends React.Component {
   constructor() {
