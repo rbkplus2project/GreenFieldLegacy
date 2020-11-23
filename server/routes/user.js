@@ -122,10 +122,10 @@ router.get("/signout", (req, res) => {
 })
 
 
-router.post("/forgot-password", (req, res, next) => {
+router.post("/forgot-password", async(req, res, next) => {
 
     const { email } = req.body
-    const user = User.findOne({ email })
+    const user = await User.findOne({ email })
     if (!user) {
       return 'No user found with that email address.'
     }
@@ -134,7 +134,7 @@ router.post("/forgot-password", (req, res, next) => {
 
     var expireDate = new Date().getTime() + 10800000;
 
-    User.findOneAndUpdate({ email: req.body.email }, { expiration: expireDate, token: token, used: 0 })
+    await User.findOneAndUpdate({ email: req.body.email }, { expiration: expireDate, token: token, used: 0 })
 
     const msg = {
       to: process.env.SENDGRID_TO, // Change to your recipient  //req.headers.host  //process.env.SENDGRID_TO
@@ -159,18 +159,19 @@ router.post("/forgot-password", (req, res, next) => {
 })
 
 
-router.post("reset/:token", (req, res) => {
+router.post("/reset/token", async(req, res) => {
   const { password, token } = req.body
   var salt = bcrypt.genSaltSync(10);
   var hash = bcrypt.hashSync(password, salt);
 
-  const user = User.findOne({ token })
-  if (user.expiration > new Date().getTime() && user.used < 1) {
-    User.findOneAndUpdate({ token: req.body.token }, { password: hash, used: 1 });
-  }
-
+  const user = await User.findOne({ token })
+  console.log("user", user)
   if (!user) {
     return 'Password reset token is invalid or has expired.'
+  }
+
+  if (user.expiration > new Date().getTime() && user.used < 1) {
+    await User.findOneAndUpdate({ token: req.body.token }, { password: hash, used: 1 });
   }
 
 })
