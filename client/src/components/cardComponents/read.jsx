@@ -46,7 +46,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
 
   const handleFavAdd = (data, currentUser) => {
     console.log("add is clicked")
-    fetch('http://127.0.0.1:5000/fav/add', {
+    fetch('/fav/add', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
   }
   const handleFavRemove = (data, currentUser) => {
     // console.log(data)
-    fetch('http://127.0.0.1:5000/fav/delete', {
+    fetch('/fav/delete', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
   }
 
   const handleReserveAdd = (data, currentUser) => {
-    fetch('http://127.0.0.1:5000/reservation/add', {
+    fetch('/reservation/add', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
   }
 
   const handleReserveRemove = (data, currentUser) => {
-    fetch('http://127.0.0.1:5000/reservation/delete', {
+    fetch('/reservation/delete', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',

@@ -53,7 +53,7 @@ class App extends React.Component {
     this.setState({ cityAndCountry })
   }
   handleSeachButtonClick = () => {
-      if(this.state.searchValue){fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
+      fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
         "method": "GET",
         "headers": {
           "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
@@ -84,11 +84,11 @@ class App extends React.Component {
         })
         .catch(err => {
           console.error(err);
-        });}
+        });
   }
 
   componentDidMount() {
-    //checking the auth 
+    //checking the auth
       const requestOptions = {
       method: 'GET',
       headers: {
