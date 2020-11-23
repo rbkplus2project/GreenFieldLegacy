@@ -1,10 +1,10 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import './card.css';
-import img from "./singapore.png";
+// import img from "./singapore.png";
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import Rating from '@material-ui/lab/Rating';
 import Button from '@material-ui/core/Button';
@@ -36,12 +36,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
 export default function MediaControlCard({ removeGetRes,compDidmount, reserveShow, favoriteNotEmp, adults, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
   const classes = useStyles();
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const [favNotEmpty, setFav] = React.useState(favoriteNotEmp || false);
   const [reservation, setReservation] = React.useState((removeGetRes || reserveShow || false));
@@ -125,15 +122,14 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
   const priceConverter = (price, adults, date) => {
     let res = price.split("$")
     let x = Number(res[1])
-    console.log(adults)
     return x * adults * date
   }
   return (
     <Card className={classes.root} id="body" style={{borderRadius:"15px"}}>
       <div className="first_img">
         <div  >
-          < img src={data.thumbnailUrl} className="img img_abs" style={{borderRadius:"15px"}}/>
-          {/* < img src={img} className="img img_abs" /> */}
+          < img src={data.thumbnailUrl} className="img img_abs" alt="" style={{borderRadius:"15px"}}/>
+          {/* < img src={img} className="img img_abs" alt="" /> */}
 
           {hideFav ?
             <div></div>

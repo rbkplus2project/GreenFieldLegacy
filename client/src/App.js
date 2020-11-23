@@ -1,12 +1,10 @@
-import './App.css';
-import React from "react"
-import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
-
-
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
-import HomePage from "./pages/homePage/homePage"
-import Profile from "./pages/profile/profile.jsx"
+import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import CardList from "./components/CardList/cardList"
+import Profile from "./pages/profile/profile.jsx"
+import HomePage from "./pages/homePage/homePage"
+import React from "react"
+import './App.css';
 
 class App extends React.Component {
   constructor() {
@@ -54,6 +52,7 @@ class App extends React.Component {
   handleCityAndCountry = (cityAndCountry) => {
     this.setState({ cityAndCountry })
   }
+<<<<<<< HEAD
   handleSeachButtonClick = () => {
     console.log(this.state.searchValue)
       fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
@@ -89,6 +88,78 @@ class App extends React.Component {
           console.log(err);
         });
   }
+||||||| 77aee37
+  // handleSeachButtonClick = () => {
+  //   console.log(this.state.searchValue)
+  //     fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
+  //       "method": "GET",
+  //       "headers": {
+  //         "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+  //         "x-rapidapi-host": "hotels4.p.rapidapi.com"
+  //       }
+  //     })
+  //       .then(response => {
+  //         return response.json()
+  //       })
+  //       .then((data) => {
+  //         fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
+  //           "method": "GET",
+  //           "headers": {
+  //             "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+  //             "x-rapidapi-host": "hotels4.p.rapidapi.com"
+  //           }
+  //         })
+  //           .then(response => {
+  //             return response.json()
+  //           })
+  //           .then(data => {
+  //             this.setState({ resulsArray: data.data.body.searchResults.results })
+  //           })
+  //           .then(data => console.log(this.state))
+  //           .catch(err => {
+  //             console.error(err);
+  //           });
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  // }
+=======
+  handleSeachButtonClick = () => {
+      fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+          "x-rapidapi-host": "hotels4.p.rapidapi.com"
+        }
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then((data) => {
+          fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
+            "method": "GET",
+            "headers": {
+              "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+              "x-rapidapi-host": "hotels4.p.rapidapi.com"
+            }
+          })
+            .then(response => {
+              return response.json()
+            })
+            .then(data => {
+              this.setState({ resulsArray: data.data.body.searchResults.results })
+            })
+            .then(data => {})
+            .catch(err => {
+              console.error(err);
+            });
+        })
+        .catch(err => {
+          console.error(err);
+        });
+  }
+>>>>>>> ba4219816435feca1b9cddce1ca88dd7a4ce8347
 
   componentDidMount() {
     //checking the auth 

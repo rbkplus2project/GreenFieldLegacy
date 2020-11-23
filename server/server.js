@@ -1,10 +1,11 @@
 const express = require('express');
-const cors = require("cors");
-const db = require('./database')
+const cors = require("cors")
+const db = require("./database")
 
 let app = express();
 
-db
+db()
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
@@ -18,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('../client/build'))
 
   app.get("*", (req, res) => {
-    res.sendFile(__dirname+"/../client/build/index.html")
+    res.sendFile(__dirname + "/../client/build/index.html")
   })
 }
 let port = process.env.PORT || 5000;

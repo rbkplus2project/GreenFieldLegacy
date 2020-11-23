@@ -4,7 +4,7 @@ import React from "react"
 // import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Avatar from '@material-ui/core/Avatar';
 import AppBarr from "../../components/AppBar/AppBar"
-import ProfileBody from "../../components/profileBody/profileBody"
+// import ProfileBody from "../../components/profileBody/profileBody"
 class Profile extends React.Component {
   constructor(props) {
     super(props)
@@ -55,10 +55,10 @@ class Profile extends React.Component {
 
 
             {/* <input type="text" name="cardnumber" placeholder="1234-1234-1234-1234" required /> */}
-            {/* <div class="email error">some error</div> */}
+            {/* <div className="email error">some error</div> */}
             {/* <label for="password">Password</label>
             <input type="password" name="password" required />
-            <div class="password error"></div> */}
+            <div className="password error"></div> */}
             <div className="buttondiv">
             <button>favorite</button> 
             <button>reserve</button>
