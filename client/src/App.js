@@ -1,10 +1,11 @@
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
+import { showMenu, showSearch } from './actions/actions';
+import CardList from "./components/CardList/cardList";
+import Profile from "./pages/profile/profile.jsx";
+import HomePage from "./pages/homePage/homePage";
 import { connect } from 'react-redux';
-import CardList from "./components/CardList/cardList"
-import Profile from "./pages/profile/profile.jsx"
-import HomePage from "./pages/homePage/homePage"
-import React from "react"
+import React from "react";
 import './App.css';
 
 class App extends React.Component {
@@ -77,7 +78,6 @@ class App extends React.Component {
           return response.json()
         })
         .then((data) => {
-          console.log(data)
           this.setState({ cityCenter: data.suggestions[0].entities[0] })
           fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
             "method": "GET",
@@ -89,7 +89,6 @@ class App extends React.Component {
             }
           })
             .then(response => {
-              console.log(response)
               return response.json()
             })
             .then(data => {
@@ -124,7 +123,6 @@ class App extends React.Component {
       })}
   }
   render() {
-    console.log(this.state)
     return (
       <div className="App">
         <BrowserRouter>
@@ -155,13 +153,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     show: (z) => { dispatch(showMenu(z)) },
-    hide: ( z)=> {dispatch (showSearch(z))}
+    hide: (z)=> { dispatch(showSearch(z)) }
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-
 
 //sign-up  sign-in
 //username/password
@@ -185,4 +181,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 //verify the token==>jwt.verify==>gives me the id of the user(id)
 //User.findOne({_id:id})==>gives me a user
 //send the user as a response to the front-end from the server 
-

@@ -23,11 +23,9 @@ class CardList extends React.Component {
             body: JSON.stringify({ "displayName": this.props.currentUser }),
         })
             .then(data => {
-                console.log(data)
-                data.json()
+                return data.json()
             })
             .then(data => {
-                console.log(data)
                 if (data) {
                     this.setState({ reservationsArray: data.reservations })
                 }
@@ -35,7 +33,6 @@ class CardList extends React.Component {
     }
     
     render() {
-        console.log(this.props)
         const { handleAdultsChange,adults,dateDifferenceNumber, checkIn, checkOut,  
             // reservationArray,
             // favoritesArray, 
@@ -44,8 +41,8 @@ class CardList extends React.Component {
         return (
             <div >
                 <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
-                <button onClick={() => { this.setState({ map: 'block' }); this.props.refresh()}}>use map</button>
-                {this.state.map === 'block' ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}></Map> : <div></div> }
+                <button onClick={() => { this.setState({ map: 'show' }); this.props.refresh()}}>use map</button>
+                {this.state.map === 'show' ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}></Map> : <div></div> }
                 {
 
                     resulsArray.length ?
