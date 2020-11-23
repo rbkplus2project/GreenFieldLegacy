@@ -2,7 +2,6 @@ import './homePage.css';
 import React from "react"
 import MenuItems from "../../components/menuItem/menuItem"
 import NavAndSearch from "../../components/navBar/navBar"
-import Map from "../../components/Map/Map"
 
 class HomePage extends React.Component {
   constructor(props) { 
@@ -16,7 +15,6 @@ class HomePage extends React.Component {
     return (
       <div>
         <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry}/>
-          {/* <Map google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}></Map> */}
           <div className="cards-list"> 
           { 
             this.state.initailItems.map((item, id) => (

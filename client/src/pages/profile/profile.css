@@ -1,6 +1,5 @@
 .buttongroup1{
     justify-content: center;
-    /* justify-content: space-between; */
     padding-top: 2rem;
        align-Items: center;
          margin: theme-spacing(1);
@@ -9,7 +8,6 @@
    .buttongroup2{
        justify-content: center;
        padding-top: 2rem;
-          /* flex-Direction: column; */
           align-Items: center;
             margin: theme-spacing(1);
       }

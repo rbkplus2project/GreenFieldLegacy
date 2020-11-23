@@ -3,8 +3,10 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 export class MapContainer extends Component {
     render() {
-        return(
-            <Map google={this.props.google} zoom={10}>
+        console.log(this.props)
+        return (
+            
+            <Map google={this.props.google} initialCenter={this.props.location? {lat: this.props.location.latitude, lng: this.props.location.longitude } : {lat: 0, lng: 0}} zoom={10}>
                 {console.log(this)}
                 <Marker onClick={this.onMarkerClick} name={'current'} />
                 <InfoWindow onClick={this.onInfoWindowClose}>
