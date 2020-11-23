@@ -57,8 +57,7 @@ class ProfileBody extends React.Component {
                 <div style={{
                 }}>
                     <div className="background_img">
-                        <img style={{ width: "160px", marginTop: '30px', marginLeft: '30px', height: "160px", borderRadius: "80px " }}
-                            src="https://ca.slack-edge.com/TTVPM20S0-U018HTXLNDD-c9c19858d7dc-512" />
+                        <img style={{ width: "160px", marginTop: '30px', marginLeft: '30px', height: "160px", borderRadius: "80px " }} src="https://ca.slack-edge.com/TTVPM20S0-U018HTXLNDD-c9c19858d7dc-512" alt=""/>
                         <div style={{ marginLeft: "55px", display: "flex", justifyContent: "space-around", width: "15%" }}>
                             <h2 style={{ margin: "0px", color: "white" }}>{currentUser}</h2>
                             <div style={{ paddingLeft: "5px", margin: "0px", marginTop: '5px' }} className="active"></div>
@@ -86,12 +85,14 @@ class ProfileBody extends React.Component {
                                                 let ele = this.state.removeGetRes
                                                 this.state.reservationsArray.forEach(element => {
                                                     if (element.id === data.id) {
-                                                        ele = true
+                                                          ele = true
                                                     }
-                                                })
-                                                if (typeof data === "object" && data.name)
+                                                    })
+                                                if (typeof data === "object" && data.name){
                                                     return <CardComp dateDifferenceNumber={dateDifferenceNumber} removeGetRes={ele} key={i} data={data} adults={adults} compDidmount={this.componentDidMount} favoriteNotEmp={this.state.favoriteNotEmp} hideRes={this.state.hideRes} currentUser={this.state.currentUser} />
-                                            })
+                                                    }
+                                                else{return <div></div>}
+                                                })
                                             :
                                             <h2 style={{textAlign:"center"}}>
                                                 there are no items
@@ -110,7 +111,7 @@ class ProfileBody extends React.Component {
                                                         if (data) {
                                                             return <CardComp key={i} data={data} adults={adults} dateDifferenceNumber={dateDifferenceNumber} compDidmount={this.componentDidMount} reserveShow={this.state.reserveShow} hideFav={this.state.hideFav} currentUser={this.state.currentUser} />
                                                         }
-
+                                                        else{return <div></div>}
                                                     })
 
                                                     }
@@ -145,8 +146,7 @@ class ProfileBody extends React.Component {
     }
 }
 export default ProfileBody;
-{/* <div className="profile" >
-  
-    <RightSide />
-  
-</div> */}
+
+//<div className="profile" >
+ //   <RightSide />
+//</div> 

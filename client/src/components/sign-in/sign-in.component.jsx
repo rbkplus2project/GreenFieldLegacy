@@ -1,6 +1,10 @@
 import React from 'react';
+
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+
+
+
 import './sign-in.styles.css';
 
 class SignIn extends React.Component {
@@ -39,7 +43,8 @@ class SignIn extends React.Component {
       })
       .then(() => { window.location.reload() })
       .catch((error) => {
-        console.error(error);
+        alert(error)
+        console.error('Error:', error);
       })
 
     this.setState({ email: '', password: '' })

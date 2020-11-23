@@ -46,7 +46,7 @@ class CardList extends React.Component {
                                             :
                                             <h2 style={{textAlign:"center"}}>
                                                 there are no items
-                                     </h2>
+                                            </h2>
                                     }
                 {/* <CardComp adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser}  reservationArray={reservationArray} favoritesArray={favoritesArray}/> */}
                
