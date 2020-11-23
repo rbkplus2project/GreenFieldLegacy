@@ -24,7 +24,7 @@ class Profile extends React.Component {
         body: JSON.stringify({ "displayName": this.props.currentUser }),
     })
         .then(data => data.json())
-        .then(data => this.setState({ currentUser: data.displayName, email: data.email, admin: data.admin, master: data.master }))
+        .then(data => this.setState({ currentUser: data.displayName, email: data.email, creditCard: data.creditCard}))
         // .then(() => this.setState({ price: this.handlePrice() }))
 }
   render() {
