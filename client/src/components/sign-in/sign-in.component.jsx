@@ -77,7 +77,7 @@ class SignIn extends React.Component {
             <CustomButton type='submit'> Sign in </CustomButton>
           </div>
 
-          <p >Don't have an account?? <Link to="/signup" >Sign Up</Link></p>
+          <p >Don't have an account? <Link to="/signup" >Sign Up</Link></p>
 
           <Link to="/forgot-password">
             <p >Forgot password?</p>
