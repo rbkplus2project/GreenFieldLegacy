@@ -1,5 +1,6 @@
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import CardList from "./components/CardList/cardList"
 import Profile from "./pages/profile/profile.jsx"
 import HomePage from "./pages/homePage/homePage"
@@ -128,7 +129,20 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    showMenu: state.showMenu
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    show: (z) => { dispatch(showMenu(z)) },
+    hide: ( z)=> {dispatch (showSearch(z))}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 
 
