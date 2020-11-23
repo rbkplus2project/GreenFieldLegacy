@@ -35,7 +35,7 @@ let userSchema = new Schema({
 }, { timestamps: true });
 
 
-const User = mongoose.model('user', userSchema);//collection name must be: users
+const User = mongoose.model('hoteluser', userSchema);//collection name must be: users
 
 
 module.exports.User = User;

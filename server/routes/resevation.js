@@ -2,9 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { User } = require('../database/User')
 
-
 router.post('/add', (req, res) => {
-    // console.log(req.body)
     User.findOne({ displayName: req.body.displayName }, (err, result) => {
         if (err) {
             console.log(err)

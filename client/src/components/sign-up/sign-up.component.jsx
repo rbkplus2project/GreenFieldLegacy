@@ -32,7 +32,7 @@ if(password.length<4){                                   //*  originaly was 8 ch
     }
 
     // sign up the user
-    fetch('/user/signup', {
+    fetch('http://127.0.0.1:5000/user/signup', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',

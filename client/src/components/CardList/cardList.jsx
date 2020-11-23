@@ -24,7 +24,10 @@ class CardList extends React.Component {
     }
     
     render() {
-        const { handleAdultsChange,adults,dateDifferenceNumber, checkIn, checkOut, reservationArray,favoritesArray, searchValue, cityAndCountry, handleSeachButtonClick, currentUser,resulsArray } = this.props
+        const { handleAdultsChange,adults,dateDifferenceNumber, checkIn, checkOut,  
+            // reservationArray,
+            // favoritesArray, 
+            searchValue, cityAndCountry, handleSeachButtonClick, currentUser,resulsArray } = this.props
 
         return (
             <div >
