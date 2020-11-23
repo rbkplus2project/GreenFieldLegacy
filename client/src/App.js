@@ -1,4 +1,4 @@
-import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
+import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CardList from "./components/CardList/cardList"
@@ -89,23 +89,22 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //checking the auth 
-    const requestOptions = {
+    //checking the auth
+      const requestOptions = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'jwt-auth': localStorage.getItem('jwt-auth')
       },
     }
-    fetch("http://localhost:5000/user/auth", requestOptions)
+    if(this.state.currentUser){fetch("http://localhost:5000/user/auth", requestOptions)
       .then(res => res.json())
       .then(data => {
         if (data.displayName) localStorage.setItem("current-user", data.displayName)
         this.setState({
           admin: data.admin
         })
-      })
-      .catch(err => console.log(err.message))
+      })}
   }
   render() {
     return (

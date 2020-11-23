@@ -12,7 +12,7 @@ class CardList extends React.Component {
 
 
     componentDidMount = () => {
-        fetch("http://127.0.0.1:5000/user/getuser", {
+        fetch("/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ class CardList extends React.Component {
                                             :
                                             <h2 style={{textAlign:"center"}}>
                                                 there are no items
-                                     </h2>
+                                            </h2>
                                     }
                 {/* <CardComp adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser}  reservationArray={reservationArray} favoritesArray={favoritesArray}/> */}
                
