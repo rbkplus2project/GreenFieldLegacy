@@ -60,7 +60,7 @@ class ProfileBody extends React.Component {
         }
     }
     componentDidMount = () => {
-        fetch("/user/getuser", {
+        fetch("http://127.0.0.1:5000/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
