@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 require('dotenv').config()
 
-const dbURI = process.env.MONGODB;
-// const dbURI = 'mongodb+srv://gamesio:fwOQ12Ol9t6CiHnb@gamesio.h6rcl.mongodb.net/gamesio?retryWrites=true&w=majority'
+// const dbURI = process.env.MONGODB;
+const dbURI = 'mongodb+srv://gamesio:fwOQ12Ol9t6CiHnb@gamesio.h6rcl.mongodb.net/gamesio?retryWrites=true&w=majority'
 
 mongoose.set('useFindAndModify', false);
 

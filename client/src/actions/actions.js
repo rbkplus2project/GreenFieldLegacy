@@ -6,10 +6,10 @@ export const showMenu = (z) => {
         showMenu: z
     }
 }
-export const showSearch = (z) => {
+export const setUser = (z) => {
     return {
-        type: 'SHOW_SEARCH',
-        showSearch: z
+        type: 'USER_INFO',
+        user: z
     }
 }
 
