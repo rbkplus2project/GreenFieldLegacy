@@ -1,4 +1,4 @@
-import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
+import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CardList from "./components/CardList/cardList"
@@ -53,26 +53,43 @@ class App extends React.Component {
   handleCityAndCountry = (cityAndCountry) => {
     this.setState({ cityAndCountry })
   }
+
+  getCityCenter = () => {
+    return this.state.cityCenter
+  }
+
+  refresh = () => {
+    this.setState({})
+  }
+
   handleSeachButtonClick = () => {
       fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
         "method": "GET",
         "headers": {
-          "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
-          "x-rapidapi-host": "hotels4.p.rapidapi.com"
+          // "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+          // "x-rapidapi-host": "hotels4.p.rapidapi.com",
+          "x-rapidapi-key": "d13943b4a2msh2fce0d567fcd48cp1b7894jsn85cca0ffc256",
+          "x-rapidapi-host": "hotels4.p.rapidapi.com",
+          // "useQueryString": true
         }
       })
         .then(response => {
           return response.json()
         })
         .then((data) => {
+          console.log(data)
+          this.setState({ cityCenter: data.suggestions[0].entities[0] })
           fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
             "method": "GET",
             "headers": {
-              "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
-              "x-rapidapi-host": "hotels4.p.rapidapi.com"
+              // "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+              // "x-rapidapi-host": "hotels4.p.rapidapi.com",
+              "x-rapidapi-key": "d13943b4a2msh2fce0d567fcd48cp1b7894jsn85cca0ffc256",
+	            "x-rapidapi-host": "hotels4.p.rapidapi.com"
             }
           })
             .then(response => {
+              console.log(response)
               return response.json()
             })
             .then(data => {
@@ -89,25 +106,25 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //checking the auth 
-    const requestOptions = {
+    //checking the auth
+      const requestOptions = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'jwt-auth': localStorage.getItem('jwt-auth')
       },
     }
-    fetch("http://localhost:5000/user/auth", requestOptions)
+    if(this.state.currentUser){fetch("http://localhost:5000/user/auth", requestOptions)
       .then(res => res.json())
       .then(data => {
         if (data.displayName) localStorage.setItem("current-user", data.displayName)
         this.setState({
           admin: data.admin
         })
-      })
-      .catch(err => console.log(err.message))
+      })}
   }
   render() {
+    console.log(this.state)
     return (
       <div className="App">
         <BrowserRouter>
@@ -121,7 +138,7 @@ class App extends React.Component {
               : (<Redirect to='/' />)} />
           <Switch>
             <Route exact path="/" render={() => <HomePage handleAdultsChange={this.handleAdultsChange} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
-            <Route exact path="/cardlist" render={() => <CardList handleAdultsChange={this.handleAdultsChange} adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
+            <Route exact path="/cardlist" render={() => <CardList refresh={this.refresh} cityCenter={this.getCityCenter} handleAdultsChange={this.handleAdultsChange} adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
           </Switch>
         </BrowserRouter>
       </div>
