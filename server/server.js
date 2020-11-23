@@ -1,8 +1,10 @@
 const express = require('express');
-const cors = require("cors")
+const cors = require("cors");
+const db = require('./database')
 
 let app = express();
 
+db
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
@@ -23,4 +25,5 @@ let port = process.env.PORT || 5000;
 
 app.listen(port, function () {
   console.log(`listening on port ${port}`);
+
 });
