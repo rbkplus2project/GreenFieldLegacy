@@ -29,7 +29,7 @@ class CardList extends React.Component {
                     throw new Error('user not found')
                 }
             })
-            .then(data => this.setState({ reservationsArray: data.reservations }))
+            .then(data => {if(data){this.setState({ reservationsArray: data.reservations })}})
             .catch(err => console.log(err))
     }
     

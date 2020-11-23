@@ -64,6 +64,7 @@ class App extends React.Component {
   }
 
   handleSeachButtonClick = () => {
+    if(this.state.searchValue){
       fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
         "method": "GET",
         "headers": {
@@ -78,6 +79,7 @@ class App extends React.Component {
           return response.json()
         })
         .then((data) => {
+          if(data.suggestions[0].entities[0]){
           this.setState({ cityCenter: data.suggestions[0].entities[0] })
           fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
             "method": "GET",
@@ -98,22 +100,22 @@ class App extends React.Component {
             .catch(err => {
               console.error(err);
             });
-        })
+        }})
         .catch(err => {
           console.error(err);
-        });
+        });}
   }
 
   componentDidMount() {
     //checking the auth
-      const requestOptions = {
+    if(this.state.currentUser){const requestOptions = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'jwt-auth': localStorage.getItem('jwt-auth')
       },
     }
-    if(this.state.currentUser){fetch("http://localhost:5000/user/auth", requestOptions)
+    fetch("http://localhost:5000/user/auth", requestOptions)
       .then(res => res.json())
       .then(data => {
         if (data.displayName) localStorage.setItem("current-user", data.displayName)

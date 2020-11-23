@@ -49,7 +49,7 @@ router.post("/deleteuser", (req, res) => {
 router.post("/getuser", (req, res) => {
   User.findOne({ displayName: req.body.displayName }, (err, data) => {
     if (data === null) {
-      res.status(404).send("error getting the data")
+      res.status(201).send("error getting the data")
     } else {
       res.status(200).json(data)
     }
