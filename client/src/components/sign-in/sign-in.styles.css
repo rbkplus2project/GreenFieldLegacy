@@ -2,7 +2,6 @@
   width: 380px;
   display: flex;
   flex-direction: column;
- 
 }
 
 .sign-in .title {
@@ -13,3 +12,4 @@
     display: flex;
     justify-content: space-between;
   }
+  

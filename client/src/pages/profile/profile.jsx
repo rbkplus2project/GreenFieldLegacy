@@ -64,13 +64,13 @@ class Profile extends React.Component {
             <button>reserve</button>
             </div>
           </form>
-<!--    const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick ,adults,dateDifferenceNumber} =this.props
+    {/* const { currentUser,checkIn,checkOut,searchValue,cityAndCountry,handleSeachButtonClick ,adults,dateDifferenceNumber} =this.props
     return (
       <div>
         <AppBarr currentUser={currentUser}/>
-        <ProfileBody adults={adults} currentUser={currentUser} dateDifferenceNumber={dateDifferenceNumber} /> -->
-      </div>
-
+        <ProfileBody adults={adults} currentUser={currentUser} dateDifferenceNumber={dateDifferenceNumber} /> */}
+      {/* </div> */}
+</div>
     );  
   }
 }

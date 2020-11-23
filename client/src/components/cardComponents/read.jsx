@@ -49,7 +49,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
 
   const handleFavAdd = (data, currentUser) => {
     console.log("add is clicked")
-    fetch('http://127.0.0.1:5000/fav/add', {
+    fetch('http://localhost:5000/fav/add', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
