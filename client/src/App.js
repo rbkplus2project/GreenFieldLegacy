@@ -154,8 +154,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    show: (z) => { dispatch(showMenu(z)) },
-    hide: ( z)=> {dispatch (showSearch(z))}
+    // show: (z) => { dispatch(showMenu(z)) },
+    // hide: ( z)=> {dispatch(showSearch(z))}
   }
 }
 
