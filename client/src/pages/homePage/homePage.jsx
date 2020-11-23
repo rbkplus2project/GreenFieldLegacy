@@ -15,10 +15,10 @@ class HomePage extends React.Component {
     return (
       <div>
         <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry}/>
-        <div className="cards-list"> 
+          <div className="cards-list"> 
           { 
             this.state.initailItems.map((item, id) => (
-                
+              
               <MenuItems item={item} key={id} handleSeachButtonClick={handleSeachButtonClick} searchValue={searchValue} />
              
               
