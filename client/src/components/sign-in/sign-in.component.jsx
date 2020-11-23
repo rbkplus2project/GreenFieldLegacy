@@ -1,10 +1,6 @@
 import React from 'react';
-
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-
-
-
 import './sign-in.styles.css';
 
 class SignIn extends React.Component {
@@ -22,7 +18,7 @@ class SignIn extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    fetch('/user/signin', {
+    fetch('http://127.0.0.1:5000/user/signin', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -43,8 +39,7 @@ class SignIn extends React.Component {
       })
       .then(() => { window.location.reload() })
       .catch((error) => {
-        alert(error)
-        console.error('Error:', error);
+        console.error(error);
       })
 
     this.setState({ email: '', password: '' })
@@ -67,7 +62,7 @@ class SignIn extends React.Component {
             type='email'
             handleChange={this.handleChange}
             value={this.state.email}
-            label='email'
+            placeholder='email'
             required
           />
           <FormInput
@@ -75,7 +70,7 @@ class SignIn extends React.Component {
             type='password'
             value={this.state.password}
             handleChange={this.handleChange}
-            label='password'
+            placeholder='password'
             required
           />
           <div className='buttons'>
@@ -87,5 +82,4 @@ class SignIn extends React.Component {
     );
   }
 }
-
 export default SignIn;

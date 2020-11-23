@@ -32,7 +32,7 @@ if(password.length<8){
     }
 
     // sign up the user
-    fetch('/user/signup', {
+    fetch('http://127.0.0.1:5000/user/signup', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ if(password.length<8){
             name='displayName'
             value={displayName}
             onChange={this.handleChange}
-            label='Display Name'
+            placeholder='Display Name'
             required
           />
           <FormInput
@@ -94,7 +94,7 @@ if(password.length<8){
             name='email'
             value={email}
             onChange={this.handleChange}
-            label='Email'
+            placeholder='Email'
             required
           />
           <FormInput
@@ -102,7 +102,7 @@ if(password.length<8){
             name='password'
             value={password}
             onChange={this.handleChange}
-            label='Password'
+            placeholder='Password'
             required
           />
           <FormInput
@@ -110,7 +110,7 @@ if(password.length<8){
             name='confirmPassword'
             value={confirmPassword}
             onChange={this.handleChange}
-            label='Confirm Password'
+            placeholder='Confirm Password'
             required
           />
           <CustomButton type='submit'>SIGN UP</CustomButton>

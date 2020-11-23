@@ -11,7 +11,7 @@ router.post('/payment', (req, res) => {
   console.log(req.body.token.id)
   console.log(' ********************************')
   console.log(req.body.amount)
-  console.log(' ****************ffffffffffffffffffffffffffjjjjjjjjjjjjjjjjjjjjjjj****************')
+  console.log(' ********************************')
   console.log("user id is here", req.body.userid)
   const body = {
     source: req.body.token.id,
