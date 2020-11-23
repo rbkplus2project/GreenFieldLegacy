@@ -2,6 +2,7 @@
 import { Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 const axios = require('axios');
 const $ = require('jquery');
 
@@ -17,6 +18,7 @@ class ResetPassword extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        // console.log("hi");
         let input = $('#reset-form').serializeArray();
         let options = {
             url: `http://localhost:5000/user/forgot-password`,
@@ -26,6 +28,7 @@ class ResetPassword extends Component {
 
         axios(options)
             .then((results) => {
+                console.log(results);
                 if (results.status === 200) {
                     this.setState({ newpass: true })
                 };
@@ -51,7 +54,9 @@ class ResetPassword extends Component {
                             <input type="email" className="text" id="email" name="email" />
                         </div>
                         <br />
-                        <button className="button" style={{ color: this.props.colors[3], backgroundColor: this.props.colors[0], borderColor: this.props.colors[1] }}>Reset Password</button><br />
+                        <button className="button" >Reset Password</button><br />
+
+                        <p >Back to Sign In <Link to="/signin" >Sign In</Link></p>
                     </form>
                 </div>
             )

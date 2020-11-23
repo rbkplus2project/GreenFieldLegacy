@@ -12,10 +12,13 @@ class NewPassword extends Component {
         }
     }
     checkPassWord = (password) => {
-        if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.{5,})/.test(password)) {
-            return true;
-        }
-        return false;
+        // if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.{5,})/.test(password)) {
+        //     return true;
+        // }
+        return true;
+    }
+    componentDidMount = ()=> {
+        console.log("hiiii")
     }
 
     handleSubmit = (e) => {
@@ -30,7 +33,7 @@ class NewPassword extends Component {
 
         if (input[0].value === input[1].value && (this.checkPassWord(input[0].value)) === true) {
             let options = {
-                url: `http://localhost:3000/user/reset/:token`,
+                url: `http://localhost:5000/user/reset/:token`,
                 method: 'post',
                 data: { password: input[0].value, token: token }
             }
@@ -70,7 +73,7 @@ class NewPassword extends Component {
                     </div>
 
                     <div className="column">
-                        <label htmlFor="password-con" >Comfirm Password:</label>
+                        <label htmlFor="password-con" >Confirm Password:</label>
                         <input type="password" className="text" id="password-con" name="password-con"  />
                         <div className="password error"></div>
                     </div>
