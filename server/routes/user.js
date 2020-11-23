@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken')
 const auth = require('../middleware/auth')
 
 router.get("/auth", auth, (req, res) => {
-  // console.log(req.user)
   if (req.user) {
     res.json({
       id: req.user._id,
@@ -16,7 +15,8 @@ router.get("/auth", auth, (req, res) => {
       email: req.user.email,
       admin: req.body.admin
     })
-  }
+  }else{
+  res.json()}
 })
 
 

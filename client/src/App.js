@@ -1,9 +1,9 @@
-import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component"
+import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
-import CardList from "./components/CardList/cardList"
-import Profile from "./pages/profile/profile.jsx"
-import HomePage from "./pages/homePage/homePage"
-import React from "react"
+import CardList from "./components/CardList/cardList";
+import Profile from "./pages/profile/profile.jsx";
+import HomePage from "./pages/homePage/homePage";
+import React from "react";
 import './App.css';
 
 class App extends React.Component {
@@ -53,7 +53,7 @@ class App extends React.Component {
     this.setState({ cityAndCountry })
   }
   handleSeachButtonClick = () => {
-      fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
+      if(this.state.searchValue){fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
         "method": "GET",
         "headers": {
           "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
@@ -84,27 +84,26 @@ class App extends React.Component {
         })
         .catch(err => {
           console.error(err);
-        });
+        });}
   }
 
   componentDidMount() {
     //checking the auth 
-    const requestOptions = {
+      const requestOptions = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'jwt-auth': localStorage.getItem('jwt-auth')
       },
     }
-    fetch("http://localhost:5000/user/auth", requestOptions)
+    if(this.state.currentUser){fetch("http://localhost:5000/user/auth", requestOptions)
       .then(res => res.json())
       .then(data => {
         if (data.displayName) localStorage.setItem("current-user", data.displayName)
         this.setState({
           admin: data.admin
         })
-      })
-      .catch(err => console.log(err.message))
+      })}
   }
   render() {
     return (
