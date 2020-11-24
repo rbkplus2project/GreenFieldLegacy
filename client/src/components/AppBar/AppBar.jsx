@@ -21,7 +21,7 @@ class AppBarr extends React.Component {
                 localStorage.removeItem("jwt-auth")
                 localStorage.removeItem("current-user")
                 window.location.reload()
-            })
+            }).catch()
     }
     render() {
         return (
@@ -33,15 +33,22 @@ class AppBarr extends React.Component {
                                 <Typography className="typography mys center" variant="h4">
                                     {/* <img alt='hotelImg' src={hotel} style={{ height: 35, width: 35, marginTop: 20 }} /> */}
                                     <img alt='HotelCom' src={logo} />
+                                    <Button color="inherit">
+                                    Homepage
+                                    </Button>
+                                    
                                 </Typography>
                             </Link>
                             {
                                 this.props.currentUser ?
                                     <div >
                                         <Button color="inherit" onClick={this.handleLoginClick}>
-                                            Log-out
+                                            Signout
                                     </Button>
                                         <Link to='/profile' className="mys">
+                                        <Button color="inherit">
+                                            Profile
+                                    </Button>
                                             <IconButton color='inherit' edge="start" aria-label="menu" size="medium" m={2}>
                                                 <AccountCircleIcon className="Account" />
                                             </IconButton>
@@ -52,13 +59,13 @@ class AppBarr extends React.Component {
                                     <div >
                                         <Button >
                                             <Link to='/signin' className="mys">
-                                                Sign-in
-                                            </Link>
+                                                Signin
+                                         </Link>
                                         </Button>
                                         <Button color="inherit">
-                                            <Link to='/signup' className="mys">
-                                                Sign-up
-                                            </Link>
+                                            <Link to='/signin' className="mys">
+                                                Signup
+                                         </Link>
                                         </Button>
                                     </div>
                             }

@@ -1,5 +1,5 @@
 # Project title 
-HotelCom
+[HotelCom](https://raptors-hotels.herokuapp.com/)
 ## Table of contents
 * project aim
 * general info
