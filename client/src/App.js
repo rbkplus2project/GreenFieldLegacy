@@ -82,6 +82,7 @@ class App extends React.Component {
           return response.json()
         })
         .then((data) => {
+          if(data){
           if(data.suggestions[0].entities[0]){
           this.setState({ cityCenter: data.suggestions[0].entities[0] })
           fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
@@ -103,7 +104,14 @@ class App extends React.Component {
             .catch(err => {
               console.error(err);
             });
-        }})
+        }else{this.setState({ resulsArray: [{address: {streetAddress: "middle of nowhere", locality: "Nowhere"},
+        coordinate: {lat: 0, lon: 0},
+        name: "No Hotel",
+        guestReviews: {unformattedRating: 0, total: 1},
+        ratePlan: {price: {current: "$0"}},
+        starRating: 0,
+        thumbnailUrl: "https://i.insider.com/562fbe249dd7cc1b008c528d?width=700"
+        }]})}}})
         .catch(err => {
           console.error(err);
         });}
