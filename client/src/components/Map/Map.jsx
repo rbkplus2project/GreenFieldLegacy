@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-import CardComp from '../cardComponents/card'
+import mapDeco from './mapDecorations'
 import './Map.css'
 export class MapContainer extends Component {
     constructor(props) {
@@ -23,12 +23,18 @@ export class MapContainer extends Component {
                 showInfo: true,
             })
     }
+    _mapLoaded = (mapProps, map) => {
+        map.setOptions({
+            styles: mapDeco
+         })
+      }
     render() {
         console.log(this.props)
         return (
             <Map google={this.props.google}
                 initialCenter={this.props.location ? { lat: this.props.location.latitude, lng: this.props.location.longitude } : { lat: 0, lng: 0 }}
                 zoom={15}
+                onReady={(mapProps, map) => this._mapLoaded(mapProps, map)}
                 onClick={this.onMapClicked}>
                 <Marker name={'current'} />
                 {this.props.hotels.map((elem, i) => (<Marker onClick={this.onMarkerClick} key={elem.id} key2={i} name={elem.name}
