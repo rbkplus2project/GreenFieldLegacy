@@ -5,7 +5,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import MenuIcon from '@material-ui/icons/Menu';
 import "./appBar.css"
 import { Link } from 'react-router-dom';
-import "./appBar.css"
+// import "./appBar.css"
 import logo from './great2.png'
 
 class AppBarr extends React.Component {
@@ -53,12 +53,12 @@ class AppBarr extends React.Component {
                                         <Button >
                                             <Link to='/signin' className="mys">
                                                 Sign-in
-                                         </Link>
+                                            </Link>
                                         </Button>
                                         <Button color="inherit">
-                                            <Link to='/signin' className="mys">
+                                            <Link to='/signup' className="mys">
                                                 Sign-up
-                                         </Link>
+                                            </Link>
                                         </Button>
                                     </div>
                             }

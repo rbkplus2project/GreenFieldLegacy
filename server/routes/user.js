@@ -125,7 +125,6 @@ router.get("/signout", (req, res) => {
   })
 })
 
-
 router.post("/forgot-password", async (req, res, next) => {
 
   const { email } = req.body
@@ -146,24 +145,24 @@ router.post("/forgot-password", async (req, res, next) => {
     subject: 'From hotels.com',
     text: 'Weclome to our hotel booking website, Hope you Enjoy your experience. You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
       'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-      'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+      'http://' + "localhost:3000" + '/reset/' + token + '\n\n' +
       'If you did not request this, please ignore this email and your password will remain unchanged.\n'
   }
-  // sgMail
-  //   .send(msg)
-  //   .then(() => {
-  //     console.log('Email sent')
-  //     res.status(200);
-  //     next();
+  await sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent')
+      res.status(200);
+      next();
 
-  //   })
-  //   .catch((error) => {
-  //     console.error(error)
-  //   })
+    })
+    .catch((error) => {
+      console.error(error)
+    })
 })
 
 
-router.post("/reset/token", async (req, res) => {
+router.post("/reset/:token", async (req, res) => {
   const { password, token } = req.body
   var salt = bcrypt.genSaltSync(10);
   var hash = bcrypt.hashSync(password, salt);

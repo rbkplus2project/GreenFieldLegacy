@@ -9,7 +9,7 @@ class CardList extends React.Component {
         this.state={
             removeGetRes:false,
             reservationsArray: [],
-            map: 'none'
+            map: false
         }
     }
 
@@ -43,10 +43,9 @@ class CardList extends React.Component {
         return (
             <div >
                 <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
-                <button onClick={() => { this.setState({ map: 'block' }); this.props.refresh()}}>use map</button>
-                {this.state.map === 'block' ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}></Map> : <div></div> }
+                <button onClick={() => { this.setState({ map: !this.state.map }); this.props.refresh()}}>use map</button>
+                {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div> }
                 {
-
                     resulsArray.length ?
                         resulsArray.map((data, i) => {
                             let ele = this.state.removeGetRes
