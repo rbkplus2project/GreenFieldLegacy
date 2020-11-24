@@ -1,7 +1,9 @@
 .infoWindow{
-    color:blue;
+    color:red;
+    font-size: 15px;
+    font-weight: bold;
     width: 600px;
-    height: 200px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -15,8 +17,8 @@
     flex-flow: column;
 }
 .go{
-    border:1px solid purple;
-    border-radius: 50px;
+    border:2px solid purple;
+    border-radius: 5px;
     width:100px;
     height: 30px;
 }

@@ -116,7 +116,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
     return x * adults * date
   }
   return (
-    <Card className={classes.root} id="body" style={{borderRadius:"15px"}}>
+    <Card className={classes.root+" body"} id={"a"+data.id}>
       <div className="first_img">
         <div>
           < img src={data.thumbnailUrl} className="img img_abs" alt="" style={{borderRadius:"15px"}}/>
@@ -144,6 +144,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
             <div className="center-second">
               <Typography component="div" variant="subtitle1" color="textSecondary">
                 <div className="citysize">
+                {data.address.streetAddress} --- {data.address.locality}
                 </div>
               </Typography>
             </div>
@@ -151,10 +152,9 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
           <div className="dollers">
             <Typography  component="div">
               <div className="facility">
-                {data.address.streetAddress}
+            ${priceConverter(data.ratePlan.price.current, adults, dateDifferenceNumber())} per night
               </div>
             </Typography>
-            ${priceConverter(data.ratePlan.price.current, adults, dateDifferenceNumber())}
           </div>
         </div>
       </div>
