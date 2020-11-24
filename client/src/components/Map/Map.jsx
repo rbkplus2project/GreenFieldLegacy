@@ -1,7 +1,7 @@
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import React, { Component } from 'react';
-import './Map.css';
-
+import mapDeco from './mapDecorations'
+import './Map.css'
 export class MapContainer extends Component {
     constructor(props) {
         super(props) 
@@ -22,18 +22,24 @@ export class MapContainer extends Component {
                 showInfo: true,
             })
     }
+    _mapLoaded = (mapProps, map) => {
+        map.setOptions({
+            styles: mapDeco
+         })
+      }
     render() {
         return (
             <div style={{height:"90vh", width:"90vw", position:"relative", marginLeft:"5vw", marginBottom:"5vh" }}>
             <Map google={this.props.google}
                 initialCenter={this.props.location ? { lat: this.props.location.latitude, lng: this.props.location.longitude } : { lat: 0, lng: 0 }}
                 zoom={15}
+                onReady={(mapProps, map) => this._mapLoaded(mapProps, map)}
                 onClick={this.onMapClicked}>
                 <Marker name={'current'} />
                 {this.props.hotels.map((elem, i) => (<Marker onClick={this.onMarkerClick} key={elem.id} key2={i} name={elem.name}
                     position={{ lat: elem.coordinate.lat, lng: elem.coordinate.lon }}
                     icon={{
-                        url: 'hotel-icon-png.jpg',
+                        url: 'hotel-icon-png.png',
                         anchor: new this.props.google.maps.Point(25, 10),
                         scaledSize: new this.props.google.maps.Size(50, 50)
                     }}
