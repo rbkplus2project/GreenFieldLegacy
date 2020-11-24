@@ -1,7 +1,17 @@
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import mapDeco from './mapDecorations.js';
 import React, { Component } from 'react';
-import mapDeco from './mapDecorations'
-import './Map.css'
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+import './Map.css';
+
+// Onclick on a map card scrolls down to its hotel card
+var go=(x)=> {
+    x="#"+x
+    $('html,body').animate({
+    scrollTop: $(x).offset().top},
+    'slow');
+};
 export class MapContainer extends Component {
     constructor(props) {
         super(props) 
@@ -21,11 +31,27 @@ export class MapContainer extends Component {
                 marker,
                 showInfo: true,
             })
-    }
+    } 
     _mapLoaded = (mapProps, map) => {
         map.setOptions({
             styles: mapDeco
-         })
+        })
+    }
+
+    onInfoWindowOpen(props,state) {
+        const info = ( <div className="infoWindow"><img src={props.hotels[state.marker.key2].thumbnailUrl} alt="hotel-pic" style={{borderRadius:15, width:"20vw"}} />
+        <div>
+        <span>{props.hotels[state.marker.key2].name}</span>
+        <span>{props.hotels[state.marker.key2].address.streetAddress}</span>
+        <span>{props.hotels[state.marker.key2].ratePlan.price.current}</span>
+        </div>
+        <div>
+        <span>Stars : {props.hotels[state.marker.key2].starRating} / 5</span>
+        <span>Guests : {props.hotels[state.marker.key2].guestReviews.unformattedRating} / 10</span>
+        <span>Reviews : {props.hotels[state.marker.key2].guestReviews.total}</span>
+        <p className="go" onClick={()=>{go("a"+props.hotels[state.marker.key2].id)}}>Go</p>
+        </div></div>);
+        ReactDOM.render(React.Children.only(info), document.getElementById("info"));
       }
     render() {
         return (
@@ -46,22 +72,9 @@ export class MapContainer extends Component {
                      />))}
                 <InfoWindow
                     visible={this.state.showInfo}
-                    onClick={this.onInfoWindowClose}
+                    onOpen={e => {this.onInfoWindowOpen(this.props,this.state)}}
                     position={this.state.marker.position}>
-                    <div className="infoWindow">
-                        <img src={this.props.hotels[this.state.marker.key2].thumbnailUrl} alt="hotel-pic" style={{borderRadius:15, width:"20vw"}} />
-                        <div>
-                        <span>{this.props.hotels[this.state.marker.key2].name}</span>
-                        <span>{this.props.hotels[this.state.marker.key2].address.streetAddress}</span>
-                        <span>{this.props.hotels[this.state.marker.key2].ratePlan.price.current}</span>
-                        </div>
-                        <div>
-                        <span>Stars : {this.props.hotels[this.state.marker.key2].starRating} / 5</span>
-                        <span>Guests : {this.props.hotels[this.state.marker.key2].guestReviews.unformattedRating} / 10</span>
-                        <span>Reviews : {this.props.hotels[this.state.marker.key2].guestReviews.total}</span>
-                        <span className="go">Go</span>
-                        </div>
-                    </div>
+                    <div id="info"></div>
                 </InfoWindow>
             </Map>
             </div>

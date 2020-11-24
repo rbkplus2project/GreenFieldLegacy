@@ -116,7 +116,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
     return x * adults * date
   }
   return (
-    <Card className={classes.root} id="body">
+    <Card className={classes.root+" body"} id={"a"+data.id}>
       <div className="first_img">
         <div>
           < img src={data.thumbnailUrl} className="img img_abs" alt="" style={{borderRadius:"15px"}}/>
