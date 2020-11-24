@@ -4,7 +4,7 @@ const initState = {
         { username: "ahamd", password: "123" }
     ],
     showMenu: 0,
-    user: {},
+    user: {}
       
 }
 

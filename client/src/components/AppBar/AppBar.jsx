@@ -16,11 +16,7 @@ class AppBarr extends React.Component {
     }
     handleLoginClick = (e) => {
         e.preventDefault()
-<<<<<<< HEAD
-        fetch("http://localhost:5000/signout")
-=======
         fetch("/signout")
->>>>>>> 43f35b2449e5beb3522569bac843b8e18d0c7b20
             .then(() => {
                 localStorage.removeItem("jwt-auth")
                 localStorage.removeItem("current-user")

@@ -15,11 +15,7 @@ class CardList extends React.Component {
 
 
     componentDidMount = () => {
-<<<<<<< HEAD
-        fetch("http://localhost:5000/user/getuser", {
-=======
         fetch("/user/getuser", {
->>>>>>> 43f35b2449e5beb3522569bac843b8e18d0c7b20
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
