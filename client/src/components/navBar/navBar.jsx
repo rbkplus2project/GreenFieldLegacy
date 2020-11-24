@@ -1,17 +1,13 @@
-import 'date-fns';
-import React from "react"
-import { Button } from '@material-ui/core';
-import MaterialUIPickers from "../date/date";
 import InputSearch from "../inputSearch/inputSearch";
-import { Link } from "react-router-dom";
-// import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-// import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-// import { InputLabel } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-
-import AppBarr from '../AppBar/AppBar';
+import MaterialUIPickers from "../date/date";
 import Greeting from '../greeting/greeting';
-import "./navBar.css"
+import { Button } from '@material-ui/core';
+import { Link } from "react-router-dom";
+import AppBarr from '../AppBar/AppBar';
+import React from "react";
+import "./navBar.css";
+import 'date-fns';
 
 class NavAndSearch extends React.Component {
   render() {
@@ -26,9 +22,6 @@ class NavAndSearch extends React.Component {
             <MaterialUIPickers name="check in" checkInOrOut={checkIn} />
             <MaterialUIPickers name="check out" checkInOrOut={checkOut} />
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "7px" }}>
-              {/* <RemoveCircleOutlineIcon/>
-            <InputLabel/>
-            <AddCircleOutlineIcon/> */}
               <TextField
                 id="standard-number"
                 label="No. People"
@@ -39,14 +32,8 @@ class NavAndSearch extends React.Component {
                 }}
                 onChange={(e)=>handleAdultsChange(e.target.value) }
               />
-           
             </div>
             <div className="search">
-              {/* <Button  variant="outlined" color="primary" size="medium"  onClick={(e)=>{e.preventDefault();handleSeachButtonClick()}}>
-              <Link  to='/cardlist' >
-              search
-              </Link>
-          </Button> */}
               <Button variant="outlined" size="medium" color="primary" style={{ height: 30 }} onClick={(e) => { e.preventDefault(); handleSeachButtonClick() }}>
                 <Link to='/cardlist' >
                   <p style={{ color: "Navy" }}>search</p>
@@ -58,8 +45,8 @@ class NavAndSearch extends React.Component {
         <div>
         </div>
       </div>
-    );
+    )
   }
-}
+};
 
 export default NavAndSearch;

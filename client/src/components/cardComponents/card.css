@@ -13,27 +13,31 @@
     margin: auto;
     margin-bottom: 20px;
     box-shadow: black;
-    width: 60vw;
+    width: 80vw;
 }
+#body:hover{
+    background-color: pink;
+}
+
 .first_img{
-    flex: .30;
-    display: flex;
-     
+    float :left;
 }
 
 .center{
     flex : .40;
-    margin: 5px;
+    margin-left: 250px;
 }
 
 .center-second{
     padding-bottom:.9rem ;
     padding-left:.2rem;
 }
+
 .facility{
     font-size: 11px;
     padding-left:1rem;
 }
+
 .citysize{
     font-size:16px;
 }
