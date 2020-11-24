@@ -40,7 +40,7 @@ export class MapContainer extends Component {
                 {this.props.hotels.map((elem, i) => (<Marker onClick={this.onMarkerClick} key={elem.id} key2={i} name={elem.name}
                     position={{ lat: elem.coordinate.lat, lng: elem.coordinate.lon }}
                     icon={{
-                        url: 'hotel-icon-png.jpg',
+                        url: 'hotel-icon-png.png',
                         anchor: new this.props.google.maps.Point(25, 10),
                         scaledSize: new this.props.google.maps.Size(50, 50)
                     }}
