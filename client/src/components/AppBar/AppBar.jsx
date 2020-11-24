@@ -5,7 +5,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import MenuIcon from '@material-ui/icons/Menu';
 import "./appBar.css"
 import { Link } from 'react-router-dom';
-import "./appBar.css"
+// import "./appBar.css"
 import logo from './great2.png'
 
 class AppBarr extends React.Component {

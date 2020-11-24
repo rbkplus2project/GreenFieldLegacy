@@ -1,5 +1,8 @@
-import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+
+import UserSign from "./pages/UserSign/UserSign";
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
+import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
+import NewPassword from "./pages/NewPassword/NewPassword.jsx";
 import { showMenu, showSearch } from './actions/actions';
 import CardList from "./components/CardList/cardList";
 import Profile from "./pages/profile/profile.jsx";
@@ -131,14 +134,25 @@ class App extends React.Component {
           <Route exact path="/signin" render={() =>
             this.state.currentUser
               ? (<Redirect to='/' />)
-              : (<SignInAndSignUpPage />)} />
+              : (<UserSign />)} />
+          <Route exact path="/signup" render={() =>
+            this.state.currentUser
+              ? (<Redirect to='/' />)
+              : (<UserSign />)} />
           <Route exact path="/profile" render={() =>
             this.state.currentUser
               ? (<Profile adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
               : (<Redirect to='/' />)} />
           <Switch>
             <Route exact path="/" render={() => <HomePage handleAdultsChange={this.handleAdultsChange} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
+
             <Route exact path="/cardlist" render={() => <CardList refresh={this.refresh} cityCenter={this.getCityCenter} handleAdultsChange={this.handleAdultsChange} adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
+
+            <Route path="/forgot-password" component={ResetPassword} />
+
+            <Route path="/reset/:token" component={NewPassword} />
+
+    
           </Switch>
         </BrowserRouter>
       </div>
@@ -155,7 +169,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     show: (z) => { dispatch(showMenu(z)) },
-    hide: (z)=> { dispatch(showSearch(z)) }
+    hide: (z) => { dispatch(showSearch(z)) }
   }
 }
 
