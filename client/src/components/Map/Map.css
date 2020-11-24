@@ -1,0 +1,25 @@
+.infoWindow{
+    color:blue;
+    width: 600px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row;
+}
+.infoWindow *{
+    height:90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: column;
+}
+.go{
+    border:1px solid purple;
+    border-radius: 50px;
+    width:100px;
+    height: 30px;
+}
+.go:hover{
+    background-color:pink;
+}

@@ -125,7 +125,6 @@ router.get("/signout", (req, res) => {
   })
 })
 
-
 router.post("/forgot-password", async (req, res, next) => {
 
   const { email } = req.body

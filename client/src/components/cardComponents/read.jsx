@@ -58,7 +58,6 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
     setFav(true)
   }
   const handleFavRemove = (data, currentUser) => {
-    // console.log(data)
     fetch('/fav/delete', {
       method: 'POST', // or 'PUT'
       headers: {
