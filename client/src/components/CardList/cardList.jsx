@@ -10,7 +10,7 @@ class CardList extends React.Component {
         this.state={
             removeGetRes:false,
             reservationsArray: [],
-            map: 'none'
+            map: false
         }
     }
     componentDidMount = () => {
@@ -37,10 +37,10 @@ class CardList extends React.Component {
             <div >
                 <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
                 <Button variant="outlined" size="medium" color="primary" style={{ height: 30, float:"right", marginRight: "1vw", marginTop: "-30px" }} onClick={(e) => { e.preventDefault(); handleSeachButtonClick() }}>
-                <p style={{ color:"navy" }} onClick={() => { this.setState({ map: 'show' }); this.props.refresh()}}>Show map</p>
+                <p style={{ color:"navy" }} onClick={() => { this.setState({ map: !this.state.map }); this.props.refresh()}}>Show map</p>
                 </Button>
                 <br/>
-                {this.state.map === 'show' ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}></Map> : <div></div> }
+                {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div> }
                 {
                     resulsArray.length ?
                         resulsArray.map((data, i) => {
