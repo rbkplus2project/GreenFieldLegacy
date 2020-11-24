@@ -12,6 +12,8 @@
     margin-bottom: 20px;
     box-shadow: black;
     width: 80vw;
+    height: 25vh;
+    border-radius: 15px;
 }
 #body:hover{
     background-color: pink;
@@ -32,7 +34,7 @@
 }
 
 .facility{
-    font-size: 11px;
+    font-size: 13px;
     padding-left:1rem;
 }
 
