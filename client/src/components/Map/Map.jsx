@@ -17,7 +17,6 @@ export class MapContainer extends Component {
         })
     }
     onMarkerClick = (props, marker, e) => {
-        console.log(props, marker, e)
             this.setState({
                 marker,
                 showInfo: true,
@@ -44,12 +43,18 @@ export class MapContainer extends Component {
                     onClick={this.onInfoWindowClose}
                     position={this.state.marker.position}>
                     <div className="infoWindow">
-                        <img src={this.props.hotels[this.state.marker.key2].thumbnailUrl} alt="hotel-pic" />
+                        <img src={this.props.hotels[this.state.marker.key2].thumbnailUrl} alt="hotel-pic" style={{borderRadius:15, width:"20vw"}} />
+                        <div>
                         <span>{this.props.hotels[this.state.marker.key2].name}</span>
                         <span>{this.props.hotels[this.state.marker.key2].address.streetAddress}</span>
-                        <span>{this.props.hotels[this.state.marker.key2].starRating}</span>
-                        <span>{this.props.hotels[this.state.marker.key2].guestReviews.unformattedRating}</span>
                         <span>{this.props.hotels[this.state.marker.key2].ratePlan.price.current}</span>
+                        </div>
+                        <div>
+                        <span>Stars : {this.props.hotels[this.state.marker.key2].starRating} / 5</span>
+                        <span>Guests : {this.props.hotels[this.state.marker.key2].guestReviews.unformattedRating} / 10</span>
+                        <span>Reviews : {this.props.hotels[this.state.marker.key2].guestReviews.total}</span>
+                        <span className="go">Go</span>
+                        </div>
                     </div>
                 </InfoWindow>
             </Map>
