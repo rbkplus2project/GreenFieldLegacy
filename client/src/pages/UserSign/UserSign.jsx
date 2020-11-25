@@ -1,12 +1,10 @@
 import SignUp from '../../components/sign-up/sign-up.component.jsx';
 import SignIn from '../../components/sign-in/sign-in.component.jsx';
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 // import { Link, Redirect } from 'react-router-dom';
 // import { connect } from 'react-redux';
-const $ = require('jquery');
-
-
+// const $ = require('jquery');
 // import './UserSign.styles.css';
 
 class UserSign extends Component {

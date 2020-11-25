@@ -10,7 +10,6 @@ require('dotenv').config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 router.get("/auth", auth, (req, res) => {
-  // console.log(req.user)
   if (req.user) {
     res.json({
       id: req.user._id,
@@ -20,6 +19,8 @@ router.get("/auth", auth, (req, res) => {
       email: req.user.email,
       admin: req.body.admin
     })
+  } else {
+    res.json()
   }
 })
 
@@ -46,9 +47,15 @@ router.post("/deleteuser", (req, res) => {
 })
 
 router.post("/getuser", (req, res) => {
-  User.findOne({ displayName: req.body.displayName })
-    .then((data) => res.status(200).send(data))
-    .catch((err) => res.status(404).send("error getting the data"))
+  User.findOne({ displayName: req.body.displayName }, (err, data) => {
+    if (data === null) {
+      res.status(201).send("error getting the data")
+    } else {
+      res.status(200).json(data)
+    }
+  })
+  // .then((data) => res.status(200).json(data))
+  // .catch((err) => res.status(404).send("error getting the data"))
 })
 router.post('/signup', (req, res) => {
   const password = req.body.password
@@ -125,24 +132,19 @@ router.get("/signout", (req, res) => {
   })
 })
 
+router.post("/forgot-password", async (req, res, next) => {
 
-router.post("/forgot-password", async(req, res, next) => {
+  const { email } = req.body
+  const user = await User.findOne({ email })
+  if (!user) {
+    return 'No user found with that email address.'
+  }
 
-    const { email } = req.body
-    const user = await User.findOne({ email })
-    // .then((user)=>{
-    //   console.log(user)
-    // })
-    
-    if (!user) {
-      return 'No user found with that email address.'
-    }
+  const token = crypto.randomBytes(32).toString('hex');
 
-    const token = crypto.randomBytes(32).toString('hex');
+  var expireDate = new Date().getTime() + 10800000;
 
-    var expireDate = new Date().getTime() + 10800000;
-
-    await User.findOneAndUpdate({ email: req.body.email }, { expiration: expireDate, token: token, used: 0 })
+  await User.findOneAndUpdate({ email: req.body.email }, { expiration: expireDate, token: token, used: 0 })
 
     // const msg = {
     //   to: process.env.SENDGRID_TO, // Change to your recipient  //req.headers.host  //process.env.SENDGRID_TO
