@@ -3,7 +3,7 @@ import NavAndSearch from "../navBar/navBar";
 import Map from "../../components/Map/Map";
 import { Button } from '@material-ui/core';
 import React from 'react';
-const $ = require('jquery');
+import $ from 'jquery';
 
 class CardList extends React.Component {
     constructor(props) {
@@ -34,103 +34,35 @@ class CardList extends React.Component {
             .catch(err => console.log(err))
     }
     Sorting = () => {
-        if ($('#sort').val() === 'Price') {
-            console.log($('#sort').val())
-            if (this.state.sortOrder === "descending") {
-                this.props.resulsArray.sort((a, b) => {
-                    if (a.ratePlan.price.current > b.ratePlan.price.current) {
-                        return -1
-                    }
-                    return a.ratePlan.price.current > b.ratePlan.price.current ? 1 : 0
-                },
-                    this.setState({ sortOrder: "ascending" }))
-            } else if (this.state.sortOrder === "ascending") {
-                this.props.resulsArray.sort((a, b) => {
-                    if (a.ratePlan.price.current < b.ratePlan.price.current) {
-                        return -1
-                    }
-                    return a.ratePlan.price.current > b.ratePlan.price.current ? 1 : 0
-                },
-                    this.setState({ sortOrder: "descending" }))
-            }
-            this.setState({
-                sortedResults: this.props.resulsArray,
-                isSorted: true
-            })
-        }
-    if ($('#sort').val() === 'Rate') {
-        console.log($('#sort').val())
-        if (this.state.sortOrder === "descending") {
-            this.props.resulsArray.sort((a, b) => {
-                if (a.starRating> b.starRating) {
-                    return -1
-                }
-                return a.starRating > b.starRating ? 1 : 0
-            },
-                this.setState({ sortOrder: "ascending" }))
-        } else if (this.state.sortOrder === "ascending") {
-            this.props.resulsArray.sort((a, b) => {
-                if (a.starRating < b.starRating) {
-                    return -1
-                }
-                return a.starRating > b.starRating ? 1 : 0
-            },
-                this.setState({ sortOrder: "descending" }))
-        }
-        this.setState({
-            sortedResults: this.props.resulsArray,
-            isSorted: true
-        })
+    if ($('#sort').val() === 'PriceD') {
+        this.props.resulsArray.sort((a, b) => a.ratePlan.price.current > b.ratePlan.price.current ? -1 : 0
+        ,this.setState({}))}
+    if ($('#sort').val() === 'PriceA') {
+        this.props.resulsArray.sort((a, b) => a.ratePlan.price.current < b.ratePlan.price.current ? -1 : 0
+        ,this.setState({}))}
+
+        if ($('#sort').val() === 'RateD') {
+            this.props.resulsArray.sort((a, b) => a.starRating > b.starRating ? -1 : 0
+            ,this.setState({}))}
+        if ($('#sort').val() === 'RateA') {
+            this.props.resulsArray.sort((a, b) => a.starRating < b.starRating ? -1 : 0
+            ,this.setState({}))}
+
+            if ($('#sort').val() === 'Rate2D') {
+                this.props.resulsArray.sort((a, b) => a.guestReviews.unformattedRating > b.guestReviews.unformattedRating ? -1 : 0
+                ,this.setState({}))}
+            if ($('#sort').val() === 'Rate2A') {
+                this.props.resulsArray.sort((a, b) => a.guestReviews.unformattedRating < b.guestReviews.unformattedRating ? -1 : 0
+                ,this.setState({}))}
+
+                if ($('#sort').val() === 'ReviewsD') {
+                    this.props.resulsArray.sort((a, b) => a.guestReviews.total > b.guestReviews.total ? -1 : 0
+                    ,this.setState({}))}
+                if ($('#sort').val() === 'ReviewsA') {
+                    this.props.resulsArray.sort((a, b) => a.guestReviews.total < b.guestReviews.total ? -1 : 0
+                    ,this.setState({}))}
     }
-if ($('#sort').val() === 'Reviews') {
-    console.log($('#sort').val())
-    if (this.state.sortOrder === "descending") {
-        this.props.resulsArray.sort((a, b) => {
-            if (a.guestReviews.total > b.guestReviews.total) {
-                return -1
-            }
-            return a.guestReviews.total > b.guestReviews.total ? 1 : 0
-        },
-            this.setState({ sortOrder: "ascending" }))
-    } else if (this.state.sortOrder === "ascending") {
-        this.props.resulsArray.sort((a, b) => {
-            if (a.guestReviews.total < b.guestReviews.total) {
-                return -1
-            }
-            return a.guestReviews.total > b.guestReviews.total ? 1 : 0
-        },
-            this.setState({ sortOrder: "descending" }))
-    }
-    this.setState({
-        sortedResults: this.props.resulsArray,
-        isSorted: true
-    })
-}
-if ($('#sort').val() === 'Rate2') {
-    console.log($('#sort').val())
-    if (this.state.sortOrder === "descending") {
-        this.props.resulsArray.sort((a, b) => {
-            if (a.guestReviews.unformattedRating > b.guestReviews.unformattedRating) {
-                return -1
-            }
-            return a.guestReviews.unformattedRating > b.guestReviews.unformattedRating ? 1 : 0
-        },
-            this.setState({ sortOrder: "ascending" }))
-    } else if (this.state.sortOrder === "ascending") {
-        this.props.resulsArray.sort((a, b) => {
-            if (a.guestReviews.unformattedRating < b.guestReviews.unformattedRating) {
-                return -1
-            }
-            return a.guestReviews.unformattedRating > b.guestReviews.unformattedRating ? 1 : 0
-        },
-            this.setState({ sortOrder: "descending" }))
-    }
-    this.setState({
-        sortedResults: this.props.resulsArray,
-        isSorted: true
-    })
-}
-}
+
     render() {
         const { handleAdultsChange, adults, dateDifferenceNumber, checkIn, checkOut, searchValue, cityAndCountry, handleSeachButtonClick, currentUser, resulsArray } = this.props
         return (
@@ -148,8 +80,20 @@ if ($('#sort').val() === 'Rate2') {
                 <Button variant="outlined" size="medium" color="primary" style={{ height: 30, float: "right", marginRight: "1vw", marginTop: "-30px" }} onClick={(e) => { e.preventDefault(); handleSeachButtonClick() }}>
                     <p style={{ color: "navy" }} onClick={() => { this.setState({ map: !this.state.map }); this.props.refresh() }}>Show map</p>
                 </Button>
-                <br />
-                {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div>}
+                <div className="select" style={{width:'200px'}}>
+                    <select id="sort" onChange={this.Sorting.bind(this)}>
+                        <option value="PriceA">Price A</option>
+                        <option value="PriceD">Price D</option>
+                        <option value="RateA" >International A</option>
+                        <option value="RateD" >International D</option>
+                        <option value="Rate2A" >People Rating A</option>
+                        <option value="Rate2D" >People Rating D</option>
+                        <option value="ReviewsA" >Reviews A</option>
+                        <option value="ReviewsD" >Reviews D</option>
+                    </select>
+                </div>
+                <br/>
+                {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div> }
                 {
                     resulsArray.length ?
                         resulsArray.map((data, i) => {
