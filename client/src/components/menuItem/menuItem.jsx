@@ -1,20 +1,16 @@
-import React from 'react';
-import './menuItem.css'
 import {Link } from 'react-router-dom';
-
+import React from 'react';
+import './menuItem.css';
 
 class MenuItem extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            resulsArray: []
+            resultsArray: []
         }
     }
-
-
     render() {
         const { handleSeachButtonClick, searchValue } = this.props
-
         return (
             <div onClick={async(e) => {  await searchValue(this.props.item.city); handleSeachButtonClick() }} >
                 <Link to='/cardlist'>
@@ -28,6 +24,6 @@ class MenuItem extends React.Component {
             </div>
         )
     }
-}
+};
 
 export default MenuItem;

@@ -1,15 +1,14 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import './card.css';
-// import img from "./singapore.png";
-import RateReviewIcon from '@material-ui/icons/RateReview';
-import Rating from '@material-ui/lab/Rating';
-import Button from '@material-ui/core/Button';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import CardContent from '@material-ui/core/CardContent';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Rating from '@material-ui/lab/Rating';
+import Card from '@material-ui/core/Card';
+import React from 'react';
+import './card.css';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -38,12 +37,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MediaControlCard({ removeGetRes,compDidmount, reserveShow, favoriteNotEmp, adults, dateDifferenceNumber, data, currentUser, hideRes, hideFav }) {
   const classes = useStyles();
-  // const theme = useTheme();
-
   const [favNotEmpty, setFav] = React.useState(favoriteNotEmp || false);
   const [reservation, setReservation] = React.useState((removeGetRes || reserveShow || false));
-
-
   const handleFavAdd = (data, currentUser) => {
     console.log("add is clicked")
     fetch('/fav/add', {
@@ -63,7 +58,6 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
     setFav(true)
   }
   const handleFavRemove = (data, currentUser) => {
-    // console.log(data)
     fetch('/fav/delete', {
       method: 'POST', // or 'PUT'
       headers: {
@@ -81,7 +75,6 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
     if (!hideRes)
       setFav(false)
   }
-
   const handleReserveAdd = (data, currentUser) => {
     fetch('/reservation/add', {
       method: 'POST', // or 'PUT'
@@ -99,7 +92,6 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
       });
     setReservation(true)
   }
-
   const handleReserveRemove = (data, currentUser) => {
     fetch('/reservation/delete', {
       method: 'POST', // or 'PUT'
@@ -118,19 +110,16 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
     if (!hideFav)
       setReservation(false)
   }
-
   const priceConverter = (price, adults, date) => {
     let res = price.split("$")
     let x = Number(res[1])
     return x * adults * date
   }
   return (
-    <Card className={classes.root} id="body" style={{borderRadius:"15px"}}>
+    <Card className={classes.root+" body"} id={"a"+data.id}>
       <div className="first_img">
-        <div  >
+        <div>
           < img src={data.thumbnailUrl} className="img img_abs" alt="" style={{borderRadius:"15px"}}/>
-          {/* < img src={img} className="img img_abs" alt="" /> */}
-
           {hideFav ?
             <div></div>
             :
@@ -142,9 +131,6 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
               :
               <div></div>
           }
-
-
-
         </div>
       </div>
       <div className="center">
@@ -152,15 +138,13 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
           <CardContent className={classes.content}>
             <div>
               <Typography component="h5" variant="h5">
-                {/* Seneca Lake (and vicinity) */}
                 {data.name}
               </Typography>
             </div>
             <div className="center-second">
               <Typography component="div" variant="subtitle1" color="textSecondary">
                 <div className="citysize">
-                  {/* New York, United States of America */}
-                  {data.address.locality}, {data.address.countryName}
+                {data.address.streetAddress} --- {data.address.locality}
                 </div>
               </Typography>
             </div>
@@ -168,42 +152,30 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
           <div className="dollers">
             <Typography  component="div">
               <div className="facility">
-                {/* swimming pool,Airport shuttle,Tea/Coffee maker */}
-                {data.address.streetAddress}
+            ${priceConverter(data.ratePlan.price.current, adults, dateDifferenceNumber())} per night
               </div>
             </Typography>
-            {/* $ 19.99 */}
-            ${priceConverter(data.ratePlan.price.current, adults, dateDifferenceNumber())}
-            {/* {data.ratePlan.price.current} */}
           </div>
         </div>
       </div>
       <div className='third_component'>
-        <div className="thirdcom_firstone">
-          {/* <Rating name="half-rating-read" defaultValue={4} precision={0.5} readOnly /> */}
-          <Rating name="half-rating-read" defaultValue={data.starRating ? data.starRating : 0} precision={0.5} readOnly />
-
-        </div>
         <div className="third_component_thirdline">
           <Typography component="div">
             {
               data.guestReviews ?
                 <div>
-                  guest reviews : {data.guestReviews.unformattedRating}
+                  International : <Rating name="half-rating-read" defaultValue={data.starRating ? data.starRating : 0} precision={0.5} readOnly />
+                  <br/>
+                  Guests rating : <Rating name="half-rating-read" defaultValue={Math.floor(data.guestReviews.unformattedRating/2)} precision={0.5} readOnly />
+                  <br/>
+                  Number of Reviews : {data.guestReviews.total}
                 </div>
-
                 :
                 <div>
-                  no guest reviews
-            </div>
+                  Number of Reviews : 0
+                </div>
             }
-
-
-
           </Typography >
-          <div style={{ padding: "6px" }}>
-            <RateReviewIcon className='ratereview' />
-          </div>
         </div>
         <div className="third_component_secondline">
           {
@@ -219,25 +191,8 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
                 :
                 <div></div>
           }
-
         </div>
       </div>
-
-
-
-      {/* <div className={classes.controls}>
-          <IconButton aria-label="previous">
-            {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-          </IconButton>
-          <IconButton aria-label="play/pause">
-            <PlayArrowIcon className={classes.playIcon} />
-          </IconButton>
-          <IconButton aria-label="next">
-            {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-          </IconButton>
-        </div> */}
-
-
     </Card>
-  );
+  )
 }

@@ -21,7 +21,7 @@ class ResetPassword extends Component {
         // console.log("hi");
         let input = $('#reset-form').serializeArray();
         let options = {
-            url: `http://localhost:5000/user/forgot-password`,
+            url: `/user/forgot-password`,
             method: 'post',
             data: { email: input[0].value }
         }
