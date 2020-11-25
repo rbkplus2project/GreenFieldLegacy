@@ -4,7 +4,6 @@ const initState = {
         { username: "ahamd", password: "123" }
     ],
     user: null,
-
 }
 
 // Edits the Redux variables
