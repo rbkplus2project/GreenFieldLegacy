@@ -5,15 +5,39 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // import MenuIcon from '@material-ui/icons/Menu';
 import "./appBar.css"
 import { Link } from 'react-router-dom';
-// import "./appBar.css"
+import "./appBar.css"
 import logo from './great2.png'
 
 class AppBarr extends React.Component {
     constructor() {
         super()
         this.state = {
+            nav: null
         }
     }
+    componentDidMount() {
+        window.addEventListener("scroll", this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+    handleScroll = () => {
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+
+        if (window.pageYOffset > sticky) {
+            if (!this.state.nav) {
+                this.setState({ nav: true });
+            }
+        } else {
+            if (this.state.nav) {
+                this.setState({ nav: false });
+            }
+        }
+
+    }
+
     handleLoginClick = (e) => {
         e.preventDefault()
         fetch("/signout")
@@ -25,7 +49,7 @@ class AppBarr extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div id="navbar" className={`${this.state.nav && 'sticky' }`}>
                 <div className="NavBar">
                     <AppBar position="static">
                         <Toolbar className="toolBar">
