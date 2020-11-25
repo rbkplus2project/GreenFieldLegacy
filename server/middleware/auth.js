@@ -13,7 +13,6 @@ const auth = async (req, res, next) => {
     const decoded = await jwt.verify(token, "mysecret");
     const user = await User.findOne({ _id: decoded.id })
     // Add user from payload
-    console.log(user)
     req.user = user;
     next();
   } catch (e) {

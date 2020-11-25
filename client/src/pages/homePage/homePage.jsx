@@ -34,7 +34,13 @@ class HomePage extends React.Component {
         { city: "sydney", link: 'https://media.tacdn.com/media/attractions-content--1x-1/0b/29/2c/d8.jpg' }, 
         { city: "ottawa", link: 'https://i.ytimg.com/vi/9qnaJexpdrM/maxresdefault.jpg' }, 
         { city: "Washington DC", link: 'https://www.worldtravelguide.net/wp-content/uploads/2017/04/Think-USA-WashingtonDC-CapitolBuilding-488869710-f11photo-copy.jpg' }, 
-        { city: "Athens", link: 'https://traveler.marriott.com/wp-content/uploads/2019/02/GI_1076721978_MonastirakiPlace.jpg' }
+        { city: "Athens", link: 'https://traveler.marriott.com/wp-content/uploads/2019/02/GI_1076721978_MonastirakiPlace.jpg' },
+        { city: "singapore", link: 'https://ssl.tzoo-img.com/images/tzoo.18886.0.651788.Singapore.jpg' }, 
+        { city: "maldives", link: 'https://qtxasset.com/Hotel%20Management-1508949476/mercuremaldiveskoodooresortmaldivesexterior.jpg?zbxIScOeOJEvMU8kcH1pm8g7UG9zZegb' }, 
+        { city: "zagreb", link: 'https://pvzg.hr/en/files/2020/01/zagreb.jpg' }, 
+        { city: "warsaw", link: 'https://www.ebrd.com/image/1395291213789.jpg' }, 
+        { city: "riga", link: 'https://www.aviontourism.com/images/1920-900-fix/16fbcd77-bd8d-41ba-af83-9dd83b59bcb5' }, 
+        { city: "tunis", link: 'https://www.worldtravelguide.net/wp-content/uploads/2017/03/shu-Tunisia-SidiBouSaid-760300645-1440x823.jpg' }, 
       ],
     }
   }

@@ -3,15 +3,24 @@ const initState = {
     test: [
         { username: "ahamd", password: "123" }
     ],
-    showMenu: 0,
-    user: {}
-      
+    user: null,
 }
 
 // Edits the Redux variables
 const rootReducer = (state = initState, action) => {
-    if (action.type === "USER_INFO") {
-        return  {
+    // console.log("action", action)
+    if (action.type === "STORE-USER") {
+        try {
+            const serializedState = JSON.stringify({
+                ...state,
+                user: action.user
+            });
+            localStorage.setItem("state", serializedState)
+        }
+        catch (e) {
+            console.log(e)
+        }
+        return {
             ...state,
             user: action.user
         }

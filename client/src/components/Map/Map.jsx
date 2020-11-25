@@ -43,7 +43,7 @@ export class MapContainer extends Component {
         <div>
         <span>{props.hotels[state.marker.key2].name}</span>
         <span>{props.hotels[state.marker.key2].address.streetAddress}</span>
-        <span>{props.hotels[state.marker.key2].ratePlan.price.current}</span>
+        <span>{props.hotels[state.marker.key2].ratePlan.price.current} for one person per night</span>
         </div>
         <div>
         <span>Stars : {props.hotels[state.marker.key2].starRating} / 5</span>
@@ -61,15 +61,16 @@ export class MapContainer extends Component {
                 zoom={15}
                 onReady={(mapProps, map) => this._mapLoaded(mapProps, map)}
                 onClick={this.onMapClicked}>
-                <Marker name={'current'} />
-                {this.props.hotels.map((elem, i) => (<Marker onClick={this.onMarkerClick} key={elem.id} key2={i} name={elem.name}
+                {this.props.hotels.map((elem, i) => (
+                <Marker onClick={this.onMarkerClick} key={elem.id} key2={i} name={elem.name}
                     position={{ lat: elem.coordinate.lat, lng: elem.coordinate.lon }}
                     icon={{
                         url: 'hotel-icon-png.png',
                         anchor: new this.props.google.maps.Point(25, 10),
                         scaledSize: new this.props.google.maps.Size(50, 50)
                     }}
-                     />))}
+                    label={elem.name}
+                    ></Marker>))}
                 <InfoWindow
                     visible={this.state.showInfo}
                     onOpen={e => {this.onInfoWindowOpen(this.props,this.state)}}
@@ -82,4 +83,4 @@ export class MapContainer extends Component {
     }
 };
 
-export default GoogleApiWrapper({ apiKey: (process.env.REACT_APP_GOOGLE_KEY) })(MapContainer);
+export default GoogleApiWrapper({ apiKey: (process.env.REACT_APP_GOOGLE_KEY||"AIzaSyDtbYTIcO4KpsgrS9VPO0Ah32KaJ3c5hJE") })(MapContainer);
