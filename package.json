@@ -1,10 +1,10 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "private": false,
   "description": "Hotels website",
   "main": "server/server.js",
   "author": "Raptors & Titans",
+  "private": false,
   "license": "none",
   "homepage": "https://legacy-hotels.herokuapp.com/",
   "scripts": {
