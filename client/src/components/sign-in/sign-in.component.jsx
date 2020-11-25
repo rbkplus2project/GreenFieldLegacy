@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-// import './sign-in.styles.css';
+import './sign-in.styles.css';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -56,7 +56,8 @@ class SignIn extends React.Component {
   render() {
     return (
       <div className='sign-in'>
-        <form onSubmit={this.handleSubmit}>
+        <button ><Link to="/">Return To Home Page</Link> </button>
+        <form className='sign-in-form'onSubmit={this.handleSubmit}>
           <h2>Sign In </h2>
           <FormInput
             name='email'
@@ -83,7 +84,6 @@ class SignIn extends React.Component {
           <Link to="/forgot-password">
             <p >Forgot password?</p>
           </Link>
-          <Link to="/" ><p>Homepage</p></Link>
         </form>
       </div>
     );
@@ -100,7 +100,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    
+
   }
 }
 

@@ -3,12 +3,13 @@ import { Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './ForgotPassword.css';
 const axios = require('axios');
 const $ = require('jquery');
 
 // Sends a request to change password for a user that forgot the password
 // Using email verification
-class ResetPassword extends Component {
+class ForgotPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -47,11 +48,12 @@ class ResetPassword extends Component {
         else {
             console.log("reset props", this.props)
             return (
-                <div id="reset" className="center styled">
-                    <form id="reset-form" onSubmit={this.handleSubmit}>
+                <div id="reset" className="">
+                    <button ><Link to="/">Return To Home Page</Link> </button>
+                    <form className="reset-form" onSubmit={this.handleSubmit}>
                         <h1>Forgot Password</h1>
                         <br />
-                        <div className="column">
+                        <div className="">
                             <label htmlFor="email">Email</label>
                             <input type="email" className="text" id="email" name="email" />
                         </div>
@@ -114,7 +116,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);
 
 
 

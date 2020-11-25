@@ -9,7 +9,8 @@ const Footer=()=>{
                     {/* col1 */}
                     <div className="col">
                         <h4>About</h4>
-                        <p>HotelCom is a Hotel reservation website which allow you to book your ticket with best price</p>
+                        <span>HotelCom is a Hotel reservation website</span> 
+                        <span> which allow you to book your ticket with best price</span>
                     </div>
                     {/* col2 */}
                     <div className="col">
@@ -24,11 +25,11 @@ const Footer=()=>{
                     <div className="col">
                         <h4>Developers</h4>
                         <ul className="list-unstyled">
-                            <li>Aya</li>
-                            <li>Hamdallah</li>
-                            <li>Rami</li>
-                            <li>Rasha</li>
-                            <li>Yasir</li>
+                            <li>Aya Abu Yossif</li>
+                            <li>Hamdallah Fatayer</li>
+                            <li>Rami Okkeh</li>
+                            <li>Rasha Alamleh</li>
+                            <li>Yasir Tbaileh</li>
                         </ul>
                     </div>
                     
@@ -36,10 +37,10 @@ const Footer=()=>{
             
 
                 <hr />
-                <div className="row">
-                    <p className="col-sm">
-                        &copy;{new Date().getFullYear()} Hotelcom|All right reserved by <a href="/"> Hotelcom.</a>|<a href="/"> Terms Of Service</a>|<a href="/"> Privacy</a>
-                    </p>
+                <div>
+                    <span className="col">
+                        &copy;{new Date().getFullYear()} HotelCom | All right reserved by <span style={{color:'blue',cursor:"pointer"}} href="/"> HotelCom. </span>|<span style={{color:'blue',cursor:"pointer"}} href="/"> Terms Of Service </span>|<span style={{color:'blue',cursor:"pointer"}} href="/"> Privacy </span>
+                    </span>
                 </div>
                 
             </div>

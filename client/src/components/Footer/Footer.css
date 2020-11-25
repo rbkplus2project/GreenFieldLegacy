@@ -6,10 +6,7 @@
     bottom: 0;
     width: 100%;
 }
-.container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}
-.row{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}
+.container{width:100%;}
+.row{display:flex; justify-content: flex-start;align-items: flex-start;}
+.col{width:30%;margin-left: 120px;}
 .list-unstyled{padding-left:0;list-style:none}
-.col-sm{position:relative;width:100%;padding-right:15px;padding-left:15px}
-.col{-ms-flex-preferred-size:0;flex-basis:0;-ms-flex-positive:1;flex-grow:1;max-width:100%}
-.col{position:relative;width:100%;padding-right:15px;padding-left:15px}
-.col{padding-right:5px;padding-left:5px}

@@ -1,11 +1,8 @@
 import React from 'react';
-// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-
-
-// import './sign-up.styles.css';
+import './sign-up.styles.css';
 
 class SignUp extends React.Component {
   constructor() {
@@ -19,8 +16,21 @@ class SignUp extends React.Component {
     };
   }
 
+  checkPassWord = (password) => {
+    // if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.{8,})/.test(password)) {
+    //   return true;
+    // }
+    return true;
+  }
+
   handleSubmit = async event => {
     event.preventDefault();
+    // const usernameError = document.querySelector('.username.error');
+    // const emailError = document.querySelector('.email.error');
+    // const passwordError = document.querySelector('.password.error');
+    // usernameError.textContent = '';
+    // emailError.textContent = '';
+    // passwordError.textContent = '';
 
     const { password, confirmPassword } = this.state;
     if (password.length < 4) {                                   //*  originaly was 8 char.  *//
@@ -79,6 +89,7 @@ class SignUp extends React.Component {
     const { displayName, email, password, confirmPassword } = this.state;
     return (
       <div className='sign-up'>
+        <button ><Link to="/">Return To Home Page</Link> </button>
         <form className='sign-up-form' onSubmit={this.handleSubmit}>
           <h2 className='title'>Sign Up</h2>
           <FormInput
@@ -89,6 +100,8 @@ class SignUp extends React.Component {
             label='Display Name'
             required
           />
+          <div className="username error" ></div>
+
           <FormInput
             type='email'
             name='email'
@@ -115,7 +128,6 @@ class SignUp extends React.Component {
           />
           <CustomButton type='submit'>SIGN UP</CustomButton>
           <p >Already have an account? <Link to="/signin" >Sign In</Link></p>
-          <Link to="/" ><p>Homepage</p></Link>
         </form>
       </div>
     );

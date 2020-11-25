@@ -114,7 +114,7 @@ class ProfileBody extends React.Component {
                     <img alt="" src={localStorage.getItem("hotel-profile") ? JSON.parse(localStorage.getItem("hotel-profile")) : "https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png" } style={{ width: "160px", marginTop: '30px', marginLeft: '30px', height: "160px", borderRadius: "80px " }}></img>
                         <input type="file" id="newImg" onChange={()=>{this.updateImage(this)}}/><p className="up">Change Profile Picture</p> 
                         <div style={{ marginLeft: "55px", display: "flex", justifyContent: "space-around", width: "15%" }}>
-                            <div style={{ position: "relative", paddingLeft: "5px", left: "40px",top:"-90px", marginTop: '5px' }} className="active"></div>
+                            <div style={{ position: "relative", paddingLeft: "5px", left: "40px",top:"-60px", marginTop: '5px' }} className="active"></div>
                         </div>
                     <div className="popup">
                     <Popup trigger={<button className="pop">Edit</button>} position="left">
@@ -129,10 +129,10 @@ class ProfileBody extends React.Component {
                 <div style={{ display: "flex", height: "50vh" }}>
                     <div style={{ flex: ".27", backgroundColor: "#f2f2f2", boxShadow: '3px 3px #d9d9d9', borderTopLeftRadius: "45px" }} >
                         <div >
-                            <h4 style={{ color:"royalblue" ,padding: "30px 10px 20px 15px" }}> Name : {currentUser} </h4>
-                            <h4 style={{ color:"royalblue" ,padding: "0 10px 20px 15px" }}> Email : {this.state.email}</h4>
-                            <h4 style={{ color:"royalblue" ,padding: "0 10px 20px 15px" }}> Number of Favourits :  {this.state.result.length}</h4>
-                            <h4 style={{ color:"royalblue" ,padding: "0 10px 20px 15px" }} > Number of Reservations : {this.state.reservationsArray.length}</h4>
+                            <h4 style={{ color:"royalblue" ,padding: "30px 10px 20px 15px" }}> Name: {currentUser} </h4>
+                            <h4 style={{ color:"royalblue" ,padding: "0 10px 20px 15px" }}> Email: {this.state.email}</h4>
+                            <h4 style={{ color:"royalblue" ,padding: "0 10px 20px 15px" }}> No of Favourits:  {this.state.result.length}</h4>
+                            <h4 style={{ color:"royalblue" ,padding: "0 10px 20px 15px" }} > No of Reservations: {this.state.reservationsArray.length}</h4>
                             </div>
                     </div>
                     <div style={{ flex: '.73' }}>

@@ -1,4 +1,6 @@
 // import { showSign } from '../actions/actions.js';
+import Button from '@material-ui/core/Button';
+import './NewPassword.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 const axios = require('axios');
@@ -9,15 +11,16 @@ class NewPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            home: false
         }
     }
     checkPassWord = (password) => {
-        // if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.{5,})/.test(password)) {
+        // if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.{8,})/.test(password)) {
         //     return true;
         // }
         return true;
     }
-    componentDidMount = ()=> {
+    componentDidMount = () => {
         console.log("hiiii")
     }
 
@@ -41,7 +44,7 @@ class NewPassword extends Component {
             axios(options)
                 .then((results) => {
                     if (results.status === 200) {
-                        this.props.sign(1);
+                        setState({home : true})
                     };
                 })
                 .catch((err) => {
@@ -62,24 +65,28 @@ class NewPassword extends Component {
     }
 
     render() {
+        if(this.state.home){
+            return <Redirect to="/"/>
+        }
         return (
-            <div id="newPassword" className="center styled">
-                <form id="newPassword-form" onSubmit={this.handleSubmit}>
+            <div id="newPassword" className="">
+                <form className="newPassword-form" onSubmit={this.handleSubmit}>
                     <h1>Reset Password</h1>
                     <br />
-                    <div className="column">
+                    <div className="">
                         <label htmlFor="password-n" >New Password:</label>
                         <input type="password" className="text" id="password-n" name="password-n" />
+                        <div className="password-req" >Password must contain at least <b>one lowercase</b>, <b>uppercase</b>, <b>symbol</b>, <b>number</b> <br/>and min.length of 8 char.</div><br />
                     </div>
 
-                    <div className="column">
+                    <div className="">
                         <label htmlFor="password-con" >Confirm Password:</label>
-                        <input type="password" className="text" id="password-con" name="password-con"  />
+                        <input type="password" className="text" id="password-con" name="password-con" />
                         <div className="password error"></div>
                     </div>
                     <br />
+                
                     <button className="button" >Update Password</button><br />
-                    <div className="password-req" >Password must contain at least 1 lowercase, 1 uppercase, 1 symbol, 1 number and min.length of 5 char.</div><br />
                 </form>
             </div>
         )
