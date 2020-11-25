@@ -53,7 +53,7 @@ class ProfileBody extends React.Component {
             return (acc + x)
 
         }, 0)
-        console.log(res)
+        
         return res * this.props.adults * this.props.dateDifferenceNumber()
     }
     //new features

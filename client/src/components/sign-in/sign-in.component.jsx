@@ -1,11 +1,8 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-
-
-
-import './sign-in.styles.css';
+// import './sign-in.styles.css';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -59,9 +56,13 @@ class SignIn extends React.Component {
   render() {
     return (
       <div className='sign-in'>
+<<<<<<< HEAD
         <h2>I already have an account</h2>
         <span>Sign in with your email and password</span>
+=======
+>>>>>>> 272c31c545c0b9d46ac924783c84049dc1a057a9
         <form onSubmit={this.handleSubmit}>
+          <h2>Sign In </h2>
           <FormInput
             name='email'
             type='email'
@@ -80,8 +81,13 @@ class SignIn extends React.Component {
           />
           <div className='buttons'>
             <CustomButton type='submit'> Sign in </CustomButton>
-
           </div>
+
+          <p >Don't have an account? <Link to="/signup" >Sign Up</Link></p>
+
+          <Link to="/forgot-password">
+            <p >Forgot password?</p>
+          </Link>
         </form>
       </div>
     );

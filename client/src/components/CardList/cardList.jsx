@@ -1,7 +1,8 @@
-import React from 'react';
-import NavAndSearch from "../navBar/navBar";
 import CardComp from "../cardComponents/card";
+import NavAndSearch from "../navBar/navBar";
 import Map from "../../components/Map/Map";
+import { Button } from '@material-ui/core';
+import React from 'react';
 
 class CardList extends React.Component {
     constructor(props) {
@@ -9,13 +10,11 @@ class CardList extends React.Component {
         this.state={
             removeGetRes:false,
             reservationsArray: [],
-            map: 'none'
+            map: false
         }
     }
-
-
     componentDidMount = () => {
-        fetch("/user/getuser", {
+        fetch("http://localhost:5000/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -23,31 +22,26 @@ class CardList extends React.Component {
             body: JSON.stringify({ "displayName": this.props.currentUser }),
         })
             .then(data => {
-                console.log(data)
-                data.json()
-            })
-            .then(data => {
-                console.log(data)
-                if (data) {
-                    this.setState({ reservationsArray: data.reservations })
+                if (data.status === 200) {
+                    data.json()
+                } else {
+                    throw new Error('You are not signed in')
                 }
             })
+            .then(data => {if(data){this.setState({ reservationsArray: data.reservations })}})
+            .catch(err => console.log(err))
     }
-    
     render() {
-        console.log(this.props)
-        const { handleAdultsChange,adults,dateDifferenceNumber, checkIn, checkOut,  
-            // reservationArray,
-            // favoritesArray, 
-            searchValue, cityAndCountry, handleSeachButtonClick, currentUser,resulsArray } = this.props
-
+        const { handleAdultsChange, adults, dateDifferenceNumber, checkIn, checkOut, searchValue, cityAndCountry, handleSeachButtonClick, currentUser, resulsArray } = this.props
         return (
             <div >
                 <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
-                <button onClick={() => { this.setState({ map: 'block' }); this.props.refresh()}}>use map</button>
-                {this.state.map === 'block' ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}></Map> : <div></div> }
+                <Button variant="outlined" size="medium" color="primary" style={{ height: 30, float:"right", marginRight: "1vw", marginTop: "-30px" }} onClick={(e) => { e.preventDefault(); handleSeachButtonClick() }}>
+                <p style={{ color:"navy" }} onClick={() => { this.setState({ map: !this.state.map }); this.props.refresh()}}>Show map</p>
+                </Button>
+                <br/>
+                {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div> }
                 {
-
                     resulsArray.length ?
                         resulsArray.map((data, i) => {
                             let ele = this.state.removeGetRes
@@ -60,11 +54,9 @@ class CardList extends React.Component {
                         })
                         :
                         <h2 style={{textAlign:"center"}}>
-                            there are no items
-                    </h2>
+                            ..... Loading Results .....
+                        </h2>
                 }
-                {/* <CardComp adults={adults} dateDifferenceNumber={dateDifferenceNumber} currentUser={currentUser}  reservationArray={reservationArray} favoritesArray={favoritesArray}/> */}
-               
             </div>
         )
     }
