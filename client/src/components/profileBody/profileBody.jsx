@@ -48,6 +48,58 @@ class ProfileBody extends React.Component {
         
         return res * this.props.adults * this.props.dateDifferenceNumber()
     }
+     //new features
+    updateImage = () => {
+        let newImg = document.getElementById('newImg');
+        let name = this.props.currentUser
+        if (newImg.files && newImg.files[0]) {
+            let reader = new FileReader();
+            reader.onload = e => {
+                let options = {
+                    method: 'put',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ "profile": e.target.result })
+                }
+                fetch('http://localhost:5000/user/' + name, options)
+                    .then(res => {
+                        if (res.status === 200) {
+                            // this.props.setUser(newUser)
+                            localStorage.setItem('hotel-profile', JSON.stringify(e.target.result))
+                            this.setState({})
+                        } else {
+                            throw new Error('plop')
+                        }
+                    })
+                    .catch(res => alert('image too large'))
+            }
+            reader.readAsDataURL(newImg.files[0])
+        }
+    }
+
+    // Changes name & saves in database
+    updateName = () => {
+        let newName = $('#change-name').val()
+        let newEamil = $('#change-email').val()
+        let oldName = this.props.currentUser
+        let oldEamil = this.props.email
+        let options = {
+            method: 'put',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "displayName": newName , "email": newEamil})
+        }
+        fetch('http://localhost:5000/user/' + oldName, options)
+            .then(res => {
+                if (res.status === 200) {
+                    let newUser = this.props.user
+                    newUser.username = newName
+                    localStorage.setItem('hotel-profile', JSON.stringify(newUser))
+                    alert('New Username:' + newName)
+                } else {
+                    throw new Error('plop')
+                }
+            })
+            .catch(res => alert('username already taken'))
+    }
     render() {
         const { adults, dateDifferenceNumber, currentUser } = this.props
 
@@ -57,7 +109,8 @@ class ProfileBody extends React.Component {
                 <div style={{
                 }}>
                     <div className="background_img">
-                        <img style={{ width: "160px", marginTop: '30px', marginLeft: '30px', height: "160px", borderRadius: "80px " }} src="https://ca.slack-edge.com/TTVPM20S0-U018HTXLNDD-c9c19858d7dc-512" alt=""/>
+                    <img alt="" src={localStorage.getItem("hotel-profile") ? JSON.parse(localStorage.getItem("hotel-profile")) : "https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png" } style={{ width: "160px", marginTop: '30px', marginLeft: '30px', height: "160px", borderRadius: "80px " }}></img>
+                        <input type="file" style={{width:"90px"}} id="newImg" onChange={() => { this.updateImage(this) }} />
                         <div style={{ marginLeft: "55px", display: "flex", justifyContent: "space-around", width: "15%" }}>
                             <h2 style={{ margin: "0px", color: "white" }}>{currentUser}</h2>
                             <div style={{ paddingLeft: "5px", margin: "0px", marginTop: '5px' }} className="active"></div>
@@ -67,10 +120,16 @@ class ProfileBody extends React.Component {
                 <div style={{ display: "flex", height: "50vh" }}>
                     <div style={{ flex: ".27", backgroundColor: "#f2f2f2", boxShadow: '3px 3px #d9d9d9', borderTopLeftRadius: "45px" }} >
                         <div >
-                            <h3 style={{ padding: "30px 10px 20px 15px" }}> username: {currentUser}</h3>
-                            <h4 style={{ padding: "0 10px 20px 15px" }}>email:{this.state.email}</h4>
-                            <h4 style={{ padding: "0 10px 20px 15px" }}> number of favourits :  {this.state.result.length}</h4>
-                            <h4 style={{ padding: "0 10px 20px 15px" }} > number of reservations : {this.state.reservationsArray.length}</h4>
+                            <h3 style={{ padding: "30px 10px 20px 15px" }}> Name : {currentUser} </h3>
+                            <h4 style={{ padding: "0 10px 20px 15px" }}>Email : {this.state.email}</h4>
+                            <h4 style={{ padding: "0 10px 20px 15px" }}> Number of Favourits :  {this.state.result.length}</h4>
+                            <h4 style={{ padding: "0 10px 20px 15px" }} > Number of Reservations : {this.state.reservationsArray.length}</h4>
+                            <Popup trigger={<button>Edit Profile</button>} position="right center">
+                                <div>
+                                <span></span>  <input type="text" className="text" id="change-name" name="change-name"/>  <button className="edit" onClick={this.updateName}>Change Name</button>
+                                <span></span>  <input type="text" className="text" id="change-email" name="change-email"/>  <button className="edit" onClick={this.updateEmail}>Change Email</button>
+                                </div>
+                            </Popup>
                         </div>
                     </div>
                     <div style={{ flex: '.73' }}>
@@ -100,7 +159,6 @@ class ProfileBody extends React.Component {
                                     }
                                 </div>
                                 : <div>
-                                    {/* component code for RESERVATIONS*/}
                                     {
                                         <div>
 

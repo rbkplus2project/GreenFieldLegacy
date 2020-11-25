@@ -6,6 +6,7 @@ import CardList from "./components/CardList/cardList";
 import Profile from "./pages/profile/profile.jsx";
 import HomePage from "./pages/homePage/homePage";
 import UserSign from "./pages/UserSign/UserSign";
+import Footer from "./components/Footer/Footer.jsx";
 import React from "react";
 
 class App extends React.Component {
@@ -13,8 +14,8 @@ class App extends React.Component {
     super()
     this.state = {
       currentUser: localStorage.getItem("current-user"),
-      checkIn: "2020-12-20",
-      checkOut: "2020-12-25",
+      checkIn: "2020-11-24",
+      checkOut: "2020-11-30",
       searchValue: "",
       adults: 1,
       resulsArray: [],
@@ -153,6 +154,7 @@ class App extends React.Component {
 
     
           </Switch>
+          <Footer />
         </BrowserRouter>
       </div>
     );

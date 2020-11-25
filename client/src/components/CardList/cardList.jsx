@@ -3,6 +3,7 @@ import NavAndSearch from "../navBar/navBar";
 import Map from "../../components/Map/Map";
 import { Button } from '@material-ui/core';
 import React from 'react';
+import $ from 'jquery';
 
 class CardList extends React.Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class CardList extends React.Component {
         this.state={
             removeGetRes:false,
             reservationsArray: [],
-            map: false
+            map: false,
+            sortOrder: true
         }
     }
     componentDidMount = () => {
@@ -31,6 +33,100 @@ class CardList extends React.Component {
             .then(data => {if(data){this.setState({ reservationsArray: data.reservations })}})
             .catch(err => console.log(err))
     }
+    Sorting = () => {
+        if ($('#sort').val() === 'Price') {
+            if (!this.state.sortOrder) {
+                this.props.resulsArray.sort((a, b) => {
+                    if (a.ratePlan.price.current > b.ratePlan.price.current) {
+                        return -1
+                    }
+                    return a.ratePlan.price.current > b.ratePlan.price.current ? 1 : 0
+                },
+                    this.setState({ sortOrder: true }))
+            } else if (this.state.sortOrder) {
+                this.props.resulsArray.sort((a, b) => {
+                    if (a.ratePlan.price.current < b.ratePlan.price.current) {
+                        return -1
+                    }
+                    return a.ratePlan.price.current > b.ratePlan.price.current ? 1 : 0
+                },
+                    this.setState({ sortOrder: false }))
+            }
+            this.setState({
+                sortedResults: this.props.resulsArray,
+                isSorted: true
+            })
+        }
+    if ($('#sort').val() === 'Rate') {
+        if (!this.state.sortOrder) {
+            this.props.resulsArray.sort((a, b) => {
+                if (a.starRating> b.starRating) {
+                    return -1
+                }
+                return a.starRating > b.starRating ? 1 : 0
+            },
+                this.setState({ sortOrder: true }))
+        } else if (this.state.sortOrder) {
+            this.props.resulsArray.sort((a, b) => {
+                if (a.starRating < b.starRating) {
+                    return -1
+                }
+                return a.starRating > b.starRating ? 1 : 0
+            },
+                this.setState({ sortOrder: false }))
+        }
+        this.setState({
+            sortedResults: this.props.resulsArray,
+            isSorted: true
+        })
+    }
+if ($('#sort').val() === 'Reviews') {
+    if (!this.state.sortOrder) {
+        this.props.resulsArray.sort((a, b) => {
+            if (a.guestReviews.total > b.guestReviews.total) {
+                return -1
+            }
+            return a.guestReviews.total > b.guestReviews.total ? 1 : 0
+        },
+            this.setState({ sortOrder: true }))
+    } else if (this.state.sortOrder) {
+        this.props.resulsArray.sort((a, b) => {
+            if (a.guestReviews.total < b.guestReviews.total) {
+                return -1
+            }
+            return a.guestReviews.total > b.guestReviews.total ? 1 : 0
+        },
+            this.setState({ sortOrder: false }))
+    }
+    this.setState({
+        sortedResults: this.props.resulsArray,
+        isSorted: true
+    })
+}
+if ($('#sort').val() === 'Rate2') {
+    if (!this.state.sortOrder) {
+        this.props.resulsArray.sort((a, b) => {
+            if (a.guestReviews.unformattedRating > b.guestReviews.unformattedRating) {
+                return -1
+            }
+            return a.guestReviews.unformattedRating > b.guestReviews.unformattedRating ? 1 : 0
+        },
+            this.setState({ sortOrder: true }))
+    } else if (this.state.sortOrder) {
+        this.props.resulsArray.sort((a, b) => {
+            if (a.guestReviews.unformattedRating < b.guestReviews.unformattedRating) {
+                return -1
+            }
+            return a.guestReviews.unformattedRating > b.guestReviews.unformattedRating ? 1 : 0
+        },
+            this.setState({ sortOrder: false }))
+    }
+    this.setState({
+        sortedResults: this.props.resulsArray,
+        isSorted: true
+    })
+}
+}
     render() {
         const { handleAdultsChange, adults, dateDifferenceNumber, checkIn, checkOut, searchValue, cityAndCountry, handleSeachButtonClick, currentUser, resulsArray } = this.props
         return (
@@ -39,6 +135,15 @@ class CardList extends React.Component {
                 <Button variant="outlined" size="medium" color="primary" style={{ height: 30, float:"right", marginRight: "1vw", marginTop: "-30px" }} onClick={(e) => { e.preventDefault(); handleSeachButtonClick() }}>
                 <p style={{ color:"navy" }} onClick={() => { this.setState({ map: !this.state.map }); this.props.refresh()}}>Show map</p>
                 </Button>
+                <div className="Sort">
+                    Sort
+                    <select id="sort" onChange={this.Sorting.bind(this)}>
+                        <option value="Price">Price</option>
+                        <option value="Rate" >Rate</option>
+                        <option value="Rate2" >Rate2</option>
+                        <option value="Reviews" >Reviews</option>
+                    </select>
+                </div>
                 <br/>
                 {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div> }
                 {
