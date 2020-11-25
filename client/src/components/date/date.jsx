@@ -33,7 +33,6 @@ export default function MaterialUIPickers({ name, checkInOrOut }) {
                         variant="inline"
                         format="MM/dd/yyyy"
                         margin="normal"
-                        id="date-picker-inline"
                         onOpen={() => setOpen(true)}
                         onClose={() => setOpen(false)}
                         open={open}

@@ -101,3 +101,38 @@
    
     font-size: 26px;
   }
+  input[type='file']{
+  opacity: 1;
+  position: absolute;
+  top: 288px;
+  left:100px;
+  cursor: pointer;
+  z-index: 1;
+  opacity: 0;
+}
+.up{
+  position: relative;
+  width: 280px;
+  border: royalblue 3px solid;
+  border-radius: 50px;
+  background-color: royalblue;
+  color: white;
+  top: -5px;
+  left: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+.pop{
+  width: 280px;
+  border: royalblue 3px solid;
+  border-radius: 50px;
+  background-color: royalblue;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+.popup{
+  position: absolute;
+  top:46vh;
+  left:70vw;
+}

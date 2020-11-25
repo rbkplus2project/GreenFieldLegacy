@@ -1,8 +1,11 @@
 import './profileBody.css';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import React from "react"
 import DisabledTabs from './tab';
 import CardComp from "../cardComponents/card"
 import StripeCheckoutButton from "../stripe/stripe"
+import $ from "jquery"
 class ProfileBody extends React.Component {
     constructor(props) {
         super(props)
@@ -81,7 +84,6 @@ class ProfileBody extends React.Component {
         let newName = $('#change-name').val()
         let newEamil = $('#change-email').val()
         let oldName = this.props.currentUser
-        let oldEamil = this.props.email
         let options = {
             method: 'put',
             headers: { "Content-Type": "application/json" },
@@ -110,27 +112,28 @@ class ProfileBody extends React.Component {
                 }}>
                     <div className="background_img">
                     <img alt="" src={localStorage.getItem("hotel-profile") ? JSON.parse(localStorage.getItem("hotel-profile")) : "https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png" } style={{ width: "160px", marginTop: '30px', marginLeft: '30px', height: "160px", borderRadius: "80px " }}></img>
-                        <input type="file" style={{width:"90px"}} id="newImg" onChange={() => { this.updateImage(this) }} />
+                        <input type="file" id="newImg" onChange={()=>{this.updateImage(this)}}/><p className="up">Change Profile Picture</p> 
                         <div style={{ marginLeft: "55px", display: "flex", justifyContent: "space-around", width: "15%" }}>
-                            <h2 style={{ margin: "0px", color: "white" }}>{currentUser}</h2>
-                            <div style={{ paddingLeft: "5px", margin: "0px", marginTop: '5px' }} className="active"></div>
+                            <div style={{ position: "relative", paddingLeft: "5px", left: "40px",top:"-90px", marginTop: '5px' }} className="active"></div>
                         </div>
+                    <div className="popup">
+                    <Popup trigger={<button className="pop">Edit</button>} position="left">
+                                <div>
+                                <span></span>  <input type="text" className="text" id="change-name" name="change-name"/>  <button className="edit" onClick={this.updateName}>Change Name</button>
+                                <span></span>  <input type="text" className="text" id="change-email" name="change-email"/>  <button className="edit" onClick={this.updateEmail}>Change Email</button>
+                                </div>
+                    </Popup>
+                    </div>
                     </div>
                 </div>
                 <div style={{ display: "flex", height: "50vh" }}>
                     <div style={{ flex: ".27", backgroundColor: "#f2f2f2", boxShadow: '3px 3px #d9d9d9', borderTopLeftRadius: "45px" }} >
                         <div >
-                            <h3 style={{ padding: "30px 10px 20px 15px" }}> Name : {currentUser} </h3>
-                            <h4 style={{ padding: "0 10px 20px 15px" }}>Email : {this.state.email}</h4>
-                            <h4 style={{ padding: "0 10px 20px 15px" }}> Number of Favourits :  {this.state.result.length}</h4>
-                            <h4 style={{ padding: "0 10px 20px 15px" }} > Number of Reservations : {this.state.reservationsArray.length}</h4>
-                            <Popup trigger={<button>Edit Profile</button>} position="right center">
-                                <div>
-                                <span></span>  <input type="text" className="text" id="change-name" name="change-name"/>  <button className="edit" onClick={this.updateName}>Change Name</button>
-                                <span></span>  <input type="text" className="text" id="change-email" name="change-email"/>  <button className="edit" onClick={this.updateEmail}>Change Email</button>
-                                </div>
-                            </Popup>
-                        </div>
+                            <h4 style={{ color:"royalblue" ,padding: "30px 10px 20px 15px" }}> Name : {currentUser} </h4>
+                            <h4 style={{ color:"royalblue" ,padding: "0 10px 20px 15px" }}> Email : {this.state.email}</h4>
+                            <h4 style={{ color:"royalblue" ,padding: "0 10px 20px 15px" }}> Number of Favourits :  {this.state.result.length}</h4>
+                            <h4 style={{ color:"royalblue" ,padding: "0 10px 20px 15px" }} > Number of Reservations : {this.state.reservationsArray.length}</h4>
+                            </div>
                     </div>
                     <div style={{ flex: '.73' }}>
                         <DisabledTabs admin={this.state.admin} master={this.state.master} handleFavPrevChange={this.handleFavPrevChange} compDidmount={this.componentDidMount} />

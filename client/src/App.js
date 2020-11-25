@@ -14,8 +14,8 @@ class App extends React.Component {
     super()
     this.state = {
       currentUser: localStorage.getItem("current-user"),
-      checkIn: "2020-11-24",
-      checkOut: "2020-11-30",
+      checkIn: "2020-12-24",
+      checkOut: "2020-12-30",
       searchValue: "",
       adults: 1,
       resulsArray: [],
@@ -145,7 +145,7 @@ class App extends React.Component {
               ? (<Profile adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />)
               : (<Redirect to='/' />)} />
           <Switch>
-            <Route exact path="/" render={() => <HomePage handleAdultsChange={this.handleAdultsChange} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
+            <Route exact path="/" render={() => <div><HomePage handleAdultsChange={this.handleAdultsChange} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} /><Footer /></div>} />
 
             <Route exact path="/cardlist" render={() => <CardList refresh={this.refresh} cityCenter={this.getCityCenter} handleAdultsChange={this.handleAdultsChange} adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
             <Route path="/forgot-password" component={ResetPassword} />
@@ -154,7 +154,7 @@ class App extends React.Component {
 
     
           </Switch>
-          <Footer />
+          
         </BrowserRouter>
       </div>
     );

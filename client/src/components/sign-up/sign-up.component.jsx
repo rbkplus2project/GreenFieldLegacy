@@ -115,6 +115,7 @@ class SignUp extends React.Component {
           />
           <CustomButton type='submit'>SIGN UP</CustomButton>
           <p >Already have an account? <Link to="/signin" >Sign In</Link></p>
+          <Link to="/" ><p>Homepage</p></Link>
         </form>
       </div>
     );

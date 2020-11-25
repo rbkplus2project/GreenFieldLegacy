@@ -27,10 +27,7 @@ class SignIn extends React.Component {
       },
       body: JSON.stringify(this.state),
     })
-      .then((response) => {
-        // console.log('responce =====', response);
-        response.json()
-      })
+      .then(response => response.json())
       .then((data) => {
         if (data.success) {
           localStorage.setItem("jwt-auth", data.token)
@@ -42,11 +39,8 @@ class SignIn extends React.Component {
         }
         console.log('Success:', data);
       })
-
-
       .then(() => { window.location.reload() })
       .catch((error) => {
-        alert(error)
         console.error('Error:', error);
       })
 
@@ -89,6 +83,7 @@ class SignIn extends React.Component {
           <Link to="/forgot-password">
             <p >Forgot password?</p>
           </Link>
+          <Link to="/" ><p>Homepage</p></Link>
         </form>
       </div>
     );
