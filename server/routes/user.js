@@ -10,7 +10,6 @@ require('dotenv').config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 router.get("/auth", auth, (req, res) => {
-  // console.log(req.user)
   if (req.user) {
     res.json({
       id: req.user._id,
@@ -20,7 +19,8 @@ router.get("/auth", auth, (req, res) => {
       email: req.user.email,
       admin: req.body.admin
     })
-  }
+  }else{
+  res.json()}
 })
 
 

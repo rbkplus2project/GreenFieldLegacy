@@ -46,7 +46,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
 
   const handleFavAdd = (data, currentUser) => {
     console.log("add is clicked")
-    fetch('http://127.0.0.1:5000/fav/add', {
+    fetch('/fav/add', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
   }
   const handleFavRemove = (data, currentUser) => {
     // console.log(data)
-    fetch('http://127.0.0.1:5000/fav/delete', {
+    fetch('/fav/delete', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
   }
 
   const handleReserveAdd = (data, currentUser) => {
-    fetch('http://127.0.0.1:5000/reservation/add', {
+    fetch('/reservation/add', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
   }
 
   const handleReserveRemove = (data, currentUser) => {
-    fetch('http://127.0.0.1:5000/reservation/delete', {
+    fetch('/reservation/delete', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
               </Typography>
             </div>
             <div className="center-second">
-              <Typography variant="subtitle1" color="textSecondary">
+              <Typography component="div" variant="subtitle1" color="textSecondary">
                 <div className="citysize">
                   {/* New York, United States of America */}
                   {data.address.locality}, {data.address.countryName}
@@ -166,7 +166,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
             </div>
           </CardContent>
           <div className="dollers">
-            <Typography  >
+            <Typography  component="div">
               <div className="facility">
                 {/* swimming pool,Airport shuttle,Tea/Coffee maker */}
                 {data.address.streetAddress}
@@ -181,11 +181,11 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
       <div className='third_component'>
         <div className="thirdcom_firstone">
           {/* <Rating name="half-rating-read" defaultValue={4} precision={0.5} readOnly /> */}
-          <Rating name="half-rating-read" defaultValue={data.starRating} precision={0.5} readOnly />
+          <Rating name="half-rating-read" defaultValue={data.starRating ? data.starRating : 0} precision={0.5} readOnly />
 
         </div>
         <div className="third_component_thirdline">
-          <Typography component="h6" variant="h6">
+          <Typography component="div">
             {
               data.guestReviews ?
                 <div>
@@ -200,7 +200,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
 
 
 
-          </Typography>
+          </Typography >
           <div style={{ padding: "6px" }}>
             <RateReviewIcon className='ratereview' />
           </div>
@@ -211,12 +211,13 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
               reservation ?
                 <Button variant="contained" color="primary" onClick={() => handleReserveRemove(data, currentUser)}>
                   remove reservation
-          </Button>
+                </Button>
                 :
                 <Button variant="contained" color="primary" onClick={() => handleReserveAdd(data, currentUser)}>
                   reserve here
-          </Button>
-              : <div></div>
+                </Button>
+                :
+                <div></div>
           }
 
         </div>

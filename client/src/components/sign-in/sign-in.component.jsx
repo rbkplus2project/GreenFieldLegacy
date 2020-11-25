@@ -20,7 +20,7 @@ class SignIn extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    fetch('http://127.0.0.1:5000/user/signin', {
+    fetch('/user/signin', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -42,12 +42,20 @@ class SignIn extends React.Component {
         }
         console.log('Success:', data);
       })
-    // .then(() => { window.location.reload() })
+
+    .then(() => { window.location.reload() })
     .catch((error) => {
       console.error(error);
     })
 
-    // this.setState({ email: '', password: '' })
+      .then(() => { window.location.reload() })
+      .catch((error) => {
+        alert(error)
+        console.error('Error:', error);
+      })
+
+
+    this.setState({ email: '', password: '' })
   }
 
   handleChange = event => {
@@ -92,6 +100,7 @@ class SignIn extends React.Component {
   }
 }
 
+
 // Redux 
 const mapStateToProps = (state) => {
   return {
@@ -106,3 +115,5 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+
+
