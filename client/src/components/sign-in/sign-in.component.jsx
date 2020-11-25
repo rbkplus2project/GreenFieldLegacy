@@ -43,17 +43,12 @@ class SignIn extends React.Component {
         console.log('Success:', data);
       })
 
-    .then(() => { window.location.reload() })
-    .catch((error) => {
-      console.error(error);
-    })
 
       .then(() => { window.location.reload() })
       .catch((error) => {
         alert(error)
         console.error('Error:', error);
       })
-
 
     this.setState({ email: '', password: '' })
   }
