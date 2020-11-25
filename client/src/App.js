@@ -9,7 +9,7 @@ import Profile from "./pages/profile/profile.jsx";
 import HomePage from "./pages/homePage/homePage";
 import { connect } from 'react-redux';
 import React from "react";
-import './App.css';
+// import './App.css';
 
 class App extends React.Component {
   constructor() {
@@ -169,14 +169,14 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    showMenu: state.showMenu
+    // showMenu: state.showMenu
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    show: (z) => { dispatch(showMenu(z)) },
-    hide: (z) => { dispatch(showSearch(z)) }
+    // show: (z) => { dispatch(showMenu(z)) },
+    // hide: (z) => { dispatch(showSearch(z)) }
   }
 }
 
