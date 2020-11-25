@@ -3,11 +3,11 @@ import UserSign from "./pages/UserSign/UserSign";
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
 import NewPassword from "./pages/NewPassword/NewPassword.jsx";
-import { showMenu, showSearch } from './actions/actions';
+// import { showMenu, showSearch } from './actions/actions';
 import CardList from "./components/CardList/cardList";
 import Profile from "./pages/profile/profile.jsx";
 import HomePage from "./pages/homePage/homePage";
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import React from "react";
 import './App.css';
 
@@ -73,7 +73,7 @@ class App extends React.Component {
         "headers": {
           // "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
           // "x-rapidapi-host": "hotels4.p.rapidapi.com",
-          "x-rapidapi-key": "d13943b4a2msh2fce0d567fcd48cp1b7894jsn85cca0ffc256",
+          "x-rapidapi-key": "7747b0acebmshe8957ecdd090630p1d3bf9jsn448eb0340be7",
           "x-rapidapi-host": "hotels4.p.rapidapi.com",
           // "useQueryString": true
         }
@@ -90,7 +90,7 @@ class App extends React.Component {
             "headers": {
               // "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
               // "x-rapidapi-host": "hotels4.p.rapidapi.com",
-              "x-rapidapi-key": "d13943b4a2msh2fce0d567fcd48cp1b7894jsn85cca0ffc256",
+              "x-rapidapi-key": "7747b0acebmshe8957ecdd090630p1d3bf9jsn448eb0340be7",
 	            "x-rapidapi-host": "hotels4.p.rapidapi.com"
             }
           })
@@ -167,20 +167,22 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    showMenu: state.showMenu
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     showMenu: state.showMenu
+//   }
+// }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    show: (z) => { dispatch(showMenu(z)) },
-    hide: (z) => { dispatch(showSearch(z)) }
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     show: (z) => { dispatch(showMenu(z)) },
+//     hide: (z) => { dispatch(showSearch(z)) }
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
+
 
 //sign-up  sign-in
 //username/password
