@@ -42,12 +42,12 @@ class SignIn extends React.Component {
         }
         console.log('Success:', data);
       })
-    // .then(() => { window.location.reload() })
+    .then(() => { window.location.reload() })
     .catch((error) => {
       console.error(error);
     })
 
-    // this.setState({ email: '', password: '' })
+    this.setState({ email: '', password: '' })
   }
 
   handleChange = event => {
