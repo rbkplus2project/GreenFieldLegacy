@@ -1,4 +1,4 @@
-// import { showSign } from '../actions/actions.js';
+import { store } from '../../actions/actions';
 import { Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -20,6 +20,7 @@ class ResetPassword extends Component {
         e.preventDefault();
         // console.log("hi");
         let input = $('#reset-form').serializeArray();
+        this.props.storeUser(input[0].value)
         let options = {
             url: `http://localhost:5000/user/forgot-password`,
             method: 'post',
@@ -28,7 +29,7 @@ class ResetPassword extends Component {
 
         axios(options)
             .then((results) => {
-                console.log(results);
+                // console.log(results);
                 if (results.status === 200) {
                     this.setState({ newpass: true })
                 };
@@ -44,6 +45,7 @@ class ResetPassword extends Component {
             return <Redirect to="/reset/:token" />
         }
         else {
+            console.log("reset props", this.props)
             return (
                 <div id="reset" className="center styled">
                     <form id="reset-form" onSubmit={this.handleSubmit}>
@@ -56,7 +58,7 @@ class ResetPassword extends Component {
                         <br />
                         <button className="button" >Reset Password</button><br />
 
-                        <p >Back to Sign In <Link to="/signin" >Sign In</Link></p>
+                        <p >Back to <Link to="/signin" >Sign In</Link></p>
                     </form>
                 </div>
             )
@@ -65,17 +67,54 @@ class ResetPassword extends Component {
 };
 
 
-// Redux 
+// function saveToLocalStorage(state) {
+//     try {
+//         const serializedState = JSON.stringify(state);
+//         localStorage.setItem("state", serializedState)
+//     }
+//     catch (e) {
+//         console.log(e)
+//     }
+// }
+
+// function loadFromLocalStorage() {
+//     try {
+//         const serializedState = localStorage.getItem("state");
+//         if (serializedState === null) {
+//             return undefined
+//         }
+//         return JSON.parse(serializedState)
+//     }
+//     catch (e) {
+//         console(e);
+//         return;
+//     }
+// }
+
 const mapStateToProps = (state) => {
-    return {
-        showSign: state.showSign,
-        
+    try {
+        const serializedState = localStorage.getItem("state");
+        if (serializedState === null) {
+            return undefined
+        }
+        return {user: JSON.parse(serializedState)}
     }
+    catch (e) {
+        console(e);
+        return;
+    }
+    // return {
+    //     user: state.user,
+        
+    // }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        // sign: (z) => { dispatch(showSign(z)) },
+        storeUser: (z) => { dispatch(store(z)) },
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);
+
+
+

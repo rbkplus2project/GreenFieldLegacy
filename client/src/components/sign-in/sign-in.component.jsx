@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 // import './sign-in.styles.css';
@@ -26,24 +27,27 @@ class SignIn extends React.Component {
       },
       body: JSON.stringify(this.state),
     })
-      .then(response => response.json())
+      .then((response) => {
+        // console.log('responce =====', response);
+        response.json()
+      })
       .then((data) => {
-        if (data.success){
+        if (data.success) {
           localStorage.setItem("jwt-auth", data.token)
           localStorage.setItem("current-user", data.displayName)
         }
-         
+
         else {
           throw Error("incorrect credentials")
         }
         console.log('Success:', data);
       })
-      .then(() => { window.location.reload() })
-      .catch((error) => {
-        console.error(error);
-      })
+    // .then(() => { window.location.reload() })
+    .catch((error) => {
+      console.error(error);
+    })
 
-    this.setState({ email: '', password: '' })
+    // this.setState({ email: '', password: '' })
   }
 
   handleChange = event => {
@@ -88,4 +92,17 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+// Redux 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
