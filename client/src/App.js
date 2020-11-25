@@ -1,9 +1,9 @@
 
 import UserSign from "./pages/UserSign/UserSign";
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
-import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.jsx";
 import NewPassword from "./pages/NewPassword/NewPassword.jsx";
-import { showMenu, showSearch } from './actions/actions';
+// import { showMenu, showSearch } from './actions/actions';
 import CardList from "./components/CardList/cardList";
 import Profile from "./pages/profile/profile.jsx";
 import HomePage from "./pages/homePage/homePage";
@@ -155,7 +155,7 @@ class App extends React.Component {
             <Route exact path="/" render={() => <HomePage handleAdultsChange={this.handleAdultsChange} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
 
             <Route exact path="/cardlist" render={() => <CardList refresh={this.refresh} cityCenter={this.getCityCenter} handleAdultsChange={this.handleAdultsChange} adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
-            <Route path="/forgot-password" component={ResetPassword} />
+            <Route path="/forgot-password" component={ForgotPassword} />
 
             <Route path="/reset/:token" component={NewPassword} />
 

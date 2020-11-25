@@ -82,12 +82,12 @@ class AppBarr extends React.Component {
                                     :
                                     <div >
                                         <Button >
-                                            <Link to='/signin' className="mys">
+                                            <Link to='/signin' className="user-sign">
                                                 Sign in
                                          </Link>
                                         </Button>
-                                        <Button color="inherit">
-                                            <Link to='/signup' className="mys">
+                                        <Button >
+                                            <Link to='/signup' className="user-sign">
                                                 Sign up
                                          </Link>
                                         </Button>

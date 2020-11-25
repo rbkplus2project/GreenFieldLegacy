@@ -34,7 +34,7 @@ class InputSearch extends React.Component {
 
     render() {
         return (
-            <div style={{ width: 300, paddingLeft: "8px", marginTop: "8px" }}>
+            <div style={{ width: 100, paddingLeft: "8px", marginTop: "8px" }}>
                 <Autocomplete
                     onChange={this.onSelect}
                     id="asynchronous-demo"
