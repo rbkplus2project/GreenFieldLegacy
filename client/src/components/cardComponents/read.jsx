@@ -40,7 +40,6 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
   const [favNotEmpty, setFav] = React.useState(favoriteNotEmp || false);
   const [reservation, setReservation] = React.useState((removeGetRes || reserveShow || false));
   const handleFavAdd = (data, currentUser) => {
-    console.log("add is clicked")
     fetch('/fav/add', {
       method: 'POST', // or 'PUT'
       headers: {
@@ -137,7 +136,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <div>
-              <Typography component="h5" variant="h5">
+              <Typography component="h6" variant="h6">
                 {data.name}
               </Typography>
             </div>
@@ -152,7 +151,7 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
           <div className="dollers">
             <Typography  component="div">
               <div className="facility">
-            ${priceConverter(data.ratePlan.price.current, adults, dateDifferenceNumber())} per night
+            ${priceConverter(data.ratePlan.price.current, adults, dateDifferenceNumber())} Total price for the days selected
               </div>
             </Typography>
           </div>
@@ -161,20 +160,13 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
       <div className='third_component'>
         <div className="third_component_thirdline">
           <Typography component="div">
-            {
-              data.guestReviews ?
-                <div>
-                  International : <Rating name="half-rating-read" defaultValue={data.starRating ? data.starRating : 0} precision={0.5} readOnly />
+              <div>
+                  International : <Rating name="half-rating-read" defaultValue={data.starRating ? data.starRating : 0} readOnly />
                   <br/>
-                  Guests rating : <Rating name="half-rating-read" defaultValue={Math.floor(data.guestReviews.unformattedRating/2)} precision={0.5} readOnly />
+                  People Rating : <Rating name="half-rating-read" defaultValue={data.guestReviews ? (data.guestReviews.unformattedRating/2) : 0} readOnly />
                   <br/>
-                  Number of Reviews : {data.guestReviews.total}
-                </div>
-                :
-                <div>
-                  Number of Reviews : 0
-                </div>
-            }
+                  Number of Reviews : {data.guestReviews ? data.guestReviews.total : 0}
+              </div>
           </Typography >
         </div>
         <div className="third_component_secondline">

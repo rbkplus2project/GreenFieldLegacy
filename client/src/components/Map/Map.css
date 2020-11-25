@@ -1,6 +1,6 @@
 .infoWindow{
-    color:red;
-    font-size: 15px;
+    color:rgb(126, 14, 14);
+    font-size: 13px;
     font-weight: bold;
     width: 600px;
     height: 150px;
@@ -10,13 +10,15 @@
     flex-flow: row;
 }
 .infoWindow *{
+    margin-right: 5px;
     height:90%;
     display: flex;
-    align-items: center;
+    align-items: space-between;
     justify-content: space-between;
     flex-flow: column;
 }
 .go{
+    align-items: center;
     border:2px solid purple;
     border-radius: 5px;
     width:100px;
@@ -24,4 +26,9 @@
 }
 .go:hover{
     background-color:pink;
+}
+.label{
+color : "red";  
+font-size: '20px';                    
+background-color: 'blue';
 }
