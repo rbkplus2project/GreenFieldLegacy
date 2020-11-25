@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "private": false,
   "description": "Hotels website",
-  "main": "server.js",
+  "main": "server/server.js",
   "author": "Raptors & Titans",
   "license": "none",
   "homepage": "https://raptors-hotels.herokuapp.com/",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon server/server.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {

@@ -3,7 +3,7 @@ import UserSign from "./pages/UserSign/UserSign";
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
 import NewPassword from "./pages/NewPassword/NewPassword.jsx";
-import { showMenu, showSearch } from './actions/actions';
+import { showMenu, showSearch, saveSearch } from './actions/actions';
 import CardList from "./components/CardList/cardList";
 import Profile from "./pages/profile/profile.jsx";
 import HomePage from "./pages/homePage/homePage";
@@ -17,10 +17,10 @@ class App extends React.Component {
     this.state = {
       currentUser: localStorage.getItem("current-user"),
       checkIn: "2020-11-24",
-      checkOut: "2020-11-30",
+      checkOut: "2021-11-30",
       searchValue: "",
       adults: 1,
-      resulsArray: [],
+      resultsArray: [],
       admin: false,
       cityAndCountry: ""
     }
@@ -67,54 +67,81 @@ class App extends React.Component {
   }
 
   handleSeachButtonClick = () => {
-    if(this.state.searchValue){
-      fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
-        "method": "GET",
-        "headers": {
-          // "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
-          // "x-rapidapi-host": "hotels4.p.rapidapi.com",
-          "x-rapidapi-key": "d13943b4a2msh2fce0d567fcd48cp1b7894jsn85cca0ffc256",
-          "x-rapidapi-host": "hotels4.p.rapidapi.com",
-          // "useQueryString": true
-        }
+    console.log(this.props)
+    let oldState = this.props.results[this.state.searchValue]
+    if (oldState) {
+      this.setState({
+        cityCenter: oldState.cityCenter,
+        resultsArray: oldState.resultsArray
       })
-        .then(response => {
-          return response.json()
+    } else {
+      let allData = {}
+      if (this.state.searchValue) {
+        fetch(`https://hotels4.p.rapidapi.com/locations/search?locale=en_US&query=${this.state.searchValue}`, {
+          "method": "GET",
+          "headers": {
+            // "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+            // "x-rapidapi-host": "hotels4.p.rapidapi.com",
+            // "x-rapidapi-key": "d13943b4a2msh2fce0d567fcd48cp1b7894jsn85cca0ffc256",
+            // "x-rapidapi-host": "hotels4.p.rapidapi.com",
+            "x-rapidapi-key": "60c160b303msh7203505fed160fep1856fejsn13da7ee5b70d",
+            "x-rapidapi-host": "hotels4.p.rapidapi.com",
+            // "useQueryString": true
+          }
         })
-        .then((data) => {
-          if(data){
-          if(data.suggestions[0].entities[0]){
-          this.setState({ cityCenter: data.suggestions[0].entities[0] })
-          fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
-            "method": "GET",
-            "headers": {
-              // "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
-              // "x-rapidapi-host": "hotels4.p.rapidapi.com",
-              "x-rapidapi-key": "d13943b4a2msh2fce0d567fcd48cp1b7894jsn85cca0ffc256",
-	            "x-rapidapi-host": "hotels4.p.rapidapi.com"
+          .then(response => {
+            return response.json()
+          })
+          .then((data) => {
+            console.log(data)
+            if (data) {
+              if (data.suggestions[0].entities[0]) {
+                this.setState({ cityCenter: data.suggestions[0].entities[0] })
+                allData.cityCenter = data.suggestions[0].entities[0]
+                fetch(`https://hotels4.p.rapidapi.com/properties/list?destinationId=${data.suggestions[0].entities[0].destinationId}&pageNumber=1&checkIn=${this.state.checkIn}&checkOut=${this.state.checkOut}&pageSize=25&adults1=1&currency=USD&locale=en_US&sortOrder=PRICE`, {
+                  "method": "GET",
+                  "headers": {
+                    // "x-rapidapi-key": "19fe5ca383msh9591c981cf8ec3ap1768e4jsn0d1c67890d8e",
+                    // "x-rapidapi-host": "hotels4.p.rapidapi.com",
+                    // "x-rapidapi-key": "d13943b4a2msh2fce0d567fcd48cp1b7894jsn85cca0ffc256",
+                    // "x-rapidapi-host": "hotels4.p.rapidapi.com",
+                    "x-rapidapi-key": "60c160b303msh7203505fed160fep1856fejsn13da7ee5b70d",
+                    "x-rapidapi-host": "hotels4.p.rapidapi.com",
+                  }
+                })
+                  .then(response => {
+                    return response.json()
+                  })
+                  .then(data => {
+                    this.setState({ resultsArray: data.data.body.searchResults.results })
+                    allData.resultsArray = data.data.body.searchResults.results
+                    this.props.saveSearch(allData, this.state.searchValue)
+                    console.log(allData, this.props)
+                  })
+                  .then(data => { })
+                  .catch(err => {
+                    console.error(err);
+                  });
+              } else {
+                this.setState({
+                  resultsArray: [{
+                    address: { streetAddress: "middle of nowhere", locality: "Nowhere" },
+                    coordinate: { lat: 0, lon: 0 },
+                    name: "No Hotel",
+                    guestReviews: { unformattedRating: 0, total: 1 },
+                    ratePlan: { price: { current: "$0" } },
+                    starRating: 0,
+                    thumbnailUrl: "https://i.insider.com/562fbe249dd7cc1b008c528d?width=700"
+                  }]
+                })
+              }
             }
           })
-            .then(response => {
-              return response.json()
-            })
-            .then(data => {
-              this.setState({ resulsArray: data.data.body.searchResults.results })
-            })
-            .then(data => {})
-            .catch(err => {
-              console.error(err);
-            });
-        }else{this.setState({ resulsArray: [{address: {streetAddress: "middle of nowhere", locality: "Nowhere"},
-        coordinate: {lat: 0, lon: 0},
-        name: "No Hotel",
-        guestReviews: {unformattedRating: 0, total: 1},
-        ratePlan: {price: {current: "$0"}},
-        starRating: 0,
-        thumbnailUrl: "https://i.insider.com/562fbe249dd7cc1b008c528d?width=700"
-        }]})}}})
-        .catch(err => {
-          console.error(err);
-        });}
+          .catch(err => {
+            console.error(err);
+          });
+      }
+    }
   }
 
   componentDidMount() {
@@ -154,7 +181,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" render={() => <HomePage handleAdultsChange={this.handleAdultsChange} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} />} />
 
-            <Route exact path="/cardlist" render={() => <CardList refresh={this.refresh} cityCenter={this.getCityCenter} handleAdultsChange={this.handleAdultsChange} adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resulsArray={this.state.resulsArray} />} />
+            <Route exact path="/cardlist" render={() => <CardList refresh={this.refresh} cityCenter={this.getCityCenter} handleAdultsChange={this.handleAdultsChange} adults={this.state.adults} dateDifferenceNumber={this.dateDifferenceNumber} reservationArray={this.handleReservationArray} favoritesArray={this.handleFavoritesArray} handleSeachButtonClick={this.handleSeachButtonClick} currentUser={this.state.currentUser} cityAndCountry={this.handleCityAndCountry} checkIn={this.handleCheckInChange} checkOut={this.handleCheckOutChange} searchValue={this.handlesearchValueChange} resultsArray={this.state.resultsArray} />} />
             <Route path="/forgot-password" component={ResetPassword} />
 
             <Route path="/reset/:token" component={NewPassword} />
@@ -169,14 +196,16 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    showMenu: state.showMenu
+    showMenu: state.showMenu,
+    results: state.results
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     show: (z) => { dispatch(showMenu(z)) },
-    hide: (z) => { dispatch(showSearch(z)) }
+    hide: (z) => { dispatch(showSearch(z)) },
+    saveSearch: (cityInfo, cityName) => { dispatch(saveSearch(cityInfo, cityName)) },
   }
 }
 

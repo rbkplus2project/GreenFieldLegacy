@@ -32,7 +32,7 @@ class CardList extends React.Component {
             .catch(err => console.log(err))
     }
     render() {
-        const { handleAdultsChange, adults, dateDifferenceNumber, checkIn, checkOut, searchValue, cityAndCountry, handleSeachButtonClick, currentUser, resulsArray } = this.props
+        const { handleAdultsChange, adults, dateDifferenceNumber, checkIn, checkOut, searchValue, cityAndCountry, handleSeachButtonClick, currentUser, resultsArray } = this.props
         return (
             <div >
                 <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
@@ -40,10 +40,10 @@ class CardList extends React.Component {
                 <p style={{ color:"navy" }} onClick={() => { this.setState({ map: !this.state.map }); this.props.refresh()}}>Show map</p>
                 </Button>
                 <br/>
-                {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div> }
+                {this.state.map ? <Map hotels={this.props.resultsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div> }
                 {
-                    resulsArray.length ?
-                        resulsArray.map((data, i) => {
+                    resultsArray ?
+                        resultsArray.map((data, i) => {
                             let ele = this.state.removeGetRes
                             this.state.reservationsArray.forEach(element => {
                                 if (element.id === data.id) {

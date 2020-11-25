@@ -12,4 +12,10 @@ export const showSearch = (z) => {
         showSearch: z
     }
 }
-
+export const saveSearch = (cityinfo, cityName) => {
+    return {
+        type: 'SAVE_SEARCH',
+        cityInfo: cityinfo,
+        cityName: cityName
+    }
+}
