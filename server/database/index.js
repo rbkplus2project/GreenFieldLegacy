@@ -16,6 +16,6 @@ const connect = mongoose.connect(dbURI,
   .catch(err => console.log(err));
 
 exports.default = connect;
-=======
+
 
 
