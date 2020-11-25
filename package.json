@@ -6,7 +6,7 @@
   "author": "Raptors & Titans",
   "private": false,
   "license": "none",
-  "homepage": "https://legacy-hotels.herokuapp.com/",
+  "homepage": "https://legacy-hotels2.herokuapp.com/",
   "scripts": {
     "start": "nodemon server/server.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
