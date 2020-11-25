@@ -1,12 +1,10 @@
-import React from "react"
-import 'date-fns';
 import { Toolbar, AppBar, IconButton, Typography, Button } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-// import MenuIcon from '@material-ui/icons/Menu';
-import "./appBar.css"
 import { Link } from 'react-router-dom';
-import "./appBar.css"
 import logo from './great2.png'
+import React from "react";
+import "./appBar.css";
+import 'date-fns';
 
 class AppBarr extends React.Component {
     constructor() {
@@ -55,7 +53,6 @@ class AppBarr extends React.Component {
                         <Toolbar className="toolBar">
                             <Link to='/'>
                                 <Typography className="typography mys center" variant="h4">
-                                    {/* <img alt='hotelImg' src={hotel} style={{ height: 35, width: 35, marginTop: 20 }} /> */}
                                     <img alt='HotelCom' src={logo} />
                                     <Button color="inherit">
                                     Homepage
@@ -93,15 +90,13 @@ class AppBarr extends React.Component {
                                         </Button>
                                     </div>
                             }
-
-
                         </Toolbar>
                     </AppBar>
                 </div>
-
             </div>
         )
 
     }
 }
+
 export default AppBarr;
