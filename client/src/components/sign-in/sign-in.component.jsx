@@ -27,10 +27,11 @@ class SignIn extends React.Component {
       },
       body: JSON.stringify(this.state),
     })
-      .then((response) => {
-        // console.log('responce =====', response);
-        response.json()
-      })
+      // .then((response) => {
+      //   // console.log('responce =====', response);
+      //   response.json()
+      // })
+      .then(response => response.json())
       .then((data) => {
         if (data.success) {
           localStorage.setItem("jwt-auth", data.token)
@@ -42,7 +43,6 @@ class SignIn extends React.Component {
         }
         console.log('Success:', data);
       })
-
 
       .then(() => { window.location.reload() })
       .catch((error) => {
@@ -105,7 +105,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    
+
   }
 }
 
