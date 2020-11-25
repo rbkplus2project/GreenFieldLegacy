@@ -67,6 +67,7 @@ class App extends React.Component {
   }
 
   handleSeachButtonClick = () => {
+    this.setState({resultsArray: []})
     console.log(this.props)
     let oldState = this.props.results[this.state.searchValue]
     if (oldState) {
