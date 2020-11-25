@@ -36,7 +36,6 @@ export default function MaterialUIPickers({ name, checkInOrOut }) {
                         onOpen={() => setOpen(true)}
                         onClose={() => setOpen(false)}
                         open={open}
-                        label={name}
                         value={selectedDate}
                         onChange={handleDateChange}
                         KeyboardButtonProps={{

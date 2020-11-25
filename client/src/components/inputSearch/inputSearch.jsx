@@ -34,7 +34,7 @@ class InputSearch extends React.Component {
 
     render() {
         return (
-            <div style={{ width: 300, paddingLeft: "8px", marginTop: "8px" }}>
+            <div style={{ width: 200, paddingLeft: "8px", marginTop: "8px" }}>
                 <Autocomplete
                     onChange={this.onSelect}
                     id="asynchronous-demo"
@@ -53,7 +53,6 @@ class InputSearch extends React.Component {
                     renderInput={(params) => (
                         <TextField
                             {...params}
-                            label="Countries/Cities"
                             // variant="filled"
                             onChange={this.onchange}
                         />

@@ -18,13 +18,14 @@ class NavAndSearch extends React.Component {
         <div className="Greeting" >
           <Greeting />
           <form className="form" noValidate autoComplete="off">
+            City
             <InputSearch searchValue={searchValue} cityAndCountry={cityAndCountry} />
             <MaterialUIPickers name="check in" checkInOrOut={checkIn} />
             <MaterialUIPickers name="check out" checkInOrOut={checkOut} />
+            No.People
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "7px" }}>
               <TextField
                 id="standard-number"
-                label="No. People"
                 InputProps={{ inputProps: { min: 1 } }}
                 type="number"
                 InputLabelProps={{

@@ -67,11 +67,12 @@ class CardList extends React.Component {
         return (
             <div >
                 <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
-                <Button variant="outlined" size="medium" color="primary" style={{ height: 30, float:"right", marginRight: "1vw", marginTop: "-30px" }} onClick={(e) => { e.preventDefault(); handleSeachButtonClick() }}>
-                <p style={{ color:"navy" }} onClick={() => { this.setState({ map: !this.state.map }); this.props.refresh()}}>Show map</p>
+                <Button variant="outlined" size="medium" color="primary" style={{ height: 30, float:"right", marginRight: "2vw", marginTop: "-30px" }} onClick={(e) => { e.preventDefault(); handleSeachButtonClick() }}>
+                <p style={{ position:"relative",zIndex:"2",color:"navy" }} onClick={() => { this.setState({ map: !this.state.map }); this.props.refresh()}}>Show map</p>
                 </Button>
-                <div className="select" style={{width:'200px'}}>
+                <div className="select" style={{ position:"relative", marginLeft: "2vw", marginTop: "-20px" }}>
                     <select id="sort" onChange={this.Sorting.bind(this)}>
+                        <option value="sort">Sort Hotels</option>
                         <option value="PriceA">Price A</option>
                         <option value="PriceD">Price D</option>
                         <option value="RateA" >International A</option>

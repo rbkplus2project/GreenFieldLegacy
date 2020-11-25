@@ -146,26 +146,26 @@ router.post("/forgot-password", async (req, res, next) => {
 
   await User.findOneAndUpdate({ email: req.body.email }, { expiration: expireDate, token: token, used: 0 })
 
-    // const msg = {
-    //   to: process.env.SENDGRID_TO, // Change to your recipient  //req.headers.host  //process.env.SENDGRID_TO
-    //   from: process.env.SENDGRID_FROM, // Change to your verified sender  
-    //   subject: 'From hotels.com',
-    //   text: 'Weclome to our hotel booking website, Hope you Enjoy your experience. You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-    //     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-    //     'http://' + "localhost:3000" + '/reset/' + token + '\n\n' +
-    //     'The link will remain valid for 3 hours only. If you did not request this, please ignore this email and your password will remain unchanged.\n'
-    // }
-    // await sgMail
-    //   .send(msg)
-    //   .then(() => {
-    //     console.log('Email sent')
-    //     res.status(200);
-    //     next();
+    const msg = {
+      to: user.email, // Change to your recipient  //req.headers.host  //process.env.SENDGRID_TO
+      from: process.env.SENDGRID_FROM, // Change to your verified sender  
+      subject: 'From hotels.com',
+      text: 'Weclome to our hotel booking website, Hope you Enjoy your experience. You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+        'http://' + "localhost:3000" + '/reset/' + token + '\n\n' +
+        'The link will remain valid for 3 hours only. If you did not request this, please ignore this email and your password will remain unchanged.\n'
+    }
+    await sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent')
+        res.status(200);
+        next();
 
-    //   })
-    //   .catch((error) => {
-    //     console.error(error)
-    //   })
+      })
+      .catch((error) => {
+        console.error(error)
+      })
 })
 
 
