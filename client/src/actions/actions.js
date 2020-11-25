@@ -7,3 +7,9 @@ export const store = (z) => {
     }
 }
 
+export const hotels = (z) => {
+    return {
+        type: 'STORE-HOTELS',
+        user: z
+    }
+}
