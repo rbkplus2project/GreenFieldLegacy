@@ -1,6 +1,7 @@
 // import { showSign } from '../actions/actions.js';
 import Button from '@material-ui/core/Button';
 import './NewPassword.css';
+import { Link, Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 const axios = require('axios');
@@ -15,10 +16,10 @@ class NewPassword extends Component {
         }
     }
     checkPassWord = (password) => {
-        // if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.{8,})/.test(password)) {
-        //     return true;
-        // }
-        return true;
+        if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.{7,})/.test(password)) {
+            return true;
+        }
+        return false;
     }
     componentDidMount = () => {
         console.log("hiiii")
@@ -36,7 +37,7 @@ class NewPassword extends Component {
 
         if (input[0].value === input[1].value && (this.checkPassWord(input[0].value)) === true) {
             let options = {
-                url: `http://localhost:5000/user/reset/:token`,
+                url: `http://localhost:3000/user/reset/:token`,
                 method: 'post',
                 data: { password: input[0].value, token: token }
             }
@@ -44,7 +45,7 @@ class NewPassword extends Component {
             axios(options)
                 .then((results) => {
                     if (results.status === 200) {
-                        setState({home : true})
+                        this.setState({home : true})
                     };
                 })
                 .catch((err) => {
@@ -70,19 +71,20 @@ class NewPassword extends Component {
         }
         return (
             <div id="newPassword" className="">
-                <form className="newPassword-form" onSubmit={this.handleSubmit}>
+                <button style={{ "margin-top": "0px" }}><Link to="/">Return To Home Page</Link> </button>
+                <form className="newPassword-form" id="newPassword-form" onSubmit={this.handleSubmit}>
                     <h1>Reset Password</h1>
                     <br />
                     <div className="">
                         <label htmlFor="password-n" >New Password:</label>
                         <input type="password" className="text" id="password-n" name="password-n" />
-                        <div className="password-req" >Password must contain at least <b>one lowercase</b>, <b>uppercase</b>, <b>symbol</b>, <b>number</b> <br/>and min.length of 8 char.</div><br />
+                        <div className="password-req" >Password must contain at least <b>one lowercase</b>, <b>uppercase</b>, <b>symbol</b>, <b>number</b> <br/>and min.length of 7 char.</div><br />
                     </div>
 
                     <div className="">
                         <label htmlFor="password-con" >Confirm Password:</label>
                         <input type="password" className="text" id="password-con" name="password-con" />
-                        <div className="password error"></div>
+                        <div style={{ "color": "red" }} className="password error"></div>
                     </div>
                     <br />
                 
