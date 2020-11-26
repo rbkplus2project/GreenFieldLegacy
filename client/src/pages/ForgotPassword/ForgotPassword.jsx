@@ -21,9 +21,10 @@ class ForgotPassword extends Component {
         e.preventDefault();
         // console.log("hi");
         let input = $('#reset-form').serializeArray();
+        console.log(input);
         this.props.storeUser(input[0].value)
         let options = {
-            url: `http://localhost:5000/user/forgot-password`,
+            url: `http://localhost:3000/user/forgot-password`,
             method: 'post',
             data: { email: input[0].value }
         }
@@ -46,11 +47,11 @@ class ForgotPassword extends Component {
             return <Redirect to="/reset/:token" />
         }
         else {
-            console.log("reset props", this.props)
+            // console.log("reset props", this.props)
             return (
                 <div id="reset" className="">
                     <button ><Link to="/">Return To Home Page</Link> </button>
-                    <form className="reset-form" onSubmit={this.handleSubmit}>
+                    <form className="reset-form" id="reset-form" onSubmit={this.handleSubmit}>
                         <h1>Forgot Password</h1>
                         <br />
                         <div className="">
@@ -105,10 +106,10 @@ const mapStateToProps = (state) => {
         console(e);
         return;
     }
-    // return {
-    //     user: state.user,
+    return {
+        // user: state.user,
         
-    // }
+    }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
