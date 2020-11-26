@@ -114,7 +114,7 @@ class CardList extends React.Component {
                     </select>
                 </div>
                 <input type="serach" className="search" onChange={this.search1} placeholder="Filter" style={{marginTop: "10px", marginBottom: "10px"}} ></input>
-                <br />
+                <br/>
                 {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div>}
                 {
                     this.props.HotelSearch.length ?
