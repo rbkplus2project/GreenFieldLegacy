@@ -6,7 +6,7 @@ class MenuItem extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            resulsArray: []
+            resultsArray: []
         }
     }
     render() {

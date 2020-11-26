@@ -18,8 +18,8 @@ class CardList extends React.Component {
         }
     }
     componentDidMount = () => {
-        this.props.searchHotel(this.props.resulsArray)
-        fetch("http://localhost:5000/user/getuser", {
+        this.props.searchHotel(this.props.resultsArray)
+        fetch("/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ class CardList extends React.Component {
    
       search1 = (e) => {
         let word = e.target.value.toLowerCase();
-        let all = this.props.resulsArray;
+        let all = this.props.resultsArray;
         if (word === '') {
           this.props.searchHotel(all);
         } else {
@@ -93,7 +93,7 @@ class CardList extends React.Component {
     }
 
     render() {
-        const { handleAdultsChange, adults, dateDifferenceNumber, checkIn, checkOut, searchValue, cityAndCountry, handleSeachButtonClick, currentUser, resulsArray } = this.props
+        const { handleAdultsChange, adults, dateDifferenceNumber, checkIn, checkOut, searchValue, cityAndCountry, handleSeachButtonClick, currentUser } = this.props
         return (
             <div >
                 <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
@@ -115,7 +115,7 @@ class CardList extends React.Component {
                 </div>
                 <input type="serach" className="search" onChange={this.search1} placeholder="Filter" style={{marginTop: "10px", marginBottom: "10px"}} ></input>
                 <br/>
-                {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div>}
+                {this.state.map ? <Map hotels={this.props.resultsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div>}
                 {
                     this.props.HotelSearch.length ?
                         this.props.HotelSearch.map((data, i) => {
@@ -138,18 +138,14 @@ class CardList extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-     
       HotelSearch: state.HotelSearch,
-     
     }
   }
   const mapDispatchToProps = (dispatch) => {
     return {
-      
       searchHotel: (z) => { dispatch(searchHotel(z)) }
     }
   }
-  
   
   export default connect(mapStateToProps, mapDispatchToProps)(CardList);
 

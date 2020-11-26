@@ -27,7 +27,7 @@ class ProfileBody extends React.Component {
     }
 
     componentDidMount = () => {
-        fetch("'http://localhost:5000/user/getuser", {
+        fetch("/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -103,7 +103,6 @@ class ProfileBody extends React.Component {
             .catch(res => alert('username already taken'))
     }
     render() {
-        console.log(this.props)
         const { adults, dateDifferenceNumber, currentUser } = this.props
 
         return (
@@ -138,7 +137,6 @@ class ProfileBody extends React.Component {
                     </div>
                     <div style={{ flex: '.73' }}>
                         <DisabledTabs admin={this.state.admin} master={this.state.master} handleFavPrevChange={this.handleFavPrevChange} compDidmount={this.componentDidMount} />
-                        {/* component code for FAVORITES*/}
                         <div className="gallery">
                             {this.state.favPrev ?
                                 <div>

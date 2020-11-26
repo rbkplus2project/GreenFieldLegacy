@@ -14,7 +14,7 @@ This project is educational requirment task to develop skills in building fullst
 ### Technologies
 Project is created with:
 MERN: MongoDB-ExpressJs-React-Nodejs
-*  express : 4.17.1,
+*  express : 4.17.1
 *  jsonwebtoken: 8.5.1
 *  mongoose: 5.10.13
 *  react: 17.0.1

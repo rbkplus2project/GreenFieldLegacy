@@ -6,8 +6,9 @@ const initState = {
     user: null,
     hotels: [],
     CitySearch:[],
-    HotelSearch:[]
-
+    HotelSearch:[],
+    showMenu: 0,
+    results: {}
 }
 
 // Edits the Redux variables
@@ -57,7 +58,10 @@ const rootReducer = (state = initState, action) => {
             HotelSearch: action.HotelSearch
         }
     }
+    if (action.type === "SAVE_SEARCH") {
+        state.results[action.cityName] = action.cityInfo
+        return state
+    }
     return state;
 }
-
 export default rootReducer;
