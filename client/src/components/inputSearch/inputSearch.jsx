@@ -63,4 +63,4 @@ class InputSearch extends React.Component {
     }
 }
 
-export default InputSearch
+export default InputSearch;

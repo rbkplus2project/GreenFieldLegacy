@@ -4,7 +4,10 @@ const initState = {
         { username: "ahamd", password: "123" }
     ],
     user: null,
-    hotels: []
+    hotels: [],
+    CitySearch:[],
+    HotelSearch:[]
+
 }
 
 // Edits the Redux variables
@@ -40,6 +43,18 @@ const rootReducer = (state = initState, action) => {
         return {
             ...state,
             hotels: action.hotels
+        }
+    }
+    if (action.type === "SEARCH_CITY") {
+        return  {
+            ...state,
+            CitySearch: action.CitySearch
+        }
+    }
+    if (action.type === "SEARCH_HOTEL") {
+        return  {
+            ...state,
+            HotelSearch: action.HotelSearch
         }
     }
     return state;

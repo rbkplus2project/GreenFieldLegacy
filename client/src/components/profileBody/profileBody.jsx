@@ -27,7 +27,7 @@ class ProfileBody extends React.Component {
     }
 
     componentDidMount = () => {
-        fetch("/user/getuser", {
+        fetch("'http://localhost:5000/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -103,6 +103,7 @@ class ProfileBody extends React.Component {
             .catch(res => alert('username already taken'))
     }
     render() {
+        console.log(this.props)
         const { adults, dateDifferenceNumber, currentUser } = this.props
 
         return (
@@ -139,7 +140,7 @@ class ProfileBody extends React.Component {
                         <DisabledTabs admin={this.state.admin} master={this.state.master} handleFavPrevChange={this.handleFavPrevChange} compDidmount={this.componentDidMount} />
                         {/* component code for FAVORITES*/}
                         <div className="gallery">
-                     {this.state.favPrev ?
+                            {this.state.favPrev ?
                                 <div>
                                     {
                                         this.state.result.length ?
@@ -147,16 +148,16 @@ class ProfileBody extends React.Component {
                                                 let ele = this.state.removeGetRes
                                                 this.state.reservationsArray.forEach(element => {
                                                     if (element.id === data.id) {
-                                                          ele = true
+                                                        ele = true
                                                     }
-                                                    })
-                                                if (typeof data === "object" && data.name){
-                                                    return <CardComp dateDifferenceNumber={dateDifferenceNumber} removeGetRes={ele} key={i} data={data} adults={adults} compDidmount={this.componentDidMount} favoriteNotEmp={this.state.favoriteNotEmp} hideRes={this.state.hideRes} currentUser={this.state.currentUser} />
-                                                    }
-                                                else{return <div></div>}
                                                 })
+                                                if (typeof data === "object" && data.name) {
+                                                    return <CardComp dateDifferenceNumber={dateDifferenceNumber} removeGetRes={ele} key={i} data={data} adults={adults} compDidmount={this.componentDidMount} favoriteNotEmp={this.state.favoriteNotEmp} hideRes={this.state.hideRes} currentUser={this.state.currentUser} />
+                                                }
+                                                else { return <div></div> }
+                                            })
                                             :
-                                            <h2 style={{textAlign:"center"}}>
+                                            <h2 style={{ textAlign: "center" }}>
                                                 there are no items
                                      </h2>
                                     }
@@ -172,7 +173,7 @@ class ProfileBody extends React.Component {
                                                         if (data) {
                                                             return <CardComp key={i} data={data} adults={adults} dateDifferenceNumber={dateDifferenceNumber} compDidmount={this.componentDidMount} reserveShow={this.state.reserveShow} hideFav={this.state.hideFav} currentUser={this.state.currentUser} />
                                                         }
-                                                        else{return <div></div>}
+                                                        else { return <div></div> }
                                                     })
 
                                                     }
@@ -183,7 +184,7 @@ class ProfileBody extends React.Component {
                                                 </div>
 
                                                 :
-                                                <h2 style={{textAlign:"center"}}>
+                                                <h2 style={{ textAlign: "center" }}>
                                                     there are no items
                                     </h2>}
 
@@ -206,7 +207,21 @@ class ProfileBody extends React.Component {
         )
     }
 }
+
+// const mapStateToProps = (state) => {
+//     return {
+//         user: state.user
+//     }
+// }
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         setUser: (z) => { dispatch(setUser(z)) }
+//     }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(ProfileBody);
 export default ProfileBody;
+
 
 //<div className="profile" >
  //   <RightSide />
