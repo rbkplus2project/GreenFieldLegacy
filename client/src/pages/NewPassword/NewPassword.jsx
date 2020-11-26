@@ -1,8 +1,7 @@
-// import { showSign } from '../actions/actions.js';
-import Button from '@material-ui/core/Button';
 import './NewPassword.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 const axios = require('axios');
 const $ = require('jquery');
 
@@ -44,7 +43,7 @@ class NewPassword extends Component {
             axios(options)
                 .then((results) => {
                     if (results.status === 200) {
-                        setState({home : true})
+                        this.setState({home : true})
                     };
                 })
                 .catch((err) => {
