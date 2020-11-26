@@ -186,4 +186,22 @@ router.post("/reset/:token", async(req, res) => {
 
 })
 
+router.post("/getuser", (req, res) => {
+  User.findOne({ displayName: req.body.displayName })
+    .then((data) => res.status(200).send(data))
+    .catch((err) => res.status(404).send("error getting the data"))
+})
+// update the loged in user
+router.put('/:displayName', async(req, res) => {
+    User.update(req.params, req.body, (err, data) => {
+      console.log(req.params, req.body, data)
+      if (data.ok === 0) {
+        res.sendStatus(400)
+      }
+      else {
+        res.json(data)
+      }
+    })
+});
+
 module.exports = router

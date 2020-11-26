@@ -31,7 +31,8 @@ let userSchema = new Schema({
     master:Boolean,
     token: String,
     expiration: Date,
-    used: Number
+    used: Number,
+    profile: String
 }, { timestamps: true });
 
 
