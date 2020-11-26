@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 import './sign-in.styles.css';
+const $ = require('jquery');
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -19,7 +20,13 @@ class SignIn extends React.Component {
   }
   handleSubmit = (event) => {
     event.preventDefault()
+   
+    // const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+    // emailError.textContent = '';
+    passwordError.textContent = '';
 
+    const { displayName, email, password, confirmPassword } = this.state
     fetch('/user/signin', {
       method: 'POST', // or 'PUT'
       headers: {
@@ -39,16 +46,17 @@ class SignIn extends React.Component {
         }
 
         else {
-          throw Error("incorrect credentials")
+          // throw Error("incorrect credentials")
+          passwordError.textContent = "incorrect credentials";
         }
         console.log('Success:', data);
       })
 
-      .then(() => { window.location.reload() })
       .catch((error) => {
         alert(error)
         console.error('Error:', error);
       })
+      .then(() => { window.location.reload() })
 
     this.setState({ email: '', password: '' })
   }
@@ -73,6 +81,8 @@ class SignIn extends React.Component {
             label='email'
             required
           />
+          <div className="email error" ></div>
+
           <FormInput
             name='password'
             type='password'
@@ -81,10 +91,16 @@ class SignIn extends React.Component {
             label='password'
             required
           />
+          <div className="password error" ></div>
+
           <div className='buttons'>
             <CustomButton type='submit'> Sign in </CustomButton>
           </div>
 
+          {/* <div class="g-signin2" data-onsuccess="onSignIn"></div> */}
+
+          {/* <a href="/auth/google">Log In with Google</a><br/> */}
+          
           <p >Don't have an account? <Link to="/signup" >Sign Up</Link></p>
 
           <Link to="/forgot-password">
