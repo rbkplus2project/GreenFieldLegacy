@@ -8,6 +8,8 @@ import HomePage from "./pages/homePage/homePage";
 import UserSign from "./pages/UserSign/UserSign";
 import Footer from "./components/Footer/Footer.jsx";
 import React from "react";
+import { searchHotel } from './actions/actions.js';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
   constructor() {
@@ -91,6 +93,7 @@ class App extends React.Component {
               return response.json()
             })
             .then(data => {
+              this.props.searchHotel(data.data.body.searchResults.results)
               this.setState({ resulsArray: data.data.body.searchResults.results })
             })
             .then(data => {})
@@ -160,8 +163,22 @@ class App extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+   
+    HotelSearch: state.HotelSearch,
+   
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    
+    searchHotel: (z) => { dispatch(searchHotel(z)) }
+  }
+}
 
-export default App;
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 //sign-up  sign-in
 //username/password

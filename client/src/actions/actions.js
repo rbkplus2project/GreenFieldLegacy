@@ -13,3 +13,15 @@ export const hotels = (z) => {
         user: z
     }
 }
+export const searchCity = (z) => {
+    return {
+        type: 'SEARCH_CITY',
+        CitySearch: z
+    }
+}
+export const searchHotel = (z) => {
+    return {
+        type: 'SEARCH_HOTEL',
+        HotelSearch: z
+    }
+}

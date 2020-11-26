@@ -4,6 +4,8 @@ import Map from "../../components/Map/Map";
 import { Button } from '@material-ui/core';
 import React from 'react';
 import $ from 'jquery';
+import { searchHotel } from '../../actions/actions.js';
+import { connect } from 'react-redux';
 
 class CardList extends React.Component {
     constructor(props) {
@@ -16,6 +18,7 @@ class CardList extends React.Component {
         }
     }
     componentDidMount = () => {
+        this.props.searchHotel(this.props.resulsArray)
         fetch("http://localhost:5000/user/getuser", {
             method: 'POST', // or 'PUT'
             headers: {
@@ -33,34 +36,60 @@ class CardList extends React.Component {
             .then(data => { if (data) { this.setState({ reservationsArray: data.reservations }) } })
             .catch(err => console.log(err))
     }
+   
+      search1 = (e) => {
+        let word = e.target.value.toLowerCase();
+        let all = this.props.resulsArray;
+        if (word === '') {
+          this.props.searchHotel(all);
+        } else {
+          let newList = all.filter(elem => {
+            let name = elem.name.toLowerCase().toString()
+            if (name.includes(word)) {
+              return true
+            }
+            return false
+          })
+          this.props.searchHotel(newList)
+        }
+        
+      }
     Sorting = () => {
-    if ($('#sort').val() === 'PriceD') {
-        this.props.resulsArray.sort((a, b) => a.ratePlan.price.current > b.ratePlan.price.current ? -1 : 0
-        ,this.setState({}))}
-    if ($('#sort').val() === 'PriceA') {
-        this.props.resulsArray.sort((a, b) => a.ratePlan.price.current < b.ratePlan.price.current ? -1 : 0
-        ,this.setState({}))}
+        if ($('#sort').val() === 'PriceD') {
+            this.props.HotelSearch.sort((a, b) => a.ratePlan.price.current > b.ratePlan.price.current ? -1 : 0
+                , this.setState({}))
+        }
+        if ($('#sort').val() === 'PriceA') {
+            this.props.HotelSearch.sort((a, b) => a.ratePlan.price.current < b.ratePlan.price.current ? -1 : 0
+                , this.setState({}))
+        }
 
         if ($('#sort').val() === 'RateD') {
-            this.props.resulsArray.sort((a, b) => a.starRating > b.starRating ? -1 : 0
-            ,this.setState({}))}
+            this.props.HotelSearch.sort((a, b) => a.starRating > b.starRating ? -1 : 0
+                , this.setState({}))
+        }
         if ($('#sort').val() === 'RateA') {
-            this.props.resulsArray.sort((a, b) => a.starRating < b.starRating ? -1 : 0
-            ,this.setState({}))}
+            this.props.HotelSearch.sort((a, b) => a.starRating < b.starRating ? -1 : 0
+                , this.setState({}))
+        }
 
-            if ($('#sort').val() === 'Rate2D') {
-                this.props.resulsArray.sort((a, b) => a.guestReviews.unformattedRating > b.guestReviews.unformattedRating ? -1 : 0
-                ,this.setState({}))}
-            if ($('#sort').val() === 'Rate2A') {
-                this.props.resulsArray.sort((a, b) => a.guestReviews.unformattedRating < b.guestReviews.unformattedRating ? -1 : 0
-                ,this.setState({}))}
+        if ($('#sort').val() === 'Rate2D') {
+            this.props.HotelSearch.sort((a, b) => a.guestReviews.unformattedRating > b.guestReviews.unformattedRating ? -1 : 0
+                , this.setState({}))
+        }
+        if ($('#sort').val() === 'Rate2A') {
+            this.props.HotelSearch.sort((a, b) => a.guestReviews.unformattedRating < b.guestReviews.unformattedRating ? -1 : 0
+                , this.setState({}))
+        }
 
-                if ($('#sort').val() === 'ReviewsD') {
-                    this.props.resulsArray.sort((a, b) => a.guestReviews.total > b.guestReviews.total ? -1 : 0
-                    ,this.setState({}))}
-                if ($('#sort').val() === 'ReviewsA') {
-                    this.props.resulsArray.sort((a, b) => a.guestReviews.total < b.guestReviews.total ? -1 : 0
-                    ,this.setState({}))}
+        if ($('#sort').val() === 'ReviewsD') {
+            this.props.HotelSearch.sort((a, b) => a?.guestReviews?.total > b?.guestReviews?.total ? -1 : 0
+                , this.setState({}))
+        }
+        if ($('#sort').val() === 'ReviewsA') {
+            this.props.HotelSearch.sort((a, b) => a?.guestReviews?.total < b?.guestReviews?.total ? -1 : 0
+                , this.setState({}))
+        }
     }
 
     render() {
@@ -68,19 +97,10 @@ class CardList extends React.Component {
         return (
             <div >
                 <NavAndSearch handleAdultsChange={handleAdultsChange} handleSeachButtonClick={handleSeachButtonClick} currentUser={currentUser} checkIn={checkIn} checkOut={checkOut} searchValue={searchValue} cityAndCountry={cityAndCountry} />
-                <div className="Sort">
-                    Sort
-                    <select id="sort" onChange={this.Sorting.bind(this)}>
-                        <option value="Price">Price</option>
-                        <option value="Rate" >Rate</option>
-                        <option value="Rate2" >Rate2</option>
-                        <option value="Reviews" >Reviews</option>
-                    </select>
-                </div>
                 <Button variant="outlined" size="medium" color="primary" style={{ height: 30, float: "right", marginRight: "1vw", marginTop: "-30px" }} onClick={(e) => { e.preventDefault(); handleSeachButtonClick() }}>
                     <p style={{ color: "navy" }} onClick={() => { this.setState({ map: !this.state.map }); this.props.refresh() }}>Show map</p>
                 </Button>
-                <div className="select" style={{width:'200px'}}>
+                <div className="select" style={{ width: '200px' }}>
                     <select id="sort" onChange={this.Sorting.bind(this)}>
                         <option value="PriceA">Price A</option>
                         <option value="PriceD">Price D</option>
@@ -92,11 +112,12 @@ class CardList extends React.Component {
                         <option value="ReviewsD" >Reviews D</option>
                     </select>
                 </div>
-                <br/>
-                {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div> }
+                <input type="serach" className="search" onChange={this.search1} ></input>
+                <br />
+                {this.state.map ? <Map hotels={this.props.resulsArray} location={this.props.cityCenter()} google={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}></Map> : <div></div>}
                 {
-                    resulsArray.length ?
-                        resulsArray.map((data, i) => {
+                    this.props.HotelSearch.length ?
+                        this.props.HotelSearch.map((data, i) => {
                             let ele = this.state.removeGetRes
                             this.state.reservationsArray.forEach(element => {
                                 if (element.id === data.id) {
@@ -114,5 +135,20 @@ class CardList extends React.Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+     
+      HotelSearch: state.HotelSearch,
+     
+    }
+  }
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      
+      searchHotel: (z) => { dispatch(searchHotel(z)) }
+    }
+  }
+  
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(CardList);
 
-export default CardList;
