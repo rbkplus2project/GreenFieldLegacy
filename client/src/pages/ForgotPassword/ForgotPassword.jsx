@@ -23,7 +23,7 @@ class ForgotPassword extends Component {
         let input = $('#reset-form').serializeArray();
         this.props.storeUser(input[0].value)
         let options = {
-            url: `http://localhost:5000/user/forgot-password`,
+            url: `/user/forgot-password`,
             method: 'post',
             data: { email: input[0].value }
         }

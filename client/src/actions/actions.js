@@ -25,3 +25,10 @@ export const searchHotel = (z) => {
         HotelSearch: z
     }
 }
+export const saveSearch = (cityinfo, cityName) => {
+    return {
+        type: 'SAVE_SEARCH',
+        cityInfo: cityinfo,
+        cityName: cityName
+    }
+}

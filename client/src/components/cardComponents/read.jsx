@@ -151,7 +151,9 @@ export default function MediaControlCard({ removeGetRes,compDidmount, reserveSho
           <div className="dollers">
             <Typography  component="div">
               <div className="facility">
-            ${priceConverter(data.ratePlan.price.current, adults, dateDifferenceNumber())} Total price for the days selected
+              {data.ratePlan ?
+            "$"+priceConverter(data.ratePlan.price.current , adults, dateDifferenceNumber()) +" Total price for the days selected"
+              : "$0"}
               </div>
             </Typography>
           </div>

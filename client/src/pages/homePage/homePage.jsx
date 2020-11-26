@@ -4,7 +4,6 @@ import MenuItems from "../../components/menuItem/menuItem"
 import NavAndSearch from "../../components/navBar/navBar"
 import { searchCity } from '../../actions/actions.js';
 import { connect } from 'react-redux';
-import $ from 'jquery';
 
 class HomePage extends React.Component {
   constructor(props) {
