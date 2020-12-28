@@ -1,5 +1,7 @@
 # Project title 
-[HotelCom](https://raptors-hotels.herokuapp.com/)
+[HotelCom](https://legacy-hotels2.herokuapp.com/)
+
+[![pic](https://i.imgur.com/l3795GA.png)](https://i.imgur.com/l3795GA.png)
 ## Table of contents
 * project aim
 * general info
@@ -49,7 +51,7 @@ Heroku
 * remove the yarn lock file
 * remove the .gitIgnore(where you don't need it (inside server file)
 * remove the cached files in your project (git rm  -r --cached .) (the . for all)
-* make a branch for heroku deployments and put this in the packega.json==>"proxy" : "https://raptors-hotel.herokuapp.com"
+* make a branch for heroku deployments and put this in the packega.json==>"proxy" : "https://legacy-hotels2.herokuapp.com/"
 * download the heroku cli to use its props in git bash
 * heroku login
 * heroku create (your app name)
@@ -58,3 +60,5 @@ Heroku
 * git commit -m "deploying"
 * git push (name of the branch) master
 * the master branch and the deployment branch are the same but different proxy pakege.json
+
+[![pic](https://i.imgur.com/wHEr6wo.png)](https://i.imgur.com/wHEr6wo.png)
