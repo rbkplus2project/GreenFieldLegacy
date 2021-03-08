@@ -1,5 +1,5 @@
-# Project title 
-[HotelCom](https://raptors-hotels.herokuapp.com/)
+# Hotelcom
+want to travel the world? [HotelCom](https://legacy-hotels2.herokuapp.com) can help you find the best hotels
 ## Table of contents
 * project aim
 * general info
