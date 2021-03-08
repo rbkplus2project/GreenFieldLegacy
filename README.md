@@ -38,8 +38,8 @@ MERN: MongoDB-ExpressJs-React-Nodejs
 * Create list of favorite hotels (add-remove)
 * Create list of reserved hotels (add-remove)
 * Do Booking process, Pay for reserved hotels
-### Deployment done using
-Heroku
+### Deployment Link
+[Heroku](https://legacy-hotels2.herokuapp.com)
 ### When you fork this
 * make sure you are using the proxy(putting the localhost:5000) for your master branch in pakege json of the client(and remove all local/5000) from all of the files
 * make sure to put (in the dependandies) "heroku-postbuild" : "cd client && npm install && npm run build" in the pakege json of the client
@@ -49,7 +49,7 @@ Heroku
 * remove the yarn lock file
 * remove the .gitIgnore(where you don't need it (inside server file)
 * remove the cached files in your project (git rm  -r --cached .) (the . for all)
-* make a branch for heroku deployments and put this in the packega.json==>"proxy" : "https://raptors-hotel.herokuapp.com"
+* make a branch for heroku deployments and put this in the package.json==>"proxy" : "https://legacy-hotels2.herokuapp.com"
 * download the heroku cli to use its props in git bash
 * heroku login
 * heroku create (your app name)
