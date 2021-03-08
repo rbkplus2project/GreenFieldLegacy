@@ -1,5 +1,5 @@
 # Hotelcom
-want to travel the world? [HotelCom](https://legacy-hotels2.herokuapp.com) can help you find the best hotels
+Want to travel the world? [HotelCom](https://legacy-hotels2.herokuapp.com) can help you find the best Hotels!
 ## Table of contents
 * project aim
 * general info
