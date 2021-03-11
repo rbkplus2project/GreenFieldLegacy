@@ -1,28 +1,22 @@
 import SignUp from '../../components/sign-up/sign-up.component.jsx';
 import SignIn from '../../components/sign-in/sign-in.component.jsx';
-import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-// import { Link, Redirect } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// const $ = require('jquery');
-// import './UserSign.styles.css';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import './UserSign.css';
 
 class UserSign extends Component {
-
   render(){
     return (
-    // <div className='UserSign'>
+    <div>
+    <button><Link to="/">Return To Home Page</Link> </button>
     <Router>
-      {/* <Switch> */}
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
-      {/* </Switch>  */}
     </Router>
-      
-    // </div>
+    </div>
     )
   }
-  
 };
 
 export default UserSign;
