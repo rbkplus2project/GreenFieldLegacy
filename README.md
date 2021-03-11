@@ -39,8 +39,8 @@ MERN: MongoDB-ExpressJs-React-Nodejs
 * Create list of favorite hotels (add-remove)
 * Create list of reserved hotels (add-remove)
 * Do Booking process, Pay for reserved hotels
-### Deployment done using
-Heroku
+### Deployment Link
+[Heroku](https://legacy-hotels2.herokuapp.com)
 ### When you fork this
 * make sure you are using the proxy(putting the localhost:5000) for your master branch in pakege json of the client(and remove all local/5000) from all of the files
 * make sure to put (in the dependandies) "heroku-postbuild" : "cd client && npm install && npm run build" in the pakege json of the client
@@ -59,5 +59,4 @@ Heroku
 * git commit -m "deploying"
 * git push (name of the branch) master
 * the master branch and the deployment branch are the same but different proxy pakege.json
-
 [![pic](https://i.imgur.com/wHEr6wo.png)](https://i.imgur.com/wHEr6wo.png)
