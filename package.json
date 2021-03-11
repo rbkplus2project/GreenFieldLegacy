@@ -1,29 +1,36 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "heroku-postbuild" : "cd client && npm install && npm run build"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.0.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.13",
-    "mongoose-float": "^1.0.4",
-    "path": "^0.12.7",
-    "stripe": "^8.122.1",
-    "validator": "^13.1.17"
-  },
-  "engines": {
-    "node": "14.x"
+    "name": "server",
+    "version": "1.0.0",
+    "description": "Hotels website",
+    "main": "server/server.js",
+    "author": "Raptors & Titans",
+    "private": false,
+    "license": "none",
+    "homepage": "https://legacy-hotels2.herokuapp.com/",
+    "scripts": {
+      "start": "nodemon server/server.js",
+      "heroku-postbuild": "cd client && npm install && npm run build"
+    },
+    "dependencies": {
+      "@sendgrid/mail": "^7.4.0",
+      "axios": "^0.21.0",
+      "bcrypt": "^5.0.0",
+      "cookie-parser": "^1.4.5",
+      "cors": "^2.8.5",
+      "crypto": "^1.0.1",
+      "crypto-js": "^4.0.0",
+      "dotenv": "^8.2.0",
+      "express": "^4.17.1",
+      "jsonwebtoken": "^8.5.1",
+      "mongoose": "^5.10.13",
+      "mongoose-float": "^1.0.4",
+      "nodemailer": "^6.4.16",
+      "nodemailer-sendgrid-transport": "^0.2.0",
+      "path": "^0.12.7",
+      "stripe": "^8.122.1",
+      "validator": "^13.1.17"
+    },
+    "engines": {
+      "node": "14.x"
+    }
   }
-}

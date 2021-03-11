@@ -1,10 +1,8 @@
 import React from 'react';
-
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-
-
-
 import './sign-in.styles.css';
 
 class SignIn extends React.Component {
@@ -31,11 +29,11 @@ class SignIn extends React.Component {
     })
       .then(response => response.json())
       .then((data) => {
-        if (data.success){
+        if (data.success) {
           localStorage.setItem("jwt-auth", data.token)
           localStorage.setItem("current-user", data.displayName)
         }
-         
+
         else {
           throw Error("incorrect credentials")
         }
@@ -43,7 +41,6 @@ class SignIn extends React.Component {
       })
       .then(() => { window.location.reload() })
       .catch((error) => {
-        alert(error)
         console.error('Error:', error);
       })
 
@@ -59,16 +56,14 @@ class SignIn extends React.Component {
   render() {
     return (
       <div className='sign-in'>
-        <h2>I already have an account</h2>
-        <span>Sign in with your email and password</span>
-
-        <form onSubmit={this.handleSubmit}>
+        <form className='sign-in-form'onSubmit={this.handleSubmit}>
+          <h2>Sign In </h2>
           <FormInput
             name='email'
             type='email'
             handleChange={this.handleChange}
             value={this.state.email}
-            label='email'
+            placeholder='email'
             required
           />
           <FormInput
@@ -76,17 +71,38 @@ class SignIn extends React.Component {
             type='password'
             value={this.state.password}
             handleChange={this.handleChange}
-            label='password'
+            placeholder='password'
             required
           />
           <div className='buttons'>
             <CustomButton type='submit'> Sign in </CustomButton>
-
           </div>
+
+          <p >Don't have an account? <Link to="/signup" >Sign Up</Link></p>
+
+          <Link to="/forgot-password">
+            <p >Forgot password?</p>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
-export default SignIn;
+
+// Redux 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+
+

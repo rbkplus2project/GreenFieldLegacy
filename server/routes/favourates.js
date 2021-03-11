@@ -4,13 +4,10 @@ const { User } = require('../database/User')
 
 
 router.post('/add', (req, res) => {  
-    console.log(req.body)
  
     User.findOne({ displayName: req.body.displayName }, (err, result) => {
         if (err) {
             console.log(err)
-        } else {
-            console.log(result)
         }
     })
         .then((result) => {
@@ -19,11 +16,11 @@ router.post('/add', (req, res) => {
                 arr.push(req.body.favorites)
             result.updateOne({ favorites: arr })
                 .then((data) => {
-                    res.json(data)
                     console.log('saved')
+                    res.json(data)
                 })
                 .catch((err) => {
-                    console.log('errrrrrr')
+                    console.log('error')
                 })
         })
 
@@ -33,8 +30,6 @@ router.post('/delete', (req, res) => {
     User.findOne({ displayName: req.body.displayName }, (err, result) => {
         if (err) {
             console.log(err)
-        } else {
-            console.log(result)
         }
     })
         .then((result) => {
@@ -43,20 +38,17 @@ router.post('/delete', (req, res) => {
             let arr = result.favorites
             let index = -1
             for (let i = 0; i < arr.length; i++) {
-                console.log("req.body.name",req.body.favorites.name)
-                console.log("arr[i].name",arr[i].name) 
                 if (arr[i].name === req.body.favorites.name)
                     index = i
             }
-            console.log(index)
             arr.splice(index, 1)
             result.updateOne({ favorites: arr })
                 .then((data) => {
-                    res.json(data)
                     console.log('saved')
+                    res.json(data)
                 })
                 .catch((err) => {
-                    console.log('errrrrrr')
+                    console.log("error")
                 })
         })
 })

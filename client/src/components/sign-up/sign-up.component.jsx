@@ -1,9 +1,7 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-
-
 import './sign-up.styles.css';
 
 class SignUp extends React.Component {
@@ -18,14 +16,27 @@ class SignUp extends React.Component {
     };
   }
 
+  checkPassWord = (password) => {
+    // if (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])(?=.{8,})/.test(password)) {
+    //   return true;
+    // }
+    return true;
+  }
+
   handleSubmit = async event => {
     event.preventDefault();
+    // const usernameError = document.querySelector('.username.error');
+    // const emailError = document.querySelector('.email.error');
+    // const passwordError = document.querySelector('.password.error');
+    // usernameError.textContent = '';
+    // emailError.textContent = '';
+    // passwordError.textContent = '';
 
     const { password, confirmPassword } = this.state;
-if(password.length<8){
-  alert("Password should not be less than 8 charecters")
-  return 
-}
+    if (password.length < 4) {                                   //*  originaly was 8 char.  *//
+      alert("Password should not be less than 4 charecters")
+      return
+    }
     if (password !== confirmPassword) {
       alert("Passwords Don't Match")
       return;
@@ -41,19 +52,19 @@ if(password.length<8){
     })
       .then(response => response.json())
       .then(data => {
-        if(data.token){
+        if (data.token) {
           localStorage.setItem("jwt-auth", data.token)
           localStorage.setItem("current-user", data.displayName)
           return true
-        }else if(data.message){
+        } else if (data.message) {
           alert("Email Already Exists")
-        }else{
+        } else {
           alert("User Name already Exists")
         }
-       
+
         console.log('Success:', data);
       })
-      .then(()=> window.location.reload())
+      .then(() => window.location.reload())
       .catch((error) => {
         console.error('Error:', error);
       });
@@ -63,7 +74,7 @@ if(password.length<8){
       password: '',
       confirmPassword: ''
     })
-    
+
 
   }
 
@@ -78,23 +89,24 @@ if(password.length<8){
     const { displayName, email, password, confirmPassword } = this.state;
     return (
       <div className='sign-up'>
-        <h2 className='title'>I do not have a account</h2>
-        <span>Sign up with your email and password</span>
         <form className='sign-up-form' onSubmit={this.handleSubmit}>
+          <h2 className='title'>Sign Up</h2>
           <FormInput
             type='text'
             name='displayName'
             value={displayName}
             onChange={this.handleChange}
-            label='Display Name'
+            placeholder='Display Name'
             required
           />
+          <div className="username error" ></div>
+
           <FormInput
             type='email'
             name='email'
             value={email}
             onChange={this.handleChange}
-            label='Email'
+            placeholder='Email'
             required
           />
           <FormInput
@@ -102,7 +114,7 @@ if(password.length<8){
             name='password'
             value={password}
             onChange={this.handleChange}
-            label='Password'
+            placeholder='Password'
             required
           />
           <FormInput
@@ -110,10 +122,11 @@ if(password.length<8){
             name='confirmPassword'
             value={confirmPassword}
             onChange={this.handleChange}
-            label='Confirm Password'
+            placeholder='Confirm Password'
             required
           />
           <CustomButton type='submit'>SIGN UP</CustomButton>
+          <p >Already have an account? <Link to="/signin" >Sign In</Link></p>
         </form>
       </div>
     );

@@ -2,25 +2,16 @@ const express = require('express');
 const { Payment } = require("../database/payment")
 const router = express.Router()
 
-
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 router.post('/payment', (req, res) => {
-  console.log('reached ********************************')
-  console.log(req.body.token.id)
-  console.log(' ********************************')
-  console.log(req.body.amount)
-  console.log(' ****************ffffffffffffffffffffffffffjjjjjjjjjjjjjjjjjjjjjjj****************')
-  console.log("user id is here", req.body.userid)
   const body = {
     source: req.body.token.id,
     amount: req.body.amount,
     currency: 'usd'
   }
   stripe.charges.create(body, (stripeErr, stripeRes) => {
-    console.log(stripeRes)
-    console.log(stripeErr)
     if (stripeErr) res.status(500).send({ error: stripeErr })
     else {
       let paymentR = new Payment({

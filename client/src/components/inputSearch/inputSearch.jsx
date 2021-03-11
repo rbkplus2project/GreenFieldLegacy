@@ -29,14 +29,12 @@ class InputSearch extends React.Component {
           let val=value.display_name.split(",")[0]
             await this.setState({ city: val })
             this.props.searchValue(val)
-
-            console.log(this.state.city)
         }
     }
 
     render() {
         return (
-            <div style={{ width: 300, paddingLeft: "8px", marginTop: "8px" }}>
+            <div style={{ width: 200, paddingLeft: "8px", marginTop: "8px" }}>
                 <Autocomplete
                     onChange={this.onSelect}
                     id="asynchronous-demo"
@@ -55,10 +53,8 @@ class InputSearch extends React.Component {
                     renderInput={(params) => (
                         <TextField
                             {...params}
-                            label="Countries/Cities"
                             // variant="filled"
                             onChange={this.onchange}
-                            onClick={() => console.log("click")}
                         />
                     )}
                 />
@@ -67,4 +63,4 @@ class InputSearch extends React.Component {
     }
 }
 
-export default InputSearch
+export default InputSearch;

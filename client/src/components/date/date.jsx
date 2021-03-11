@@ -4,14 +4,14 @@ import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
+    // KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { da } from 'date-fns/locale';
+// import { da } from 'date-fns/locale';
 
 export default function MaterialUIPickers({ name, checkInOrOut }) {
     // The first commit of Material-UI
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2020-11-21T21:11:54'));
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
     const [open, setOpen] = React.useState(false);
 
     const handleDateChange = (date) => {
@@ -20,7 +20,7 @@ export default function MaterialUIPickers({ name, checkInOrOut }) {
         var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
             .toISOString()
             .split("T")[0];
-        console.log(dateString)
+        // console.log(dateString)
         checkInOrOut(dateString)
     };
 
@@ -33,11 +33,9 @@ export default function MaterialUIPickers({ name, checkInOrOut }) {
                         variant="inline"
                         format="MM/dd/yyyy"
                         margin="normal"
-                        id="date-picker-inline"
                         onOpen={() => setOpen(true)}
                         onClose={() => setOpen(false)}
                         open={open}
-                        label={name}
                         value={selectedDate}
                         onChange={handleDateChange}
                         KeyboardButtonProps={{

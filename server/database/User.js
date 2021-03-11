@@ -28,11 +28,15 @@ let userSchema = new Schema({
     reservations: [],
     favorites: [],
     admin: Boolean,
-    master:Boolean
+    master:Boolean,
+    token: String,
+    expiration: Date,
+    used: Number,
+    profile: String
 }, { timestamps: true });
 
 
-const User = mongoose.model('user', userSchema);//collection name must be: users
+const User = mongoose.model('hoteluser', userSchema);//collection name must be: users
 
 
 module.exports.User = User;
